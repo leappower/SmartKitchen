@@ -1,0 +1,152 @@
+[
+  {
+    "code": "zh-CN",
+    "name": "zh-CN",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "zh-TW",
+    "name": "zh-TW",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "en",
+    "name": "en",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "ar",
+    "name": "ar",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "de",
+    "name": "de",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "es",
+    "name": "es",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "fil",
+    "name": "fil",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "fr",
+    "name": "fr",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "he",
+    "name": "he",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "id",
+    "name": "id",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "it",
+    "name": "it",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "ja",
+    "name": "ja",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "ko",
+    "name": "ko",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "ms",
+    "name": "ms",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "nl",
+    "name": "nl",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "pl",
+    "name": "pl",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "pt",
+    "name": "pt",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "ru",
+    "name": "ru",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "th",
+    "name": "th",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "tr",
+    "name": "tr",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "vi",
+    "name": "vi",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "hi",
+    "name": "hi",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "km",
+    "name": "km",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "my",
+    "name": "my",
+    "uiKeys": 285,
+    "productKeys": 5024
+  },
+  {
+    "code": "lo",
+    "name": "lo",
+    "uiKeys": 285,
+    "productKeys": 5024
+  }
+]
