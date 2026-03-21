@@ -1208,6 +1208,10 @@ function setupLanguageSystem() {
 }
 
 // Export TranslationManager class for testing
+// Expose legacy direct functions for backward compatibility
+window.loadTranslations = loadTranslations;
+window.applyTranslations = applyTranslations;
+
 export { TranslationManager };
 
 // Expose modern API

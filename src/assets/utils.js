@@ -1439,7 +1439,6 @@ const skeletonScreen = {
       if (!heroSection) return false;
 
       // 检查关键元素是否有正确的样式
-      const computedStyle = getComputedStyle(heroSection);
       // 如果元素有实际的宽度高度，说明样式已加载
       const rect = heroSection.getBoundingClientRect();
       if (rect.width > 0 && rect.height > 0) {
