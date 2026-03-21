@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html id="main-html" lang="zh">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link rel="icon" type="image/webp" href="images/logo_html.webp">
+    <link rel="shortcut icon" type="image/webp" href="images/logo_html.webp">
+<title>跃迁力科技 | 智能商厨专家</title>
+<!-- Preconnect to Google Fonts (actively used) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<!-- LCP 关键资源预加载：Hero 背景图 + Logo -->
+<link rel="preload" as="image" href="images/workshop_bgm.webp" type="image/webp" id="hero-bg-preload">
+<link rel="preload" as="image" href="images/logo_html.webp" fetchpriority="high">
+<!-- Load translations script immediately for language setup -->
+
+<!-- Load fonts asynchronously -->
+  <link id="main-html-main-head-stylesheet-link"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"
+    media="print" onload="this.media='all'">
+  <link id="main-html-main-head-stylesheet-link-2"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet">
+
+  <!-- Fallback for fonts -->
+  <noscript id="main-html-main-head-noscript-message">
+    <link id="main-html-main-head-noscript-message-stylesheet-link"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+    <link id="main-html-main-head-noscript-message-stylesheet-link-2"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet">
+  </noscript>
+
+  <!-- Critical CSS for above-the-fold content -->
+  <!-- CSS will be injected by webpack's style-loader -->
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
+
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+
+  <div id="app-container" class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+
+    <!-- Fixed Header with Enhanced Language System -->
+    <header id="main-header"
+      class="fixed-header flex items-center justify-between whitespace-nowrap px-4 py-3 lg:px-10">
+      <div id="header-logo" class="flex items-center gap-3 text-primary dark:text-slate-100">
+        <img id="header-logo-img" src="images/logo_html.webp" alt="LOGO" class="h-8 lg:h-10 inline-block align-middle" fetchpriority="high" />
+        <h2 id="header-logo-company-name-title" class="text-base lg:text-lg font-bold leading-tight tracking-tight"
+          data-i18n="company_name">Foshan YuKoLi Technology Co., Ltd.</h2>
+      </div>
+
+      <div id="header-actions" class="flex items-center gap-2 sm:gap-3 md:gap-4">
+        <nav id="desktop-nav" class="hidden md:flex items-center gap-6 text-xs lg:text-sm">
+          <a id="desktop-nav-nav-vorteile-link" class="font-medium hover:text-primary/70 transition-colors"
+            href="#advantages" data-i18n="nav_vorteile">优势</a>
+          <a id="desktop-nav-nav-produkte-link" class="font-medium hover:text-primary/70 transition-colors"
+            href="#products" data-i18n="nav_produkte">产品</a>
+          <a id="desktop-nav-nav-vertrauen-link" class="font-medium hover:text-primary/70 transition-colors"
+            href="#certificates" data-i18n="nav_vertrauen">信任</a>
+          <a id="desktop-nav-nav-contact-link" class="font-medium hover:text-primary/70 transition-colors"
+            href="#contact" data-i18n="nav_contact">联系</a>
+        </nav>
+
+        <!-- Enhanced Language Dropdown - Pure Click Control -->
+        <div id="lang-dropdown-container" class="lang-dropdown-container">
+          <button id="lang-dropdown-btn"
+            class="flex items-center gap-1 sm:gap-2 bg-white dark:bg-slate-800 border border-primary/20 text-slate-900 dark:text-slate-100 rounded-lg px-2 sm:px-3 py-2 text-xs lg:text-sm font-medium transition-all hover:border-primary/40 shadow-sm">
+            <span id="lang-dropdown-btn-material-symbols-outlined-text"
+              class="material-symbols-outlined text-sm">language</span>
+            <span id="current-lang-label" class="hidden sm:inline">中文（简体）</span>
+            <span id="lang-dropdown-btn-material-symbols-outlined-text-2"
+              class="material-symbols-outlined text-xs">expand_more</span>
+          </button>
+          <div class="lang-dropdown" id="language-dropdown">
+            <div id="language-dropdown-p-2-block"
+              class="p-2 bg-slate-50 dark:bg-slate-900/50 border-b border-primary/5">
+              <div id="language-dropdown-p-2-block-div-1" class="relative">
+                <span id="language-dropdown-p-2-block-div-1-material-symbols-outlined-text"
+                  class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-slate-400 text-xs">search</span>
+                <input id="language-dropdown-p-2-block-div-1-lang-search-placeholder-input"
+                  class="w-full text-xs pl-7 pr-2 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                  data-i18n-placeholder="lang_search_placeholder"
+                  placeholder="Search language..." type="text">
+              </div>
+
+              <!-- Common / 常用 -->
+              <div id="language-dropdown-p-2-block-lang-group-common"
+                class="lang-group mt-1 border-t border-slate-100 dark:border-slate-800 pt-1">
+                <div id="language-dropdown-p-2-block-lang-group-common-title"
+                  class="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+                  data-i18n="lang_group_common">常用</div>
+                <button id="language-dropdown-common-en-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="en">
+                  <span>English</span>
+                  <span class="text-[10px] opacity-50">EN</span>
+                </button>
+                <button id="language-dropdown-common-zh-cn-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="zh-CN">
+                  <span>中文（简体）</span>
+                  <span class="text-[10px] opacity-50">ZH</span>
+                </button>
+                <button id="language-dropdown-common-hi-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="hi">
+                  <span>हिन्दी</span>
+                  <span class="text-[10px] opacity-50">HI</span>
+                </button>
+                <button id="language-dropdown-common-es-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="es">
+                  <span>Español</span>
+                  <span class="text-[10px] opacity-50">ES</span>
+                </button>
+                <button id="language-dropdown-common-fr-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="fr">
+                  <span>Français</span>
+                  <span class="text-[10px] opacity-50">FR</span>
+                </button>
+              </div>
+
+              <!-- Asian / 亚洲 -->
+              <div id="language-dropdown-p-2-block-lang-group-asian"
+                class="lang-group mt-1 border-t border-slate-100 dark:border-slate-800 pt-1">
+                <div id="language-dropdown-p-2-block-lang-group-asian-title"
+                  class="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+                  data-i18n="lang_group_asian">Asian</div>
+                <button id="language-dropdown-asian-zh-cn-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="zh-CN">
+                  <span>中文（简体）</span>
+                  <span class="text-[10px] opacity-50">ZH</span>
+                </button>
+                <button id="language-dropdown-asian-zh-tw-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="zh-TW">
+                  <span>中文（繁體）</span>
+                  <span class="text-[10px] opacity-50">ZH-TW</span>
+                </button>
+                <button id="language-dropdown-asian-ja-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="ja">
+                  <span>日本語</span>
+                  <span class="text-[10px] opacity-50">JA</span>
+                </button>
+                <button id="language-dropdown-asian-ko-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="ko">
+                  <span>한국어</span>
+                  <span class="text-[10px] opacity-50">KO</span>
+                </button>
+                <button id="language-dropdown-asian-id-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="id">
+                  <span>Bahasa Indonesia</span>
+                  <span class="text-[10px] opacity-50">ID</span>
+                </button>
+                <button id="language-dropdown-asian-vi-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="vi">
+                  <span>Tiếng Việt</span>
+                  <span class="text-[10px] opacity-50">VI</span>
+                </button>
+                <button id="language-dropdown-asian-th-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="th">
+                  <span>ภาษาไทย</span>
+                  <span class="text-[10px] opacity-50">TH</span>
+                </button>
+                <button id="language-dropdown-asian-ms-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="ms">
+                  <span>Bahasa Melayu</span>
+                  <span class="text-[10px] opacity-50">MS</span>
+                </button>
+                <button id="language-dropdown-asian-fil-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="fil">
+                  <span>Filipino</span>
+                  <span class="text-[10px] opacity-50">FIL</span>
+                </button>
+                <button id="language-dropdown-asian-my-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="my">
+                  <span>မြန်မာဘာသာ</span>
+                  <span class="text-[10px] opacity-50">MY</span>
+                </button>
+                <button id="language-dropdown-asian-km-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="km">
+                  <span>ភាសាខ្មែរ</span>
+                  <span class="text-[10px] opacity-50">KM</span>
+                </button>
+                <button id="language-dropdown-asian-lo-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="lo">
+                  <span>ພາສາລາວ</span>
+                  <span class="text-[10px] opacity-50">LO</span>
+                </button>
+              </div>
+
+              <!-- Middle East / 中东 -->
+              <div id="language-dropdown-p-2-block-lang-group-middle-east"
+                class="lang-group mt-1 border-t border-slate-100 dark:border-slate-800 pt-1">
+                <div id="language-dropdown-p-2-block-lang-group-middle-east-title"
+                  class="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+                  data-i18n="lang_group_middle_east">Middle East</div>
+                <button id="language-dropdown-me-ar-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="ar">
+                  <span>العربية</span>
+                  <span class="text-[10px] opacity-50">AR</span>
+                </button>
+                <button id="language-dropdown-me-he-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="he">
+                  <span>עברית</span>
+                  <span class="text-[10px] opacity-50">HE</span>
+                </button>
+              </div>
+
+              <!-- Europe / 欧洲 -->
+              <div id="language-dropdown-p-2-block-lang-group-europe"
+                class="lang-group mt-1 border-t border-slate-100 dark:border-slate-800 pt-1">
+                <div id="language-dropdown-p-2-block-lang-group-europe-title"
+                  class="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+                  data-i18n="lang_group_europe">Europe</div>
+                <button id="language-dropdown-eu-de-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="de">
+                  <span>Deutsch</span>
+                  <span class="text-[10px] opacity-50">DE</span>
+                </button>
+                <button id="language-dropdown-eu-fr-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="fr">
+                  <span>Français</span>
+                  <span class="text-[10px] opacity-50">FR</span>
+                </button>
+                <button id="language-dropdown-eu-it-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="it">
+                  <span>Italiano</span>
+                  <span class="text-[10px] opacity-50">IT</span>
+                </button>
+                <button id="language-dropdown-eu-es-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="es">
+                  <span>Español</span>
+                  <span class="text-[10px] opacity-50">ES</span>
+                </button>
+                <button id="language-dropdown-eu-pt-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="pt">
+                  <span>Português</span>
+                  <span class="text-[10px] opacity-50">PT</span>
+                </button>
+                <button id="language-dropdown-eu-nl-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="nl">
+                  <span>Nederlands</span>
+                  <span class="text-[10px] opacity-50">NL</span>
+                </button>
+                <button id="language-dropdown-eu-pl-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="pl">
+                  <span>Polski</span>
+                  <span class="text-[10px] opacity-50">PL</span>
+                </button>
+              </div>
+
+              <!-- Global / 全球 -->
+              <div id="language-dropdown-p-2-block-lang-group-global"
+                class="lang-group mt-1 border-t border-slate-100 dark:border-slate-800 pt-1">
+                <div id="language-dropdown-p-2-block-lang-group-global-title"
+                  class="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+                  data-i18n="lang_group_global">Global</div>
+                <button id="language-dropdown-global-en-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="en">
+                  <span>English</span>
+                  <span class="text-[10px] opacity-50">EN</span>
+                </button>
+                <button id="language-dropdown-global-ru-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="ru">
+                  <span>Русский</span>
+                  <span class="text-[10px] opacity-50">RU</span>
+                </button>
+                <button id="language-dropdown-global-tr-button"
+                  class="lang-option w-full flex items-center justify-between px-3 py-2 text-xs text-slate-700 dark:text-slate-300"
+                  data-code="tr">
+                  <span>Türkçe</span>
+                  <span class="text-[10px] opacity-50">TR</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <button id="jump-btn-1"
+          class="jump-btn inline-flex items-center gap-1 bg-primary text-white rounded-lg px-2 sm:px-3 lg:px-4 py-2 text-xs lg:text-sm font-bold tracking-wide hover:bg-primary/90 transition-all shadow-md hover:shadow-lg"
+          data-i18n="btn_consultation">
+          <span id="jump-btn-1-material-symbols-outlined-text"
+            class="material-symbols-outlined text-sm">support_agent</span>
+          <span id="jump-btn-1-span-2" class="hidden sm:inline">咨询</span>
+        </button>
+
+        <button id="mobile-menu-btn" class="md:hidden text-primary"
+          data-mobile-menu-toggle="true">
+          <span id="mobile-menu-btn-material-symbols-outlined-text" class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-transparent z-[999] hidden" id="mobile-menu-overlay">
+    </div>
+    <div
+      class="fixed top-0 right-0 h-full w-80 bg-white dark:bg-slate-900 z-[1000] transform translate-x-full transition-transform duration-300 shadow-2xl"
+      id="mobile-menu">
+      <div id="mobile-menu-inner" class="p-6">
+        <div id="mobile-menu-header" class="flex justify-between items-center mb-6">
+          <h3 id="mobile-menu-title" class="text-lg font-bold" data-i18n="mobile_menu_title">Menu</h3>
+          <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600">
+            <span id="mobile-menu-close-material-symbols-outlined-text" class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <nav id="mobile-menu-nav" class="flex flex-col gap-4">
+          <a id="mobile-menu-nav-nav-vorteile-link" class="text-sm font-medium hover:text-primary/70 transition-colors"
+            href="#advantages" data-i18n="nav_vorteile">优势</a>
+          <a id="mobile-menu-nav-nav-produkte-link" class="text-sm font-medium hover:text-primary/70 transition-colors"
+            href="#products" data-i18n="nav_produkte">产品</a>
+          <a id="mobile-menu-nav-nav-vertrauen-link" class="text-sm font-medium hover:text-primary/70 transition-colors"
+            href="#certificates" data-i18n="nav_vertrauen">信任</a>
+          <a id="mobile-menu-nav-nav-contact-link" class="text-sm font-medium hover:text-primary/70 transition-colors"
+            href="#contact" data-i18n="nav_contact">联系</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative px-4 py-10 lg:py-16 mt-16 animate-fadeIn" data-bg-image-key="hero_bg"
+      style="background-image: url('images/workshop_bgm.webp'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+      <!-- 方案C：左侧渐变遮罩，只覆盖文字区，右侧透出背景图 -->
+      <div class="absolute inset-0 bg-gradient-to-r from-black/65 via-black/40 to-transparent pointer-events-none"></div>
+      <div id="hero-container" class="relative mx-auto max-w-7xl">
+        <div id="hero-flex" class="flex min-h-[480px] flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+          <div id="hero-content" class="flex-1 flex flex-col gap-5 text-center lg:text-left">
+            <span id="hero-badge"
+              class="bg-primary text-white px-5 py-2 rounded-full text-sm font-extrabold uppercase tracking-widest w-fit mx-auto lg:mx-0 shadow-lg border border-white/30"
+              data-i18n="hero_badge">自2004年以来的质量保证</span>
+            <h1 id="hero-title"
+              class="text-white text-3xl lg:text-5xl xl:text-6xl font-black leading-[1.1] tracking-tight drop-shadow-lg"
+              data-i18n="hero_title">
+              专业商用厨房-20年经验，帮助您的餐饮企业
+            </h1>
+            <p id="hero-desc"
+              class="text-slate-100 text-base lg:text-xl font-normal leading-relaxed max-w-xl drop-shadow-md"
+              data-i18n="hero_desc">
+              凭借20多年的ODM和OEM服务经验，专业和严格的质量控制确保了卓越的质量。
+            </p>
+            <div id="hero-buttons" class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+              <button id="hero-btn-primary"
+                class="bg-white text-primary rounded-lg px-6 lg:px-8 py-3 lg:py-4 text-sm lg:text-base font-bold shadow-xl hover:scale-105 transition-transform"
+                data-i18n="btn_hero_primary">
+                免费查询
+              </button>
+              <a id="hero-btn-secondary" href="#products"
+                class="inline-flex items-center justify-center bg-white/20 backdrop-blur-md text-white border-2 border-white/60 rounded-lg px-6 lg:px-8 py-3 lg:py-4 text-sm lg:text-base font-bold hover:bg-white/30 transition-all"
+                data-i18n="btn_hero_secondary">产品目录</a>
+            </div>
+          </div>
+          <div id="hero-image-area" class="flex-1 w-full max-w-xl flex flex-col shadow-2xl rounded-2xl overflow-hidden">
+            <div id="hero-image-card" class="max-h-[300px] overflow-hidden">
+              <img id="hero-img" alt="Professional fermentation cabinet" class="w-full h-full object-cover block"
+                data-image-key="hero_main"
+                fetchpriority="high"
+                src="images/hero_main.webp">
+            </div>
+            <div id="hero-trust-overlay" class="w-full bg-white/95 p-4 flex flex-col gap-2">
+              <div id="hero-trust-overlay-div-1" class="flex items-center gap-2 text-primary">
+                <span id="hero-trust-overlay-div-1-material-symbols-outlined-text"
+                  class="material-symbols-outlined">verified</span>
+                <span id="hero-trust-overlay-div-1-hero-trust-text" class="font-bold text-sm"
+                  data-i18n="hero_trust">20+年经验•500+满意客户</span>
+              </div>
+              <div id="hero-trust-overlay-div-2" class="flex items-center gap-2 text-primary border-t border-primary/10 pt-2">
+                <span id="hero-trust-overlay-div-2-icon"
+                  class="material-symbols-outlined">restaurant</span>
+                <span id="hero-trust-overlay-div-2-text" class="font-bold text-sm"
+                  data-i18n="hero_trust_2">智能商厨解决专家</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Badges Bar -->
+    <section id="trust-badges" class="bg-white dark:bg-slate-900 border-y border-primary/10 py-4">
+      <div id="trust-badges-container" class="mx-auto max-w-7xl px-4">
+        <div id="trust-badges-grid"
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-y-3 gap-x-2 md:gap-x-3 md:gap-y-6 items-center">
+          <div id="badge-item-ce"
+            class="flex items-center justify-start w-[152px] mx-auto gap-2 text-primary md:w-full md:max-w-[170px] md:mx-auto md:justify-start lg:max-w-none lg:mx-0 lg:justify-center">
+            <span id="badge-item-ce-material-symbols-outlined-text"
+              class="material-symbols-outlined w-7 text-center text-[1.75rem] md:text-[2.35rem] lg:text-[2.15rem] shrink-0">verified_user</span>
+            <span id="badge-item-ce-badge-ce-text" class="text-sm md:text-lg lg:text-base xl:text-lg font-bold"
+              data-i18n="badge_ce">68多个合作国家</span>
+          </div>
+          <div id="badge-item-gs"
+            class="flex items-center justify-start w-[152px] mx-auto gap-2 text-primary md:w-full md:max-w-[170px] md:mx-auto md:justify-start lg:max-w-none lg:mx-0 lg:justify-center">
+            <span id="badge-item-gs-material-symbols-outlined-text"
+              class="material-symbols-outlined w-7 text-center text-[1.75rem] md:text-[2.35rem] lg:text-[2.15rem] shrink-0">workspace_premium</span>
+            <span id="badge-item-gs-badge-gs-text" class="text-sm md:text-lg lg:text-base xl:text-lg font-bold"
+              data-i18n="badge_gs">完全认证</span>
+          </div>
+          <div id="badge-item-energy"
+            class="flex items-center justify-start w-[152px] mx-auto gap-2 text-primary md:w-full md:max-w-[170px] md:mx-auto md:justify-start lg:max-w-none lg:mx-0 lg:justify-center">
+            <span id="badge-item-energy-material-symbols-outlined-text"
+              class="material-symbols-outlined w-7 text-center text-[1.75rem] md:text-[2.35rem] lg:text-[2.15rem] shrink-0">eco</span>
+            <span id="badge-item-energy-badge-energy-text" class="text-sm md:text-lg lg:text-base xl:text-lg font-bold"
+              data-i18n="badge_energy">快速配送</span>
+          </div>
+          <div id="badge-item-iso"
+            class="flex items-center justify-start w-[152px] mx-auto gap-2 text-primary md:w-full md:max-w-[170px] md:mx-auto md:justify-start lg:max-w-none lg:mx-0 lg:justify-center">
+            <span id="badge-item-iso-material-symbols-outlined-text"
+              class="material-symbols-outlined w-7 text-center text-[1.75rem] md:text-[2.35rem] lg:text-[2.15rem] shrink-0">military_tech</span>
+            <span id="badge-item-iso-badge-iso-text" class="text-sm md:text-lg lg:text-base xl:text-lg font-bold"
+              data-i18n="badge_iso">顶级品质</span>
+          </div>
+          <div id="badge-item-germany"
+            class="flex items-center justify-start w-[152px] mx-auto gap-2 text-primary md:w-full md:max-w-[170px] md:mx-auto md:justify-start lg:max-w-none lg:mx-0 lg:justify-center">
+            <span id="badge-item-germany-material-symbols-outlined-text"
+              class="material-symbols-outlined w-7 text-center text-[1.75rem] md:text-[2.35rem] lg:text-[2.15rem] shrink-0">flag</span>
+            <span id="badge-item-germany-badge-germany-text"
+              class="text-sm md:text-lg lg:text-base xl:text-lg font-bold" data-i18n="badge_germany">低起订量</span>
+          </div>
+          <div id="badge-item-warranty"
+            class="flex items-center justify-start w-[152px] mx-auto gap-2 text-primary md:w-full md:max-w-[170px] md:mx-auto md:justify-start lg:max-w-none lg:mx-0 lg:justify-center">
+            <span id="badge-item-warranty-material-symbols-outlined-text"
+              class="material-symbols-outlined w-7 text-center text-[1.75rem] md:text-[2.35rem] lg:text-[2.15rem] shrink-0">shield</span>
+            <span id="badge-item-warranty-badge-warranty-text"
+              class="text-sm md:text-lg lg:text-base xl:text-lg font-bold" data-i18n="badge_warranty">24小时服务</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Vorteile Section with Factory Video & Features -->
+    <section class="px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 py-10 sm:py-12 md:py-14 lg:py-16 bg-white dark:bg-slate-900" id="advantages">
+      <div id="advantages-container" class="mx-auto max-w-[1280px]">
+        <div id="advantages-header" class="flex flex-col gap-2 sm:gap-3 md:gap-4 mb-8 sm:mb-10 md:mb-12">
+          <h2 id="advantages-title"
+            class="text-primary dark:text-slate-100 text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-black tracking-tight"
+            data-i18n="vorteile_title">
+            为什么用户一如既往的选择我们
+          </h2>
+          <p id="advantages-intro" class="text-slate-600 dark:text-slate-400 text-sm sm:text-base md:text-lg max-w-prose xl:max-w-3xl leading-relaxed"
+            data-i18n="vorteile_intro">
+            我们是一家致力于商用厨房设备和食品加工机械的设计、研发、生产和销售的综合性工业园区。
+          </p>
+
+          <p id="advantages-kitchen" class="text-slate-600 dark:text-slate-400 text-sm sm:text-base md:text-lg max-w-prose xl:max-w-3xl leading-relaxed"
+            data-i18n="vorteile_kitchen">
+            商用厨房设备包括烹饪设备（如商用燃气灶、电磁炉、蒸锅、炸锅和烤架）、制冷设备（如商业冰箱、冰柜、展示柜和冰柜）、食品制备设备（如蔬菜切割机、切片机、搅拌机和食品加工机）、烘焙设备（如分层烤箱、热风炉、滗水器和面条机）和清洁设备（如家用洗碗机、洗杯机和消毒器）。
+          </p>
+
+          <p id="advantages-machinery" class="text-slate-600 dark:text-slate-400 text-sm sm:text-base md:text-lg max-w-prose xl:max-w-3xl leading-relaxed"
+            data-i18n="vorteile_machinery">
+            食品加工机械包括肉类加工设备（如绞肉机、灌肠机和搅拌机）、饮料设备（如商用搅拌机、榨汁机和咖啡机）和专用加工设备（如冰机、开水器和隔热柜）。
+          </p>
+
+          <p id="advantages-stats" class="text-slate-600 dark:text-slate-400 text-sm sm:text-base md:text-lg max-w-prose xl:max-w-3xl leading-relaxed"
+            data-i18n="vorteile_stats">
+            食品加工机械包括肉类加工设备（如绞肉机、灌肠机和搅拌机）、饮料设备（如商用搅拌机、榨汁机和咖啡机）和专用加工设备（如冰机、开水器和隔热柜）。
+          </p>
+        </div>
+
+        <div id="vorteil-cards" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 mb-10 sm:mb-12 md:mb-16">
+          <div id="vorteil-card-1"
+            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-background-light dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
+            <div id="vorteil-card-1-p-2-block" class="bg-primary/10 text-primary p-2 md:p-3 rounded-lg w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shrink-0">
+              <span id="vorteil-card-1-p-2-block-material-symbols-outlined-text"
+                class="material-symbols-outlined text-2xl md:text-3xl leading-none">thermostat</span>
+            </div>
+            <div id="vorteil-card-1-div-2">
+              <h3 id="vorteil-card-1-div-2-vorteil-1-title-title" class="text-sm sm:text-base md:text-lg font-bold mb-1 md:mb-2"
+                data-i18n="vorteil_1_title">专业服务</h3>
+              <p id="vorteil-card-1-div-2-vorteil-1-desc-text"
+                class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed"
+                data-i18n="vorteil_1_desc">
+                凭借20多年的ODM和OEM服务经验，我们全天候为您服务。
+              </p>
+            </div>
+          </div>
+
+          <div id="vorteil-card-2"
+            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-background-light dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
+            <div id="vorteil-card-2-p-2-block" class="bg-primary/10 text-primary p-2 md:p-3 rounded-lg w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shrink-0">
+              <span id="vorteil-card-2-p-2-block-material-symbols-outlined-text"
+                class="material-symbols-outlined text-2xl md:text-3xl leading-none">verified_user</span>
+            </div>
+            <div id="vorteil-card-2-div-2">
+              <h3 id="vorteil-card-2-div-2-vorteil-2-title-title" class="text-sm sm:text-base md:text-lg font-bold mb-1 md:mb-2"
+                data-i18n="vorteil_2_title">认证齐全</h3>
+              <p id="vorteil-card-2-div-2-vorteil-2-desc-text"
+                class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed"
+                data-i18n="vorteil_2_desc">
+                最高的全球安全标准，保护您的企业和员工。
+              </p>
+            </div>
+          </div>
+
+          <div id="vorteil-card-3"
+            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-background-light dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
+            <div id="vorteil-card-3-p-2-block" class="bg-primary/10 text-primary p-2 md:p-3 rounded-lg w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shrink-0">
+              <span id="vorteil-card-3-p-2-block-material-symbols-outlined-text"
+                class="material-symbols-outlined text-2xl md:text-3xl leading-none">eco</span>
+            </div>
+            <div id="vorteil-card-3-div-2">
+              <h3 id="vorteil-card-3-div-2-vorteil-3-title-title" class="text-sm sm:text-base md:text-lg font-bold mb-1 md:mb-2"
+                data-i18n="vorteil_3_title">A+能效</h3>
+              <p id="vorteil-card-3-div-2-vorteil-3-desc-text"
+                class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed"
+                data-i18n="vorteil_3_desc">
+                优化的绝缘和智能控制可持续地降低您的运营成本。
+              </p>
+            </div>
+          </div>
+
+          <div id="vorteil-card-4"
+            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-background-light dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
+            <div id="vorteil-card-4-p-2-block" class="bg-primary/10 text-primary p-2 md:p-3 rounded-lg w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shrink-0">
+              <span id="vorteil-card-4-p-2-block-material-symbols-outlined-text"
+                class="material-symbols-outlined text-2xl md:text-3xl leading-none">sanitizer</span>
+            </div>
+            <div id="vorteil-card-4-div-2">
+              <h3 id="vorteil-card-4-div-2-vorteil-4-title-title" class="text-sm sm:text-base md:text-lg font-bold mb-1 md:mb-2"
+                data-i18n="vorteil_4_title">易于清洁</h3>
+              <p id="vorteil-card-4-div-2-vorteil-4-desc-text"
+                class="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed"
+                data-i18n="vorteil_4_desc">
+                卫生的不锈钢设计和圆角，可实现最快的清洁。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Factory Video Section -->
+    <section class="px-4 py-16 lg:px-40 bg-primary text-slate-100" id="factory">
+      <div id="factory-container" class="mx-auto max-w-[1280px]">
+        <div id="factory-header" class="flex flex-col gap-4 mb-12 text-center">
+          <h2 id="factory-title" class="text-3xl lg:text-4xl font-bold mb-4" data-i18n="video_title">我们的生产细节</h2>
+          <p id="factory-desc" class="text-slate-300 max-w-xl mx-auto" data-i18n="video_desc">体验我们如何生产高质量的产品——从制造到最终产品。
+          </p>
+        </div>
+
+        <div id="factory-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <!-- Video Player -->
+          <div id="factory-video-player" class="rounded-xl overflow-hidden shadow-2xl">
+            <div id="factory-video-wrapper" class="relative aspect-video bg-black">
+              <video id="factory-video" class="w-full h-full object-cover" data-poster-key="factory_video_poster"
+                poster="images/factory_video_poster.webp"
+                controls>
+                <source id="factory-video-factory-tour-source" src="factory-tour.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div id="factory-video-bar" class="bg-slate-900 p-4">
+              <div id="factory-video-bar-inner" class="flex items-center justify-between">
+                <span id="factory-video-duration" class="text-sm text-slate-400"
+                  data-i18n="video_duration">时长：5:30分钟</span>
+                <button id="factory-video-play-btn"
+                  class="bg-white text-primary px-4 py-2 rounded-lg font-bold hover:bg-slate-100 transition-colors"
+                  data-i18n="video_play">播放视频</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Production Features -->
+          <div id="factory-features" class="space-y-8">
+            <h3 id="factory-features-title" class="text-2xl font-bold" data-i18n="production_features_title">
+              为什么我们的产品脱颖而出</h3>
+            <div id="factory-features-grid" class="grid grid-cols-2 gap-2 sm:grid-cols-2 sm:gap-6">
+              <div id="factory-feature-1" class="bg-slate-800/50 rounded-lg p-4">
+                <span id="factory-feature-1-material-symbols-outlined-text"
+                  class="material-symbols-outlined text-green-400 text-3xl mb-2">precision_manufacturing</span>
+                <h4 id="factory-feature-1-feature-1-title-title" class="mb-2 break-words font-bold leading-snug"
+                  data-i18n="feature_1_title">精密制造</h4>
+                <p id="factory-feature-1-feature-1-desc-text" class="text-sm text-slate-300 break-words leading-snug"
+                  data-i18n="feature_1_desc">CNC控制生产，公差±0.1mm</p>
+              </div>
+              <div id="factory-feature-2" class="bg-slate-800/50 rounded-lg p-4">
+                <span id="factory-feature-2-material-symbols-outlined-text"
+                  class="material-symbols-outlined text-blue-400 text-3xl mb-2">robot</span>
+                <h4 id="factory-feature-2-feature-2-title-title" class="mb-2 break-words font-bold leading-snug"
+                  data-i18n="feature_2_title">自动化</h4>
+                <p id="factory-feature-2-feature-2-desc-text" class="text-sm text-slate-300 break-words leading-snug"
+                  data-i18n="feature_2_desc">现代机器人用于一致性</p>
+              </div>
+              <div id="factory-feature-3" class="bg-slate-800/50 rounded-lg p-4">
+                <span id="factory-feature-3-material-symbols-outlined-text"
+                  class="material-symbols-outlined text-yellow-400 text-3xl mb-2">quality</span>
+                <h4 id="factory-feature-3-feature-3-title-title" class="mb-2 break-words font-bold leading-snug"
+                  data-i18n="feature_3_title">质量检验</h4>
+                <p id="factory-feature-3-feature-3-desc-text" class="text-sm text-slate-300 break-words leading-snug"
+                  data-i18n="feature_3_desc">交付前100%最终检查</p>
+              </div>
+              <div id="factory-feature-4" class="bg-slate-800/50 rounded-lg p-4">
+                <span id="factory-feature-4-material-symbols-outlined-text"
+                  class="material-symbols-outlined text-red-400 text-3xl mb-2">warehouse</span>
+                <h4 id="factory-feature-4-feature-4-title-title" class="mb-2 break-words font-bold leading-snug"
+                  data-i18n="feature_4_title">仓储</h4>
+                <p id="factory-feature-4-feature-4-desc-text" class="text-sm text-slate-300 break-words leading-snug"
+                  data-i18n="feature_4_desc">通过最佳库存快速交货</p>
+              </div>
+            </div>
+
+            <div id="factory-note" class="flex items-center gap-2 text-slate-300">
+              <span id="factory-note-material-symbols-outlined-text"
+                class="material-symbols-outlined text-green-400 text-3xl">verified_user</span>
+              <p id="factory-note-text" class="text-base break-words font-bold leading-snug" data-i18n="factory_note">
+                通过ISO 9001:2015认证的生产</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Factory Images Gallery -->
+        <div id="factory-gallery" class="mt-16">
+          <h3 id="factory-gallery-title" class="text-2xl font-bold mb-8 text-center" data-i18n="gallery_title">我们的生产印象
+          </h3>
+          <div id="factory-gallery-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div id="factory-gallery-item-1" class="rounded-lg overflow-hidden">
+              <img id="factory-gallery-item-1-factory-gallery-1-image"
+                src="images/factory_gallery_1.webp"
+                data-image-key="factory_gallery_1" alt="CNC machining" loading="lazy" decoding="async"
+                class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300">
+            </div>
+            <div id="factory-gallery-item-2" class="rounded-lg overflow-hidden">
+              <img id="factory-gallery-item-2-factory-gallery-2-image"
+                src="images/factory_gallery_2.webp"
+                data-image-key="factory_gallery_2" alt="Assembly line" loading="lazy" decoding="async"
+                class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300">
+            </div>
+            <div id="factory-gallery-item-3" class="rounded-lg overflow-hidden">
+              <img id="factory-gallery-item-3-factory-gallery-3-image"
+                src="images/factory_gallery_3.webp"
+                data-image-key="factory_gallery_3" alt="Quality testing" loading="lazy" decoding="async"
+                class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300">
+            </div>
+            <div id="factory-gallery-item-4" class="rounded-lg overflow-hidden">
+              <img id="factory-gallery-item-4-factory-gallery-4-image"
+                src="images/factory_gallery_4.webp"
+                data-image-key="factory_gallery_4" alt="Finished products" loading="lazy" decoding="async"
+                class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="px-4 py-8 lg:py-12 bg-background-light dark:bg-background-dark" id="products">
+      <div id="products-container" class="mx-auto max-w-7xl">
+        <div id="products-header" class="text-center mb-6">
+          <h2 id="products-title"
+            class="text-primary dark:text-slate-100 text-3xl lg:text-4xl font-black tracking-tight mb-4"
+            data-i18n="products_title">
+            我们的产品范围
+          </h2>
+          <p id="products-desc" class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto"
+            data-i18n="products_desc">
+            过滤我们的产品，为您的面包店找到完美的解决方案。
+          </p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div id="product-filter-rail" class="product-filter-rail mb-6">
+          <div class="flex flex-wrap justify-center gap-3" id="product-filter-bar"></div>
+          <div class="product-filter-swipe-hint is-hidden" id="product-filter-swipe-hint" aria-hidden="true">
+            <span id="product-filter-swipe-hint-swipe-hint-text" class="hint-text" data-i18n="swipe_hint">Swipe</span>
+            <span id="product-filter-swipe-hint-material-symbols-outlined-text"
+              class="material-symbols-outlined hint-arrow">arrow_forward_ios</span>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-grid grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6" id="product-grid">
+          <!-- Products will be rendered via JavaScript -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center items-center gap-2 flex-wrap" id="pagination">
+          <!-- Pagination will be rendered via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Custom Solutions -->
+    <section class="px-4 py-16 lg:py-24 bg-primary text-white" id="custom-solutions">
+      <div id="custom-solutions-container" class="mx-auto max-w-7xl">
+        <div id="custom-solutions-header" class="text-center mb-12">
+          <h2 id="custom-solutions-title" class="text-3xl lg:text-4xl font-black tracking-tight mb-4"
+            data-i18n="custom_title">
+            针对具有特殊需求的客户定制解决方案
+          </h2>
+          <p id="custom-solutions-desc" class="text-slate-300 text-lg max-w-3xl mx-auto" data-i18n="custom_desc">
+            标准解决方案不够吗？我们根据您的要求开发量身定制产品。
+          </p>
+        </div>
+
+        <div id="custom-solutions-grid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-12">
+          <div id="custom-card-1"
+            class="bg-white/10 backdrop-blur rounded-xl p-4 sm:p-6 border border-white/10 hover:bg-white/20 transition-all">
+            <span id="custom-card-1-material-symbols-outlined-text"
+              class="material-symbols-outlined text-2xl sm:text-4xl mb-2 sm:mb-4 text-yellow-400">straighten</span>
+            <h3 id="custom-card-1-custom-1-title-title" class="font-bold text-sm sm:text-lg mb-1 sm:mb-2"
+              data-i18n="custom_1_title">自定义尺寸</h3>
+            <p id="custom-card-1-custom-1-desc-text" class="text-slate-300 text-xs sm:text-sm hidden sm:block"
+              data-i18n="custom_1_desc">根据您的空间要求定制尺寸</p>
+          </div>
+          <div id="custom-card-2"
+            class="bg-white/10 backdrop-blur rounded-xl p-4 sm:p-6 border border-white/10 hover:bg-white/20 transition-all">
+            <span id="custom-card-2-material-symbols-outlined-text"
+              class="material-symbols-outlined text-2xl sm:text-4xl mb-2 sm:mb-4 text-yellow-400">settings</span>
+            <h3 id="custom-card-2-custom-2-title-title" class="font-bold text-sm sm:text-lg mb-1 sm:mb-2"
+              data-i18n="custom_2_title">特殊功能</h3>
+            <p id="custom-card-2-custom-2-desc-text" class="text-slate-300 text-xs sm:text-sm hidden sm:block"
+              data-i18n="custom_2_desc">特殊要求的额外功能</p>
+          </div>
+          <div id="custom-card-3"
+            class="bg-white/10 backdrop-blur rounded-xl p-4 sm:p-6 border border-white/10 hover:bg-white/20 transition-all">
+            <span id="custom-card-3-material-symbols-outlined-text"
+              class="material-symbols-outlined text-2xl sm:text-4xl mb-2 sm:mb-4 text-yellow-400">integration_instructions</span>
+            <h3 id="custom-card-3-custom-3-title-title" class="font-bold text-sm sm:text-lg mb-1 sm:mb-2"
+              data-i18n="custom_3_title">系统集成</h3>
+            <p id="custom-card-3-custom-3-desc-text" class="text-slate-300 text-xs sm:text-sm hidden sm:block"
+              data-i18n="custom_3_desc">与现有工作流程无缝连接</p>
+          </div>
+          <div id="custom-card-4"
+            class="bg-white/10 backdrop-blur rounded-xl p-4 sm:p-6 border border-white/10 hover:bg-white/20 transition-all">
+            <span id="custom-card-4-material-symbols-outlined-text"
+              class="material-symbols-outlined text-2xl sm:text-4xl mb-2 sm:mb-4 text-yellow-400">palette</span>
+            <h3 id="custom-card-4-custom-4-title-title" class="font-bold text-sm sm:text-lg mb-1 sm:mb-2"
+              data-i18n="custom_4_title">优质材料</h3>
+            <p id="custom-card-4-custom-4-desc-text" class="text-slate-300 text-xs sm:text-sm hidden sm:block"
+              data-i18n="custom_4_desc">最优质的材料，最大的使用寿命</p>
+          </div>
+        </div>
+
+        <div id="custom-cta" class="text-center">
+          <button id="custom-cta-btn"
+            class="bg-white text-primary rounded-lg px-8 py-4 text-lg font-bold hover:bg-slate-100 transition-all shadow-xl hover:shadow-2xl hover:scale-105"
+            data-action="show-popup"
+            data-i18n="custom_cta">
+            请求个性化解决方案
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section class="px-4 py-16 lg:py-24 bg-white dark:bg-slate-900" id="certificates">
+      <div id="certificates-container" class="mx-auto max-w-7xl">
+        <div id="certificates-header" class="text-center mb-12">
+          <h2 id="certificates-title"
+            class="text-primary dark:text-slate-100 text-3xl lg:text-4xl font-black tracking-tight mb-4"
+            data-i18n="cert_title">
+            奖项和认证
+          </h2>
+          <p id="certificates-desc" class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto"
+            data-i18n="cert_desc">
+            这些证书证明了我们的质量和安全标准。
+          </p>
+        </div>
+
+        <div id="certificates-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div id="cert-card-1"
+            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            <img id="cert-card-1-cert-1-image" alt="CE Certification" class="w-24 h-24 object-contain mb-4"
+              data-image-key="cert_1" loading="lazy" decoding="async"
+              src="images/cert_1.webp">
+            <p id="cert-card-1-cert-1-text" class="text-sm font-bold text-center text-primary" data-i18n="cert_1">CE认证
+            </p>
+          </div>
+          <div id="cert-card-2"
+            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            <img id="cert-card-2-cert-2-image" alt="GS Certificate" class="w-24 h-24 object-contain mb-4"
+              data-image-key="cert_2" loading="lazy" decoding="async"
+              src="images/cert_2.webp">
+            <p id="cert-card-2-cert-2-text" class="text-sm font-bold text-center text-primary" data-i18n="cert_2">ROHS认证
+            </p>
+          </div>
+          <div id="cert-card-3"
+            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            <img id="cert-card-3-cert-3-image" alt="ISO 9001" class="w-24 h-24 object-contain mb-4"
+              data-image-key="cert_3" loading="lazy" decoding="async"
+              src="images/cert_3.webp">
+            <p id="cert-card-3-cert-3-text" class="text-sm font-bold text-center text-primary" data-i18n="cert_3">测试报告
+            </p>
+          </div>
+          <div id="cert-card-4"
+            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            <img id="cert-card-4-cert-4-image" alt="Energy Efficiency" class="w-24 h-24 object-contain mb-4"
+              data-image-key="cert_4" loading="lazy" decoding="async"
+              src="images/cert_4.webp">
+            <p id="cert-card-4-cert-4-text" class="text-sm font-bold text-center text-primary" data-i18n="cert_4">设计专利
+            </p>
+          </div>
+          <div id="cert-card-5"
+            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            <img id="cert-card-5-cert-5-image" alt="Made in Germany" class="w-24 h-24 object-contain mb-4"
+              data-image-key="cert_5" loading="lazy" decoding="async"
+              src="images/cert_5.webp">
+            <p id="cert-card-5-cert-5-text" class="text-sm font-bold text-center text-primary" data-i18n="cert_5">QAC证书
+            </p>
+          </div>
+          <div id="cert-card-6"
+            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            <img id="cert-card-6-cert-6-image" alt="Quality Award" class="w-24 h-24 object-contain mb-4"
+              data-image-key="cert_6" loading="lazy" decoding="async"
+              src="images/cert_6.webp">
+            <p id="cert-card-6-cert-6-text" class="text-sm font-bold text-center text-primary" data-i18n="cert_6">质检报告
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section class="px-4 py-16 lg:px-40 bg-white dark:bg-background-dark/50" id="testimonials">
+      <div id="testimonials-container" class="mx-auto max-w-[1280px]">
+        <div id="testimonials-header" class="text-center mb-12">
+          <h2 id="testimonials-title"
+            class="text-primary dark:text-slate-100 text-3xl lg:text-4xl font-black tracking-tight mb-6"
+            data-i18n="testimonials_title">我们的客户怎么说</h2>
+          <p id="testimonials-desc" class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
+            data-i18n="testimonials_desc">
+            了解我们的产品和服务如何支持全球各地的餐饮店。</p>
+        </div>
+
+        <!-- Testimonials Grid -->
+        <div id="testimonials-grid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8 mb-12">
+          <!-- Testimonial 1 -->
+          <div id="testimonial-card-1"
+            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
+            <div id="testimonial-card-1-div-1" class="flex items-center gap-2 mb-4">
+              <span id="testimonial-card-1-div-1-material-symbols-outlined-text"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-1-div-1-material-symbols-outlined-text-2"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-1-div-1-material-symbols-outlined-text-3"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-1-div-1-material-symbols-outlined-text-4"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-1-div-1-material-symbols-outlined-text-5"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-1-div-1-5-5-text"
+                class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+            </div>
+            <p id="testimonial-card-1-testimonial-1-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              data-i18n="testimonial_1_text">
+              "温度控制非常精确。我们大大提高了面团的质量，并将回收率降低了30%。"</p>
+            <div id="testimonial-card-1-div-2" class="flex items-center gap-3">
+              <div id="testimonial-card-1-div-2-div-1"
+                class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <span id="testimonial-card-1-div-2-div-1-rs-text" class="text-primary font-bold">RS</span>
+              </div>
+              <div id="testimonial-card-1-div-2-div-2">
+                <h4 id="testimonial-card-1-div-2-div-2-testimonial-1-name-title" class="font-bold"
+                  data-i18n="testimonial_1_name">赖纳·施密特</h4>
+                <p id="testimonial-card-1-div-2-div-2-testimonial-1-position-text"
+                  class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_1_position">施密特的面包店老板</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div id="testimonial-card-2"
+            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
+            <div id="testimonial-card-2-div-1" class="flex items-center gap-2 mb-4">
+              <span id="testimonial-card-2-div-1-material-symbols-outlined-text"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-2-div-1-material-symbols-outlined-text-2"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-2-div-1-material-symbols-outlined-text-3"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-2-div-1-material-symbols-outlined-text-4"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-2-div-1-material-symbols-outlined-text-5"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-2-div-1-5-5-text"
+                class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+            </div>
+            <p id="testimonial-card-2-testimonial-2-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              data-i18n="testimonial_2_text">
+              "优秀的客户服务！如果有任何问题，团队将在24小时内到达现场。这种可靠性是值得的。"</p>
+            <div id="testimonial-card-2-div-2" class="flex items-center gap-3">
+              <div id="testimonial-card-2-div-2-div-1"
+                class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <span id="testimonial-card-2-div-2-div-1-ct-text" class="text-primary font-bold">CT</span>
+              </div>
+              <div id="testimonial-card-2-div-2-div-2">
+                <h4 id="testimonial-card-2-div-2-div-2-testimonial-2-name-title" class="font-bold"
+                  data-i18n="testimonial_2_name">Claudia 塔尔贝格</h4>
+                <p id="testimonial-card-2-div-2-div-2-testimonial-2-position-text"
+                  class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_2_position">总经理，手工披萨餐厅</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div id="testimonial-card-3"
+            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
+            <div id="testimonial-card-3-div-1" class="flex items-center gap-2 mb-4">
+              <span id="testimonial-card-3-div-1-material-symbols-outlined-text"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-3-div-1-material-symbols-outlined-text-2"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-3-div-1-material-symbols-outlined-text-3"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-3-div-1-material-symbols-outlined-text-4"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-3-div-1-material-symbols-outlined-text-5"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-3-div-1-5-5-text"
+                class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+            </div>
+            <p id="testimonial-card-3-testimonial-3-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              data-i18n="testimonial_3_text">
+              "能源效率和质量都非常的好。这次投资在18个月后回本。绝对推荐！"</p>
+            <div id="testimonial-card-3-div-2" class="flex items-center gap-3">
+              <div id="testimonial-card-3-div-2-div-1"
+                class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <span id="testimonial-card-3-div-2-div-1-jm-text" class="text-primary font-bold">JM</span>
+              </div>
+              <div id="testimonial-card-3-div-2-div-2">
+                <h4 id="testimonial-card-3-div-2-div-2-testimonial-3-name-title" class="font-bold"
+                  data-i18n="testimonial_3_name">于尔根·梅耶</h4>
+                <p id="testimonial-card-3-div-2-div-2-testimonial-3-position-text"
+                  class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_3_position">经营经理，贝克豪斯梅尔</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 4 -->
+          <div id="testimonial-card-4"
+            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow lg:col-span-2">
+            <div id="testimonial-card-4-div-1" class="flex items-center gap-2 mb-4">
+              <span id="testimonial-card-4-div-1-material-symbols-outlined-text"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-4-div-1-material-symbols-outlined-text-2"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-4-div-1-material-symbols-outlined-text-3"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-4-div-1-material-symbols-outlined-text-4"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-4-div-1-material-symbols-outlined-text-5"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-4-div-1-5-5-text"
+                class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+            </div>
+            <p id="testimonial-card-4-testimonial-4-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              data-i18n="testimonial_4_text">
+              "作为经销商，我们非常重视与BakeriTechnik Profi的合作。产品可靠，利润率有吸引力，技术支持一流。去年，我们的收入增长了40%。"</p>
+            <div id="testimonial-card-4-div-2" class="flex items-center gap-3">
+              <div id="testimonial-card-4-div-2-div-1"
+                class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <span id="testimonial-card-4-div-2-div-1-ob-text" class="text-primary font-bold">OB</span>
+              </div>
+              <div id="testimonial-card-4-div-2-div-2">
+                <h4 id="testimonial-card-4-div-2-div-2-testimonial-4-name-title" class="font-bold"
+                  data-i18n="testimonial_4_name">奥斯卡·布伦纳</h4>
+                <p id="testimonial-card-4-div-2-div-2-testimonial-4-position-text"
+                  class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_4_position">汉堡Brotfabrik经销商
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 5 -->
+          <div id="testimonial-card-5"
+            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
+            <div id="testimonial-card-5-div-1" class="flex items-center gap-2 mb-4">
+              <span id="testimonial-card-5-div-1-material-symbols-outlined-text"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-5-div-1-material-symbols-outlined-text-2"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-5-div-1-material-symbols-outlined-text-3"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-5-div-1-material-symbols-outlined-text-4"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-5-div-1-material-symbols-outlined-text-5"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-5-div-1-5-5-text"
+                class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+            </div>
+            <p id="testimonial-card-5-testimonial-5-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              data-i18n="testimonial_5_text">
+              "为我们的业务量身定制的解决方案是改变游戏规则的。完美融入我们现有的生产线。"</p>
+            <div id="testimonial-card-5-div-2" class="flex items-center gap-3">
+              <div id="testimonial-card-5-div-2-div-1"
+                class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <span id="testimonial-card-5-div-2-div-1-pj-text" class="text-primary font-bold">PJ</span>
+              </div>
+              <div id="testimonial-card-5-div-2-div-2">
+                <h4 id="testimonial-card-5-div-2-div-2-testimonial-5-name-title" class="font-bold"
+                  data-i18n="testimonial_5_name">佩特拉·荣</h4>
+                <p id="testimonial-card-5-div-2-div-2-testimonial-5-position-text"
+                  class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_5_position">业主，KondiWerk
+                  慕尼黑</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 6 -->
+          <div id="testimonial-card-6"
+            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow lg:col-span-2">
+            <div id="testimonial-card-6-div-1" class="flex items-center gap-2 mb-4">
+              <span id="testimonial-card-6-div-1-material-symbols-outlined-text"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-6-div-1-material-symbols-outlined-text-2"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-6-div-1-material-symbols-outlined-text-3"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-6-div-1-material-symbols-outlined-text-4"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-6-div-1-material-symbols-outlined-text-5"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-6-div-1-5-5-text"
+                class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+            </div>
+            <p id="testimonial-card-6-testimonial-6-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              data-i18n="testimonial_6_text">
+              "5年保修令我们信服。但更令人印象深刻的是顺利的安装和指导。只是顶部！"</p>
+            <div id="testimonial-card-6-div-2" class="flex items-center gap-3">
+              <div id="testimonial-card-6-div-2-div-1"
+                class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <span id="testimonial-card-6-div-2-div-1-mk-text" class="text-primary font-bold">MK</span>
+              </div>
+              <div id="testimonial-card-6-div-2-div-2">
+                <h4 id="testimonial-card-6-div-2-div-2-testimonial-6-name-title" class="font-bold"
+                  data-i18n="testimonial_6_name">马库斯·克莱恩
+                </h4>
+                <p id="testimonial-card-6-div-2-div-2-testimonial-6-position-text"
+                  class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_6_position">科隆有机面包店生产经理</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 7 -->
+          <div id="testimonial-card-7"
+            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
+            <div id="testimonial-card-7-div-1" class="flex items-center gap-2 mb-4">
+              <span id="testimonial-card-7-div-1-material-symbols-outlined-text"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-7-div-1-material-symbols-outlined-text-2"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-7-div-1-material-symbols-outlined-text-3"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-7-div-1-material-symbols-outlined-text-4"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-7-div-1-material-symbols-outlined-text-5"
+                class="material-symbols-outlined text-yellow-500">star</span>
+              <span id="testimonial-card-7-div-1-5-5-text"
+                class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+            </div>
+            <p id="testimonial-card-7-testimonial-7-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              data-i18n="testimonial_7_text">
+              "真正的德国优质产品。从咨询到维护一流！"</p>
+            <div id="testimonial-card-7-div-2" class="flex items-center gap-3">
+              <div id="testimonial-card-7-div-2-div-1"
+                class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                <span id="testimonial-card-7-div-2-div-1-aw-text" class="text-primary font-bold">AW</span>
+              </div>
+              <div id="testimonial-card-7-div-2-div-2">
+                <h4 id="testimonial-card-7-div-2-div-2-testimonial-7-name-title" class="font-bold"
+                  data-i18n="testimonial_7_name">真正的德国品质产品Andreas Wolff 从咨询到维护一流！</h4>
+                <p id="testimonial-card-7-div-2-div-2-testimonial-7-position-text"
+                  class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_7_position">业主，面包店沃尔夫，维也纳
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Partner Logos -->
+        <div id="partners" class="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-8 mb-8">
+          <h3 id="partners-title" class="text-xl font-bold text-center mb-8" data-i18n="partners_title">我们的合作伙伴 &amp; 客户
+          </h3>
+          <div id="partners-grid" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-6">
+            <div id="partners-grid-p-4-block"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-schmidt-s-b-ckerei-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">Schmidt's Bäckerei</span>
+            </div>
+            <div id="partners-grid-p-4-block-2"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-2-thalberg-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">Thalberg</span>
+            </div>
+            <div id="partners-grid-p-4-block-3"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-3-backhaus-meier-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">Backhaus Meier</span>
+            </div>
+            <div id="partners-grid-p-4-block-4"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-4-brotfabrik-hh-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">Brotfabrik HH</span>
+            </div>
+            <div id="partners-grid-p-4-block-5"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-5-kondiwerk-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">KondiWerk</span>
+            </div>
+            <div id="partners-grid-p-4-block-6"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-6-biob-ckerei-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">BioBäckerei</span>
+            </div>
+            <div id="partners-grid-p-4-block-7"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-7-wolff-s-brot-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">Wolff's Brot</span>
+            </div>
+            <div id="partners-grid-p-4-block-8"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-8-m-hle-b-ckerei-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">Mühle Bäckerei</span>
+            </div>
+            <div id="partners-grid-p-4-block-9"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-9-handwerk-brot-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">Handwerk Brot</span>
+            </div>
+            <div id="partners-grid-p-4-block-10"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-10-gastropro-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">GastroPro</span>
+            </div>
+            <div id="partners-grid-p-4-block-11"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-11-b-ckerei-plus-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">Bäckerei Plus</span>
+            </div>
+            <div id="partners-grid-p-4-block-12"
+              class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+              <span id="partners-grid-p-4-block-12-feinb-ckerei-text"
+                class="text-base font-bold text-slate-700 dark:text-slate-300">Feinbäckerei</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div id="stats" class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div id="stat-item-1" class="text-center">
+            <div id="stat-item-1-500-block" class="text-4xl font-bold text-primary mb-2">500+</div>
+            <div id="stat-item-1-stat-1-block" class="text-sm text-slate-600 dark:text-slate-400" data-i18n="stat_1">
+              满意的客户</div>
+          </div>
+          <div id="stat-item-2" class="text-center">
+            <div id="stat-item-2-98-block" class="text-4xl font-bold text-primary mb-2">98%</div>
+            <div id="stat-item-2-stat-2-block" class="text-sm text-slate-600 dark:text-slate-400" data-i18n="stat_2">推荐率
+            </div>
+          </div>
+          <div id="stat-item-3" class="text-center">
+            <div id="stat-item-3-24h-block" class="text-4xl font-bold text-primary mb-2">24h</div>
+            <div id="stat-item-3-stat-3-block" class="text-sm text-slate-600 dark:text-slate-400" data-i18n="stat_3">
+              支持响应时间</div>
+          </div>
+          <div id="stat-item-4" class="text-center">
+            <div id="stat-item-4-68-block" class="text-4xl font-bold text-primary mb-2">68+</div>
+            <div id="stat-item-4-stat-4-block" class="text-sm text-slate-600 dark:text-slate-400" data-i18n="stat_4">
+              供应的国家</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="px-4 py-16 lg:py-24 bg-background-light dark:bg-background-dark" id="contact">
+      <div id="contact-container" class="mx-auto max-w-7xl">
+        <div id="contact-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+          <!-- Left: Compact Contact Info -->
+          <div id="contact-info" class="space-y-4">
+            <div id="contact-info-header">
+              <h2 id="contact-title"
+                class="text-primary dark:text-slate-100 text-2xl lg:text-3xl font-black tracking-tight mb-3"
+                data-i18n="contact_title">
+                联系我们
+              </h2>
+              <p id="contact-desc" class="text-slate-600 dark:text-slate-400 text-sm mb-6" data-i18n="contact_desc">
+                我们的专家团队将亲自为您解答关于商用厨房设备的所有问题。
+              </p>
+            </div>
+
+            <!-- Compact Contact Items Grid -->
+            <div id="contact-cards-grid" class="grid grid-cols-2 gap-3">
+              <div id="contact-address-card" class="bg-background-light dark:bg-slate-800 rounded-lg p-3">
+                <div id="contact-address-card-div-1" class="flex items-center gap-2 mb-2">
+                  <div id="contact-address-card-div-1-p-2-block" class="bg-primary/10 text-primary p-2.5 rounded-lg flex items-center justify-center">
+                    <span id="contact-address-card-div-1-p-2-block-material-symbols-outlined-text"
+                      class="material-symbols-outlined text-xl leading-none w-5 h-5 flex items-center justify-center">location_on</span>
+                  </div>
+                  <h3 id="contact-address-card-div-1-contact-address-title-title"
+                    class="text-sm font-bold text-primary dark:text-slate-100" data-i18n="contact_address_title">地址
+                  </h3>
+                </div>
+                <p id="contact-address-card-contact-address-text-text"
+                  class="text-xs text-slate-600 dark:text-slate-400" data-i18n="contact_address_text">
+                  广东省佛山市顺德区大良街道红岗社区展伦路83号万创园12栋502室<br
+                    id="contact-address-card-contact-address-text-text-br-1">邮编：528300
+                </p>
+              </div>
+
+              <div id="contact-phone-card" class="bg-background-light dark:bg-slate-800 rounded-lg p-3">
+                <div id="contact-phone-card-div-1" class="flex items-center gap-2 mb-2">
+                  <div id="contact-phone-card-div-1-p-2-block" class="bg-primary/10 text-primary p-2.5 rounded-lg flex items-center justify-center">
+                    <span id="contact-phone-card-div-1-p-2-block-material-symbols-outlined-text"
+                      class="material-symbols-outlined text-xl leading-none w-5 h-5 flex items-center justify-center">phone</span>
+                  </div>
+                  <h3 id="contact-phone-card-div-1-contact-phone-title-title"
+                    class="text-sm font-bold text-primary dark:text-slate-100" data-i18n="contact_phone_title">电话</h3>
+                </div>
+                <p id="contact-phone-card-86-13163756465-text" class="text-xs text-slate-600 dark:text-slate-400">+86
+                  131 6375 6465</p>
+                <p id="contact-phone-card-contact-hours-text" class="text-xs text-slate-500 dark:text-slate-500 mt-1"
+                  data-i18n="contact_hours">周一至周日 8:00-18:00
+                </p>
+              </div>
+
+              <div id="contact-email-card" class="bg-background-light dark:bg-slate-800 rounded-lg p-3">
+                <div id="contact-email-card-div-1" class="flex items-center gap-2 mb-2">
+                  <div id="contact-email-card-div-1-p-2-block" class="bg-primary/10 text-primary p-2.5 rounded-lg flex items-center justify-center">
+                    <span id="contact-email-card-div-1-p-2-block-material-symbols-outlined-text"
+                      class="material-symbols-outlined text-xl leading-none w-5 h-5 flex items-center justify-center">email</span>
+                  </div>
+                  <h3 id="contact-email-card-div-1-contact-email-title-title"
+                    class="text-sm font-bold text-primary dark:text-slate-100" data-i18n="contact_email_title">邮箱</h3>
+                </div>
+                <p id="contact-email-card-info-baeckereitechnik-profi-de-text"
+                  class="text-xs text-slate-600 dark:text-slate-400">support@yukoli.com</p>
+                <p id="contact-email-card-contact-response-text" class="text-xs text-slate-500 dark:text-slate-500 mt-1"
+                  data-i18n="contact_response">24小时内回复</p>
+              </div>
+
+              <div id="contact-whatsapp-card" class="bg-background-light dark:bg-slate-800 rounded-lg p-3">
+                <div id="contact-whatsapp-card-div-1" class="flex items-center gap-2 mb-2">
+                  <div id="contact-whatsapp-card-div-1-p-2-block" class="bg-primary/10 text-primary p-2.5 rounded-lg flex items-center justify-center">
+                    <span id="contact-whatsapp-card-div-1-p-2-block-material-symbols-outlined-text"
+                      class="material-symbols-outlined text-xl leading-none w-5 h-5 flex items-center justify-center">contact_support</span>
+                  </div>
+                  <h3 id="contact-whatsapp-card-div-1-contact-whatsapp-title-title"
+                    class="text-sm font-bold text-primary dark:text-slate-100" data-i18n="contact_whatsapp_title">
+                    WhatsApp</h3>
+                </div>
+                <p id="contact-whatsapp-card-49-751-123-456-78-text" class="text-xs text-slate-600 dark:text-slate-400">
+                  +1 647 815 8194</p>
+                <p id="contact-whatsapp-card-contact-whatsapp-note-text"
+                  class="text-xs text-slate-500 dark:text-slate-500 mt-1" data-i18n="contact_whatsapp_note">24/7服务</p>
+              </div>
+            </div>
+
+            <!-- Mini Map -->
+            <div id="contact-map" class="mt-4 rounded-lg overflow-hidden border border-primary/10 shadow">
+              <div id="contact-map-wrapper" class="aspect-video bg-slate-200 dark:bg-slate-700">
+                <iframe id="contact-map-wrapper-iframe-1"
+                  src="https://www.google.com/maps?q=%E5%B9%BF%E4%B8%9C%E7%9C%81%E4%BD%9B%E5%B1%B1%E5%B8%82%E9%A1%BA%E5%BE%B7%E5%8C%BA%E5%A4%A7%E8%89%AF%E8%A1%97%E9%81%93%E7%BA%A2%E5%B2%97%E7%A4%BE%E5%8C%BA%E5%B1%95%E4%BC%A6%E8%B7%AF83%E5%8F%B7%E4%B8%87%E5%88%9B%E5%9B%AD12%E6%A0%8B502%E5%AE%A4%20528300&output=embed"
+                  width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade" class="w-full h-full">
+                </iframe>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Compact Contact Form with Country Selection -->
+          <div id="contact-form-container"
+            class="bg-white dark:bg-slate-900 rounded-xl p-4 lg:p-6 shadow border border-primary/5">
+            <h3 id="contact-form-title" class="text-lg lg:text-xl font-bold text-primary dark:text-slate-100 mb-2"
+              data-i18n="form_title">发送咨询
+            </h3>
+            <p id="contact-form-subtitle" class="text-slate-600 dark:text-slate-400 text-xs mb-4"
+              data-i18n="form_subtitle">填写表格，我们会尽快联系您。</p>
+
+            <form class="space-y-3" id="contact-form">
+              <!-- Name & Company -->
+              <div id="form-row-name" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div id="form-row-name-div-1">
+                  <label id="form-row-name-div-1-form-name-label"
+                    class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1" data-i18n="form_name">姓名
+                    *</label>
+                  <input id="form-row-name-div-1-form-name-placeholder-input" type="text" name="name" required
+                    class="w-full px-3 py-3 text-xs bg-background-light dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    data-i18n-placeholder="form_name_placeholder" placeholder="Your name">
+                </div>
+                <div id="form-row-name-div-2">
+                  <label id="form-row-name-div-2-form-company-label"
+                    class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1"
+                    data-i18n="form_company">公司</label>
+                  <input id="form-row-name-div-2-form-company-placeholder-input" type="text" name="company"
+                    class="w-full px-3 py-3 text-xs bg-background-light dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    data-i18n-placeholder="form_company_placeholder" placeholder="Your company">
+                </div>
+              </div>
+
+              <!-- Email & Phone -->
+              <div id="form-row-email" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div id="form-row-email-div-1">
+                  <label id="form-row-email-div-1-form-email-label"
+                    class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1" data-i18n="form_email">邮箱
+                    *</label>
+                  <input id="form-row-email-div-1-form-email-placeholder-input" type="email" name="email" required
+                    class="w-full px-3 py-3 text-xs bg-background-light dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    data-i18n-placeholder="form_email_placeholder" placeholder="email@example.com">
+                </div>
+                <div id="form-row-email-div-2">
+                  <label id="form-row-email-div-2-form-phone-label"
+                    class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1"
+                    data-i18n="form_phone">电话</label>
+                  <input id="form-row-email-div-2-form-phone-placeholder-input" type="tel" name="phone"
+                    class="w-full px-3 py-3 text-xs bg-background-light dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    data-i18n-placeholder="form_phone_placeholder" placeholder="+49 123 456789">
+                </div>
+              </div>
+
+              <!-- Country Selection -->
+              <div id="contact-form-div-3">
+                <label id="contact-form-div-3-form-country-label"
+                  class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+                  data-i18n="form_country">国家/地区</label>
+                <div id="contact-form-div-3-div-1" class="relative">
+                  <input id="contact-form-div-3-div-1-form-country-placeholder-input" type="text" name="country"
+                    list="countries-list"
+                    class="w-full px-3 py-3 text-xs bg-background-light dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all pr-10"
+                    data-i18n-placeholder="form_country_placeholder"
+                    placeholder="Filter or customize by entering the first letter of the country .." autocomplete="off">
+                  <span id="contact-form-div-3-div-1-material-symbols-outlined-text"
+                    class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-sm">expand_more</span>
+                </div>
+                <datalist id="countries-list">
+                  <option id="countries-list-china-option" value="中国">China</option>
+                  <option id="countries-list-germany-option" value="德国">Germany</option>
+                  <option id="countries-list-united-states-option" value="美国">United States</option>
+                  <option id="countries-list-united-kingdom-option" value="英国">United Kingdom</option>
+                  <option id="countries-list-france-option" value="法国">France</option>
+                  <option id="countries-list-italy-option" value="意大利">Italy</option>
+                  <option id="countries-list-spain-option" value="西班牙">Spain</option>
+                  <option id="countries-list-japan-option" value="日本">Japan</option>
+                  <option id="countries-list-south-korea-option" value="韩国">South Korea</option>
+                  <option id="countries-list-russia-option" value="俄罗斯">Russia</option>
+                  <option id="countries-list-india-option" value="印度">India</option>
+                  <option id="countries-list-brazil-option" value="巴西">Brazil</option>
+                  <option id="countries-list-canada-option" value="加拿大">Canada</option>
+                  <option id="countries-list-australia-option" value="澳大利亚">Australia</option>
+                  <option id="countries-list-mexico-option" value="墨西哥">Mexico</option>
+                  <option id="countries-list-netherlands-option" value="荷兰">Netherlands</option>
+                  <option id="countries-list-switzerland-option" value="瑞士">Switzerland</option>
+                  <option id="countries-list-sweden-option" value="瑞典">Sweden</option>
+                  <option id="countries-list-austria-option" value="奥地利">Austria</option>
+                  <option id="countries-list-belgium-option" value="比利时">Belgium</option>
+                  <option id="countries-list-denmark-option" value="丹麦">Denmark</option>
+                  <option id="countries-list-finland-option" value="芬兰">Finland</option>
+                  <option id="countries-list-norway-option" value="挪威">Norway</option>
+                  <option id="countries-list-portugal-option" value="葡萄牙">Portugal</option>
+                  <option id="countries-list-poland-option" value="波兰">Poland</option>
+                  <option id="countries-list-czech-republic-option" value="捷克">Czech Republic</option>
+                  <option id="countries-list-hungary-option" value="匈牙利">Hungary</option>
+                  <option id="countries-list-turkey-option" value="土耳其">Turkey</option>
+                  <option id="countries-list-saudi-arabia-option" value="沙特阿拉伯">Saudi Arabia</option>
+                  <option id="countries-list-united-arab-emirates-option" value="阿联酋">United Arab Emirates</option>
+                  <option id="countries-list-singapore-option" value="新加坡">Singapore</option>
+                  <option id="countries-list-malaysia-option" value="马来西亚">Malaysia</option>
+                  <option id="countries-list-thailand-option" value="泰国">Thailand</option>
+                  <option id="countries-list-vietnam-option" value="越南">Vietnam</option>
+                  <option id="countries-list-indonesia-option" value="印度尼西亚">Indonesia</option>
+                  <option id="countries-list-philippines-option" value="菲律宾">Philippines</option>
+                  <option id="countries-list-new-zealand-option" value="新西兰">New Zealand</option>
+                  <option id="countries-list-south-africa-option" value="南非">South Africa</option>
+                  <option id="countries-list-argentina-option" value="阿根廷">Argentina</option>
+                  <option id="countries-list-chile-option" value="智利">Chile</option>
+                  <option id="countries-list-colombia-option" value="哥伦比亚">Colombia</option>
+                </datalist>
+              </div>
+
+              <!-- Message -->
+              <div id="contact-form-div-4">
+                <label id="contact-form-div-4-form-message-label"
+                  class="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1"
+                  data-i18n="form_message">您的留言</label>
+                <textarea id="contact-form-div-4-form-message-placeholder-textarea" name="message" rows="3"
+                  class="w-full px-3 py-3 text-xs bg-background-light dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
+                  data-i18n-placeholder="form_message_placeholder"
+                  placeholder="What assistance can we provide for you?"></textarea>
+              </div>
+
+              <!-- Privacy & Submit -->
+              <div id="contact-form-div-5" class="flex items-center gap-3">
+                <input type="checkbox" required checked id="smart-privacy-agree" name="privacy"
+                  class="mt-0 w-4 h-4 text-primary focus:ring-primary rounded">
+                <label id="contact-form-div-5-smart-form-privacy-label" for="smart-privacy-agree"
+                  class="text-xs text-slate-600 dark:text-slate-400" data-i18n="smart_form_privacy">我同意根据隐私政策处理我的数据。
+                  *</label>
+              </div>
+
+              <button id="contact-form-button-1" type="submit"
+                class="w-full bg-primary text-white rounded-lg px-4 py-3 text-sm font-bold hover:bg-primary/90 transition-all shadow hover:shadow-lg flex items-center justify-center gap-2">
+                <span id="contact-form-button-1-material-symbols-outlined-text"
+                  class="material-symbols-outlined text-base">send</span>
+                <span id="contact-form-button-1-form-submit-text" data-i18n="form_submit">提交咨询</span>
+              </button>
+              <p id="contact-form-p-1"
+                class="text-center text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center gap-1 mt-1">
+                <span id="contact-form-p-1-material-symbols-outlined-text"
+                  class="material-symbols-outlined text-success text-xs">lock</span>
+                <span id="contact-form-p-1-form-secure-text" data-i18n="form_secure">您的数据安全</span>
+              </p>
+              <!-- 快捷联系按钮 -->
+              <div id="contact-quick-links"
+                class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700 border-dashed">
+                <p id="contact-quick-links-contact-quick-text"
+                  class="text-center text-xs text-slate-500 dark:text-slate-400 mb-2" data-i18n="contact_quick">
+                  或通过以下方式快速联系我们：</p>
+                <div id="contact-quick-links-div-1" class="flex justify-center gap-4">
+                  <button id="contact-quick-whatsapp"
+                    class="flex flex-col items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors group">
+                    <div id="contact-quick-whatsapp-div-1"
+                      class="w-11 h-11 rounded-full bg-green-500 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+                      <svg id="contact-quick-whatsapp-div-1-svg-1" class="w-4 h-4 text-white" fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <path id="contact-quick-whatsapp-div-1-svg-1-path-1"
+                          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                      </svg>
+                    </div>
+                    <span id="contact-quick-whatsapp-whatsapp-text" class="text-xs">WhatsApp</span>
+                  </button>
+
+                  <button id="contact-quick-line"
+                    class="flex flex-col items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors group">
+                    <div id="contact-quick-line-div-1"
+                      class="w-11 h-11 rounded-full bg-green-600 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+                      <span id="contact-quick-line-div-1-line-text" class="text-white font-bold text-xs">LINE</span>
+                    </div>
+                    <span id="contact-quick-line-line-text" class="text-xs">LINE</span>
+                  </button>
+
+                  <button id="contact-quick-email"
+                    class="flex flex-col items-center gap-1 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors group">
+                    <div id="contact-quick-email-div-1"
+                      class="w-11 h-11 rounded-full bg-red-500 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+                      <span id="contact-quick-email-div-1-material-symbols-outlined-text"
+                        class="material-symbols-outlined text-white text-sm">mail</span>
+                    </div>
+                    <span id="contact-quick-email-email-text" class="text-xs">Email</span>
+                  </button>
+                </div>
+              </div>
+
+          </div>
+          </form>
+        </div>
+      </div>
+  </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="main-footer" class="bg-primary text-slate-200 py-12 lg:py-16">
+    <div id="footer-container" class="mx-auto max-w-7xl px-4">
+      <div id="footer-grid"
+        class="footer-main-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
+        <!-- Company Info -->
+        <div id="footer-grid-footer-company-info-block" class="footer-company-info">
+          <div id="footer-grid-footer-company-info-block-div-1" class="flex flex-col items-center gap-0 mb-1 text-center">
+            <img id="footer-logo-img" src="images/logo_html_2.webp" alt="LOGO" class="h-20 inline-block align-middle" />
+            <h3 id="footer-grid-footer-company-info-block-div-1-company-name-title" class="text-white font-bold"
+              data-i18n="company_name">佛山市跃迁力科技有限公司</h3>
+          </div>
+          <p id="footer-grid-footer-company-info-block-footer-about-text" class="text-slate-300 text-sm mb-4"
+            data-i18n="footer_about">Ihr zuverlässiger Partner für professionelle
+            Gärschränke seit 2004.</p>
+        </div>
+
+        <!-- Products -->
+        <div id="footer-grid-footer-products-block" class="footer-products">
+          <h4 id="footer-grid-footer-products-block-footer-products-title-title" class="text-white font-bold mb-4"
+            data-i18n="footer_products_title">Products</h4>
+          <ul id="footer-grid-footer-products-block-ul-1" class="space-y-2 text-sm">
+            <li id="footer-grid-footer-products-block-ul-1-li-1"><a
+                id="footer-grid-footer-products-block-ul-1-li-1-footer-product-1-link" href="#advantages"
+                class="hover:text-white transition-colors" data-i18n="nav_vorteile">优势</a></li>
+            <li id="footer-grid-footer-products-block-ul-1-li-2"><a
+                id="footer-grid-footer-products-block-ul-1-li-2-footer-product-2-link" href="#products"
+                class="hover:text-white transition-colors" data-i18n="nav_produkte">产品</a></li>
+            <li id="footer-grid-footer-products-block-ul-1-li-3"><a
+                id="footer-grid-footer-products-block-ul-1-li-3-footer-product-3-link" href="#certificates"
+                class="hover:text-white transition-colors" data-i18n="nav_vertrauen">信任</a></li>
+            <li id="footer-grid-footer-products-block-ul-1-li-4"><a
+                id="footer-grid-footer-products-block-ul-1-li-4-footer-product-4-link" href="#contact"
+                class="hover:text-white transition-colors" data-i18n="nav_contact">联系</a></li>
+          </ul>
+        </div>
+
+        <!-- Support -->
+        <div id="footer-grid-footer-support-block" class="footer-support">
+          <h4 id="footer-grid-footer-support-block-footer-support-title-title" class="text-white font-bold mb-4"
+            data-i18n="footer_support_title">Support</h4>
+          <ul id="footer-grid-footer-support-block-ul-1" class="space-y-2 text-sm">
+            <li id="footer-grid-footer-support-block-ul-1-li-1"><a
+                id="footer-grid-footer-support-block-ul-1-li-1-footer-support-1-link" href="#contact"
+                class="hover:text-white transition-colors" data-i18n="footer_support_1">Technischer
+                Support</a></li>
+            <li id="footer-grid-footer-support-block-ul-1-li-2"><a
+                id="footer-grid-footer-support-block-ul-1-li-2-footer-support-2-link" href="#"
+                class="hover:text-white transition-colors" data-i18n="footer_support_2">Wartung &
+                Service</a></li>
+            <li id="footer-grid-footer-support-block-ul-1-li-3"><a
+                id="footer-grid-footer-support-block-ul-1-li-3-footer-support-4-link" href="#"
+                class="hover:text-white transition-colors" data-i18n="footer_support_4">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div id="footer-grid-footer-company-links-block" class="footer-company-links">
+          <h4 id="footer-grid-footer-company-links-block-footer-company-title-title" class="text-white font-bold mb-4"
+            data-i18n="footer_company_title">Unternehmen</h4>
+          <ul id="footer-grid-footer-company-links-block-ul-1" class="space-y-2 text-sm">
+            <li id="footer-grid-footer-company-links-block-ul-1-li-1"><a
+                id="footer-grid-footer-company-links-block-ul-1-li-1-footer-company-1-link" href="#"
+                class="hover:text-white transition-colors" data-i18n="footer_company_1">Über uns</a></li>
+            <li id="footer-grid-footer-company-links-block-ul-1-li-2"><a
+                id="footer-grid-footer-company-links-block-ul-1-li-2-footer-company-4-link" href="#"
+                class="hover:text-white transition-colors" data-i18n="footer_company_4">Impressum</a></li>
+            <li id="footer-grid-footer-company-links-block-ul-1-li-3"><a
+                id="footer-grid-footer-company-links-block-ul-1-li-3-footer-company-5-link" href="#"
+                class="hover:text-white transition-colors" data-i18n="footer_company_5">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="footer-bottom" class="border-t border-white/20 pt-8">
+        <div id="footer-bottom-div-1" class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+          <p id="footer-bottom-div-1-2024-text">© 2024 <span id="footer-bottom-div-1-2024-text-company-name-text"
+              data-i18n="company_name">Foshan YuKoLi Technology Co., Ltd.</span> <span
+              id="footer-bottom-div-1-2024-text-footer-rights-text" data-i18n="footer_rights">Alle Rechte
+              vorbehalten.</span></p>
+          <div id="footer-bottom-div-1-div-1" class="flex gap-6">
+            <a id="footer-bottom-div-1-div-1-footer-legal-1-link" href="#" class="hover:text-white transition-colors"
+              data-i18n="footer_legal_1">AGB</a>
+            <a id="footer-bottom-div-1-div-1-footer-legal-2-link" href="#" class="hover:text-white transition-colors"
+              data-i18n="footer_legal_2">Datenschutz</a>
+            <a id="footer-bottom-div-1-div-1-footer-legal-3-link" href="#" class="hover:text-white transition-colors"
+              data-i18n="footer_legal_3">Impressum</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  </div>
+  <!-- End of main container -->
+
+  <!-- Optimized Floating Sidebar - Subtle but always visible -->
+  <div class="floating-sidebar" id="floating-sidebar">
+    <!-- Primary Contacts - Always visible, slightly transparent until hover -->
+    <button id="jump-btn-2" class="primary-contact-btn whatsapp-btn jump-btn"
+      aria-label="WhatsApp" data-i18n-aria="contact_tooltip_whatsapp">
+      <span id="jump-btn-2-contact-tooltip-whatsapp-text" class="contact-tooltip"
+        data-i18n="contact_tooltip_whatsapp">WhatsApp</span>
+      <svg id="jump-btn-2-svg-1" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path id="jump-btn-2-svg-1-path-1"
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+      </svg>
+    </button>
+
+    <button id="jump-btn-3" class="primary-contact-btn line-btn jump-btn" aria-label="LINE"
+      data-i18n-aria="contact_tooltip_line">
+      <span id="jump-btn-3-contact-tooltip-line-text" class="contact-tooltip"
+        data-i18n="contact_tooltip_line">LINE</span>
+      <span id="jump-btn-3-line-text" class="font-bold text-xs">LINE</span>
+    </button>
+
+    <button id="jump-btn-4" class="primary-contact-btn phone-btn jump-btn" aria-label="Call"
+      data-i18n-aria="contact_tooltip_call" style="display:none">
+      <span id="jump-btn-4-contact-tooltip-call-text" class="contact-tooltip"
+        data-i18n="contact_tooltip_call">Call</span>
+      <span id="jump-btn-4-material-symbols-outlined-text" class="material-symbols-outlined text-lg">phone</span>
+    </button>
+
+    <!-- Secondary Contacts - Expandable -->
+    <div class="secondary-contacts" id="secondary-contacts">
+      <button id="secondary-contacts-startemail-button" class="secondary-btn email-btn"
+        aria-label="Email" data-i18n-aria="contact_tooltip_email">
+        <span id="secondary-contacts-startemail-button-contact-tooltip-email-text" class="contact-tooltip"
+          data-i18n="contact_tooltip_email">Email</span>
+        <span id="secondary-contacts-startemail-button-material-symbols-outlined-text"
+          class="material-symbols-outlined text-base">mail</span>
+      </button>
+      <button id="secondary-contacts-startfacebook-button" class="secondary-btn facebook-btn"
+        aria-label="Facebook" data-i18n-aria="contact_tooltip_facebook">
+        <span id="secondary-contacts-startfacebook-button-contact-tooltip-facebook-text" class="contact-tooltip"
+          data-i18n="contact_tooltip_facebook">Facebook</span>
+        <svg id="secondary-contacts-startfacebook-button-svg-1" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path id="secondary-contacts-startfacebook-button-svg-1-path-1"
+            d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z">
+          </path>
+        </svg>
+      </button>
+      <button id="secondary-contacts-starttiktok-button" class="secondary-btn tiktok-btn"
+        aria-label="TikTok" data-i18n-aria="contact_tooltip_tiktok">
+        <span id="secondary-contacts-starttiktok-button-contact-tooltip-tiktok-text" class="contact-tooltip"
+          data-i18n="contact_tooltip_tiktok">TikTok</span>
+        <svg id="secondary-contacts-starttiktok-button-svg-1" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path id="secondary-contacts-starttiktok-button-svg-1-path-1"
+            d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z">
+          </path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Expand/Collapse Button -->
+    <button class="expand-btn" id="expand-btn" aria-label="More contacts"
+      data-i18n-aria="sidebar_expand">
+      <span id="expand-btn-material-symbols-outlined-text" class="material-symbols-outlined">expand_more</span>
+      <span id="expand-btn-sidebar-expand-text" class="contact-tooltip" data-i18n="sidebar_expand">更多联系人</span>
+    </button>
+    <button id="back-to-top" class="back-to-top-btn hide" aria-label="Back to top" data-i18n-aria="back_to_top">
+      <span id="back-to-top-material-symbols-outlined-text" class="material-symbols-outlined">arrow_upward</span>
+      <span id="back-to-top-text" class="back-to-top-tooltip" data-i18n="back_to_top">回到顶部</span>
+    </button>
+  </div>
+</div>
+
+  <!-- 智能弹窗 - 优化高度80% 且 测试环境显示计数器/触发原因 -->
+  <div id="smart-popup-overlay">
+    <div id="smart-popup" class="w-full max-w-md mx-4">
+      <div id="smart-popup-header-block" class="smart-popup-header relative">
+        <div class="popup-today-count" id="popup-today-count">
+          <span id="popup-today-count-material-symbols-outlined-text"
+            class="material-symbols-outlined text-sm">schedule</span>
+          <span id="today-popup-count">0/2</span>
+        </div>
+        <h3 id="smart-popup-header-block-smart-popup-title-title" class="text-xl font-bold mb-2"
+          data-i18n="smart_popup_title">免费专家咨询</h3>
+        <p id="smart-popup-header-block-smart-popup-desc-text" class="text-sm opacity-90" data-i18n="smart_popup_desc">
+          让我们的专家提供无约束力的建议</p>
+        <div id="trigger-reason" class="smart-popup-trigger-reason">
+          <span id="trigger-reason-material-symbols-outlined-text" class="material-symbols-outlined">info</span>
+          <span id="trigger-reason-span-2">我们注意到您对我们产品的兴趣</span>
+        </div>
+        <button id="smart-popup-header-block-closesmartpopup-button" class="smart-popup-close"
+         >
+          <span id="smart-popup-header-block-closesmartpopup-button-material-symbols-outlined-text"
+            class="material-symbols-outlined text-lg">close</span>
+        </button>
+      </div>
+
+      <div id="smart-popup-body" class="smart-popup-body">
+        <form class="" id="smart-popup-form">
+          <div id="smart-popup-form-div-1">
+            <label id="smart-popup-form-div-1-smart-form-name-label"
+              class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" data-i18n="smart_form_name">Name
+              *</label>
+            <input id="smart-popup-form-div-1-form-name-placeholder-input" type="text" name="name" required
+              class="w-full px-4 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary transition-all"
+              data-i18n-placeholder="form_name_placeholder" placeholder="Your name">
+          </div>
+          <div id="smart-popup-form-div-2">
+            <label id="smart-popup-form-div-2-smart-form-email-label"
+              class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+              data-i18n="smart_form_email">E-Mail *</label>
+            <input id="smart-popup-form-div-2-form-email-placeholder-input" type="email" name="email" required
+              class="w-full px-4 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary transition-all"
+              data-i18n-placeholder="form_email_placeholder" placeholder="support@yukoli.com">
+          </div>
+
+          <div id="smart-popup-form-div-3">
+            <label id="smart-popup-form-div-3-smart-form-phone-label"
+              class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+              data-i18n="smart_form_phone">Telefon (optional)</label>
+            <input id="smart-popup-form-div-3-form-phone-placeholder-input" type="tel" name="phone"
+              class="w-full px-4 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary transition-all"
+              data-i18n-placeholder="form_phone_placeholder" placeholder="+49 123 456789">
+          </div>
+
+          <!-- 国家选择框 -->
+          <div id="smart-popup-form-div-4">
+            <label id="smart-popup-form-div-4-form-country-label"
+              class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+              data-i18n="form_country">国家/地区</label>
+            <div id="smart-popup-form-div-4-div-1" class="relative">
+              <input id="smart-popup-form-div-4-div-1-form-country-placeholder-input" type="text" name="country"
+                list="popup-countries-list"
+                class="w-full px-4 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary transition-all pr-10"
+                data-i18n-placeholder="form_country_placeholder"
+                placeholder="Filter or customize by entering the first letter of the country .." autocomplete="off">
+              <span id="smart-popup-form-div-4-div-1-material-symbols-outlined-text"
+                class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 text-sm">expand_more</span>
+            </div>
+            <datalist id="popup-countries-list">
+              <option id="popup-countries-list-china-option" value="中国">China</option>
+              <option id="popup-countries-list-germany-option" value="德国">Germany</option>
+              <option id="popup-countries-list-united-states-option" value="美国">United States</option>
+              <option id="popup-countries-list-united-kingdom-option" value="英国">United Kingdom</option>
+              <option id="popup-countries-list-france-option" value="法国">France</option>
+              <option id="popup-countries-list-italy-option" value="意大利">Italy</option>
+              <option id="popup-countries-list-spain-option" value="西班牙">Spain</option>
+              <option id="popup-countries-list-japan-option" value="日本">Japan</option>
+              <option id="popup-countries-list-south-korea-option" value="韩国">South Korea</option>
+              <option id="popup-countries-list-russia-option" value="俄罗斯">Russia</option>
+              <option id="popup-countries-list-india-option" value="印度">India</option>
+              <option id="popup-countries-list-brazil-option" value="巴西">Brazil</option>
+              <option id="popup-countries-list-canada-option" value="加拿大">Canada</option>
+              <option id="popup-countries-list-australia-option" value="澳大利亚">Australia</option>
+              <option id="popup-countries-list-mexico-option" value="墨西哥">Mexico</option>
+              <option id="popup-countries-list-netherlands-option" value="荷兰">Netherlands</option>
+              <option id="popup-countries-list-switzerland-option" value="瑞士">Switzerland</option>
+              <option id="popup-countries-list-sweden-option" value="瑞典">Sweden</option>
+              <option id="popup-countries-list-austria-option" value="奥地利">Austria</option>
+              <option id="popup-countries-list-belgium-option" value="比利时">Belgium</option>
+              <option id="popup-countries-list-denmark-option" value="丹麦">Denmark</option>
+              <option id="popup-countries-list-finland-option" value="芬兰">Finland</option>
+              <option id="popup-countries-list-norway-option" value="挪威">Norway</option>
+              <option id="popup-countries-list-portugal-option" value="葡萄牙">Portugal</option>
+              <option id="popup-countries-list-poland-option" value="波兰">Poland</option>
+              <option id="popup-countries-list-czech-republic-option" value="捷克">Czech Republic</option>
+              <option id="popup-countries-list-hungary-option" value="匈牙利">Hungary</option>
+              <option id="popup-countries-list-turkey-option" value="土耳其">Turkey</option>
+              <option id="popup-countries-list-saudi-arabia-option" value="沙特阿拉伯">Saudi Arabia</option>
+              <option id="popup-countries-list-united-arab-emirates-option" value="阿联酋">United Arab Emirates</option>
+              <option id="popup-countries-list-singapore-option" value="新加坡">Singapore</option>
+              <option id="popup-countries-list-malaysia-option" value="马来西亚">Malaysia</option>
+              <option id="popup-countries-list-thailand-option" value="泰国">Thailand</option>
+              <option id="popup-countries-list-vietnam-option" value="越南">Vietnam</option>
+              <option id="popup-countries-list-indonesia-option" value="印度尼西亚">Indonesia</option>
+              <option id="popup-countries-list-philippines-option" value="菲律宾">Philippines</option>
+              <option id="popup-countries-list-new-zealand-option" value="新西兰">New Zealand</option>
+              <option id="popup-countries-list-south-africa-option" value="南非">South Africa</option>
+              <option id="popup-countries-list-argentina-option" value="阿根廷">Argentina</option>
+              <option id="popup-countries-list-chile-option" value="智利">Chile</option>
+              <option id="popup-countries-list-colombia-option" value="哥伦比亚">Colombia</option>
+            </datalist>
+          </div>
+
+          <div id="smart-popup-form-div-5">
+            <label id="smart-popup-form-div-5-smart-form-message-label"
+              class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1"
+              data-i18n="smart_form_message">Ihre Nachricht</label>
+            <textarea id="smart-popup-form-div-5-form-message-placeholder-textarea" name="message" rows="2"
+              class="w-full px-4 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary transition-all resize-none"
+              data-i18n-placeholder="form_message_placeholder" placeholder="How can we help you?"></textarea>
+          </div>
+
+          <div id="smart-popup-form-div-6" style="display:flex;align-items:center;gap:8px;">
+            <input type="checkbox" required checked id="smart-popup-form-div-6-smart-popup-privacy-agree" name="privacy"
+              style="flex-shrink:0;width:16px;height:16px;margin:0;vertical-align:middle;"
+              class="text-primary focus:ring-primary rounded">
+            <label id="smart-popup-form-div-6-privacy-agree-label"
+              for="smart-popup-form-div-6-smart-popup-privacy-agree"
+              style="margin:0;line-height:1.4;"
+              class="text-xs text-slate-600 dark:text-slate-400" data-i18n="privacy_agree">
+              我同意根据隐私政策处理我的数据。 *
+            </label>
+          </div>
+
+          <button id="smart-popup-form-button-1" type="submit"
+            class="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-primary/90 transition-all flex items-center justify-center gap-2">
+            <span id="smart-popup-form-button-1-material-symbols-outlined-text"
+              class="material-symbols-outlined text-lg">send</span>
+            <span id="smart-popup-form-button-1-smart-form-submit-text" data-i18n="smart_form_submit">立即寻求咨询</span>
+          </button>
+
+          <p id="smart-popup-form-p-1"
+            class="text-center text-xs text-slate-500 dark:text-slate-400 flex items-center justify-center gap-2">
+            <span id="smart-popup-form-p-1-material-symbols-outlined-text"
+              class="material-symbols-outlined text-success text-sm">lock</span>
+            <span id="smart-popup-form-p-1-smart-form-secure-text" data-i18n="smart_form_secure">您的请求将被加密发送</span>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar Indicator -->
+  <div class="sidebar-indicator" id="sidebar-indicator">
+    <div id="sidebar-indicator-card"
+      class="bg-white dark:bg-slate-800 shadow-2xl rounded-xl p-4 max-w-xs border border-slate-200 dark:border-slate-700">
+      <div id="sidebar-indicator-card-div-1" class="flex items-center gap-3">
+        <div id="sidebar-indicator-card-div-1-p-2-block" class="bg-green-500 text-white p-2 rounded-full flex-shrink-0">
+          <span id="sidebar-indicator-card-div-1-p-2-block-material-symbols-outlined-text"
+            class="material-symbols-outlined text-sm">chat</span>
+        </div>
+        <div id="sidebar-indicator-card-div-1-div-2" class="flex-1">
+          <h4 id="sidebar-indicator-card-div-1-div-2-indicator-title-title" class="font-bold text-sm mb-1"
+            data-i18n="indicator_title">我们能帮忙吗？</h4>
+          <p id="sidebar-indicator-card-div-1-div-2-indicator-desc-text"
+            class="text-xs text-slate-500 dark:text-slate-400" data-i18n="indicator_desc">直接通过侧边栏与我们联系！</p>
+        </div>
+        <button id="sidebar-indicator-card-div-1-hideindicator-button"
+          class="text-slate-400 hover:text-slate-600 flex-shrink-0">
+          <span id="sidebar-indicator-card-div-1-hideindicator-button-material-symbols-outlined-text"
+            class="material-symbols-outlined text-sm">close</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</html>

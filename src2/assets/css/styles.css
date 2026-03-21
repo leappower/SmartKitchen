@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Kitchen2026 / Smart Kitchen — Unified Design System
+   Merged from: laptop-code, mobile-code, tablet-code, pc-code
+   ============================================================ */
+
+/* ── Base ────────────────────────────────────────────────── */
+body {
+  font-family: 'Public Sans', sans-serif;
+  min-height: 100dvh;
+}
+
+/* Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: rgb(39, 27, 59, 0.3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(39, 27, 59, 0.5); }
+
+/* Hide scrollbar for horizontal scroll carousels */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ── Header ──────────────────────────────────────────────── */
+.fixed-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgb(248, 246, 246, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgb(236, 91, 19, 0.1);
+  transition: all 0.3s ease;
+}
+
+.dark .fixed-header {
+  background: rgb(34, 22, 16, 0.95);
+}
+
+header nav a.active {
+  color: #ec5b13;
+  font-weight: 700;
+  position: relative;
+}
+
+header nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 2px;
+  background: #ec5b13;
+  border-radius: 1px;
+}
+
+/* ── IoT Status Bar (mobile) ─────────────────────────────── */
+.iot-status-bar {
+  background: #ec5b13;
+  color: white;
+  padding: 4px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ── Glass effect ───────────────────────────────────────── */
+.glass-effect {
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.85);
+}
+.dark .glass-effect {
+  background-color: rgba(34, 22, 16, 0.85);
+}
+
+/* ── Cards ───────────────────────────────────────────────── */
+.hardware-card {
+  transition: border-color 0.2s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hardware-card:hover {
+  border-color: rgb(236, 91, 19, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgb(0, 0, 0, 0.1);
+}
+
+/* ── Product lineup carousel (mobile) ────────────────────── */
+.product-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 2px 4px 8px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.product-carousel::-webkit-scrollbar { display: none; }
+.product-carousel-card {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+}
+
+/* ── Stat cards ──────────────────────────────────────────── */
+.stat-card {
+  transition: transform 0.2s ease;
+}
+.stat-card:hover { transform: scale(1.02); }
+
+/* ── Bottom nav bar (mobile / tablet) ───────────────────── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 40;
+  background: rgba(248, 246, 246, 0.96);
+  border-top: 1px solid rgb(226, 232, 240);
+  backdrop-filter: blur(8px);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.dark .bottom-nav {
+  background: rgba(34, 22, 16, 0.96);
+  border-top-color: rgb(30, 41, 59);
+}
+
+/* ── Floating CTA (tablet) ───────────────────────────────── */
+.floating-cta {
+  position: fixed;
+  bottom: 80px; right: 24px;
+  z-index: 40;
+  transition: transform 0.2s ease;
+}
+.floating-cta:hover  { transform: scale(1.05); }
+.floating-cta:active { transform: scale(0.95); }
+
+/* ── WhatsApp FAB (mobile) ───────────────────────────────── */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 96px; right: 16px;
+  z-index: 50;
+  background: #25D366;
+  color: white;
+  padding: 16px;
+  border-radius: 9999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+.whatsapp-fab:hover  { transform: scale(1.1); }
+.whatsapp-fab:active { transform: scale(0.9); }
+
+/* ── Pulse / live indicator ─────────────────────────────── */
+@keyframes ping-custom {
+  0%   { transform: scale(1);   opacity: 0.75; }
+  75%  { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+.live-ping {
+  animation: ping-custom 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ── Animate-on-scroll helpers ───────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up { animation: fade-in 0.5s ease-out forwards; }
+
+/* ── IoT dashboard dark panel ────────────────────────────── */
+.iot-panel {
+  background: #0f172a;
+  border: 1px solid rgb(236, 91, 19, 0.2);
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+/* ── Progress bar ────────────────────────────────────────── */
+.progress-bar {
+  height: 4px;
+  border-radius: 9999px;
+  background: #1e293b;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: #22c55e;
+  transition: width 0.6s ease;
+}
+
+/* ── Certification badge ─────────────────────────────────── */
+.cert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgb(203, 213, 225);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+.dark .cert-badge {
+  border-color: rgb(51, 65, 85);
+}
+
+/* ── Section divider ─────────────────────────────────────── */
+.section-divider {
+  border-top: 1px solid rgb(236, 91, 19, 0.15);
+}
+
+/* ── Hero gradient blob ──────────────────────────────────── */
+.hero-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Responsive layout overrides
+   ============================================================ */
+
+/* Laptop (768px – 1279px): hide bottom nav, show top nav */
+@media (min-width: 768px) {
+  .bottom-nav         { display: none !important; }
+  .whatsapp-fab       { display: none; }
+  .iot-status-bar     { display: none; }
+}
+
+/* Desktop (≥ 1280px): extra spacing */
+@media (min-width: 1280px) {
+  .floating-cta { display: none; }
+}
+
+/* Mobile-only helpers */
+@media (max-width: 767px) {
+  .mobile-hidden { display: none !important; }
+  /* Give extra bottom padding so content clears the fixed bottom nav */
+  .thumb-optimized { padding-bottom: 96px; }
+}

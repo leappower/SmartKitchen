@@ -1,0 +1,2369 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Moved from index.html <style> block (full CSS) */
+
+/* Material icons */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(39, 27, 59, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(39, 27, 59, 0.5);
+}
+
+.ios-nav-btn {
+  border-radius: 9999px;
+  border: 1px solid rgb(39, 27, 59, 0.16);
+  background: rgb(255, 255, 255, 0.86);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 22px rgb(39, 27, 59, 0.14), inset 0 1px 0 rgb(255, 255, 255, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.ios-nav-btn:active:not(:disabled) {
+  transform: scale(1.1);
+  box-shadow: 0 14px 28px rgb(39, 27, 59, 0.18), inset 0 1px 0 rgb(255, 255, 255, 0.7);
+}
+
+.ios-nav-btn.is-disabled,
+.ios-nav-btn:disabled {
+  opacity: 0.45;
+  box-shadow: none;
+}
+
+.dark .ios-nav-btn {
+  border-color: rgb(148, 163, 184, 0.28);
+  background: rgb(15, 23, 42, 0.86);
+  box-shadow: 0 10px 22px rgb(0, 0, 0, 0.35), inset 0 1px 0 rgb(255, 255, 255, 0.06);
+}
+
+/* Fixed Header */
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgb(247, 246, 247, 0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgb(39, 27, 59, 0.1);
+  transition: all 0.3s ease;
+}
+
+.dark .fixed-header {
+  background: rgb(24, 21, 29, 0.98);
+}
+
+/* 导航链接激活状态样式 - 新增 */
+header nav a.active {
+  color: #e84545; /* 使用accent颜色 */
+  font-weight: 700;
+  position: relative;
+}
+
+header nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #e84545;
+  border-radius: 1px;
+}
+
+.dark header nav a.active {
+  color: #e84545;
+}
+
+/* Optimized Floating Sidebar - More Subtle */
+
+/* 增强的浮动侧边栏动画效果 */
+.floating-sidebar {
+  position: fixed;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 4px 12px rgb(0, 0, 0, 0.1));
+}
+
+/* 悬停时的整体效果 */
+.floating-sidebar:hover {
+  gap: 10px;
+  transform: translateY(-50%);
+  filter: drop-shadow(0 8px 24px rgb(39, 27, 59, 0.25));
+}
+
+/* Main contact buttons - primary prominent but not intrusive */
+
+/* 主联系按钮悬停效果增强 */
+.primary-contact-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+  position: relative;
+  box-shadow: 0 10px 22px rgb(39, 27, 59, 0.2), inset 0 1px 0 rgb(255, 255, 255, 0.45);
+  cursor: pointer;
+  opacity: 0.9;
+  border: 1px solid rgb(255, 255, 255, 0.42);
+  backdrop-filter: blur(8px);
+}
+
+.floating-sidebar:hover .primary-contact-btn {
+  opacity: 1;
+}
+
+.primary-contact-btn:hover {
+  transform: translateY(-1px) scale(1.08);
+  box-shadow: 0 14px 28px rgb(39, 27, 59, 0.24), inset 0 1px 0 rgb(255, 255, 255, 0.5);
+  opacity: 1;
+  animation: none;
+}
+
+@keyframes button-float {
+  0%, 100% {
+    transform: scale(1.08) translateY(0);
+  }
+
+  50% {
+    transform: scale(1.08) translateY(-2px);
+  }
+}
+
+/* 升级版：增强跳动动画 */
+@keyframes attention-jump {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 4px 12px rgb(0,0,0,0.2);
+  }
+
+  25% {
+    transform: translateY(-12px) scale(1.08);
+    box-shadow: 0 12px 24px rgb(0,0,0,0.3);
+  }
+
+  50% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 8px 16px rgb(0,0,0,0.25);
+  }
+
+  75% {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 10px 20px rgb(0,0,0,0.28);
+  }
+}
+
+/* 高端发光效果 */
+@keyframes attention-glow {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgb(0,0,0,0.2);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgb(232, 69, 69, 0.6), 0 8px 24px rgb(0,0,0,0.4);
+  }
+}
+
+/* 导航栏咨询按钮的特殊跳动动画 */
+@keyframes header-button-pulse {
+  0%, 100% {
+    transform: scale(1);
+    background-color: #271b3b;
+  }
+
+  50% {
+    transform: scale(1.1);
+    background-color: #3a2a52;
+  }
+}
+
+/* 高亮弹跳效果 - 更明显的吸引效果 */
+.jump-active {
+  animation: attention-jump 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) !important;
+  z-index: 10 !important;
+}
+
+/* 导航栏按钮的特殊跳动 */
+#jump-btn-1.jump-active {
+  animation: header-button-pulse 0.8s ease-in-out !important;
+  position: relative;
+}
+
+#jump-btn-1.jump-active::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #271b3b, #3a2a52, #e84545, #3a2a52, #271b3b);
+  background-size: 200% 200%;
+  border-radius: 0.5rem;
+  z-index: -1;
+  animation: border-glow 2s linear infinite;
+}
+
+@keyframes border-glow {
+  0% {
+    background-position: 0% 50%;
+    opacity: 0.8;
+  }
+
+  50% {
+    background-position: 100% 50%;
+    opacity: 1;
+  }
+
+  100% {
+    background-position: 0% 50%;
+    opacity: 0.8;
+  }
+}
+
+/* 浮动侧边栏按钮的特殊跳动 */
+#jump-btn-2.jump-active,
+#jump-btn-3.jump-active,
+#jump-btn-4.jump-active {
+  animation: attention-jump 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), attention-glow 0.8s ease-in-out !important;
+}
+
+/* WhatsApp按钮特殊颜色跳动 */
+#jump-btn-2.jump-active {
+  background: linear-gradient(45deg, #128C7E, #25D366, #34B7F1) !important;
+  animation: attention-jump 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), whatsapp-glow 0.8s ease-in-out !important;
+}
+
+@keyframes whatsapp-glow {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgb(37, 211, 102, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 25px rgb(37, 211, 102, 0.8), 0 8px 24px rgb(0,0,0,0.4);
+  }
+}
+
+/* LINE按钮特殊颜色跳动 */
+#jump-btn-3.jump-active {
+  background: linear-gradient(45deg, #090, #00B900, #00D900) !important;
+  animation: attention-jump 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), line-glow 0.8s ease-in-out !important;
+}
+
+@keyframes line-glow {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgb(0, 185, 0, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 25px rgb(0, 185, 0, 0.8), 0 8px 24px rgb(0,0,0,0.4);
+  }
+}
+
+/* 电话按钮特殊颜色跳动 */
+#jump-btn-4.jump-active {
+  background: linear-gradient(45deg, #2563eb, #3b82f6, #60a5fa) !important;
+  animation: attention-jump 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55), phone-glow 0.8s ease-in-out !important;
+}
+
+@keyframes phone-glow {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgb(59, 130, 246, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 25px rgb(59, 130, 246, 0.8), 0 8px 24px rgb(0,0,0,0.4);
+  }
+}
+
+/* 确保按钮在动画期间不受悬停影响 */
+.jump-btn.jump-active:hover {
+  transform: none !important;
+  animation-play-state: running !important;
+}
+
+/* 按钮涟漪效果 */
+.primary-contact-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0;
+  z-index: -1;
+  transition: all 0.6s ease;
+}
+
+.primary-contact-btn:hover::after {
+  transform: scale(1.3);
+  opacity: 0.3;
+}
+
+/* Contact tooltip on hover */
+.contact-tooltip {
+  position: absolute;
+  right: 65px;
+  background: rgb(39, 27, 59, 0.95);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 1001;
+}
+
+.primary-contact-btn:hover .contact-tooltip,
+.primary-contact-btn:focus .contact-tooltip,
+.primary-contact-btn:focus-visible .contact-tooltip {
+  opacity: 1;
+  visibility: visible;
+  right: 61px;
+}
+
+/* 次要联系按钮的工具提示样式 - 简化修复版 */
+.secondary-btn .contact-tooltip,
+.expand-btn .contact-tooltip {
+    position: absolute;
+    right: 65px;
+    background: rgb(39, 27, 59, 0.95);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 1001;
+    top: 50%;
+}
+
+.secondary-btn .contact-tooltip {
+    transform: translateY(-50%) translateX(-20px);
+}
+
+.expand-btn .contact-tooltip {
+  transform: translateX(20px) translateY(-50%);
+}
+
+.secondary-btn:hover .contact-tooltip,
+.secondary-btn:focus .contact-tooltip,
+.secondary-btn:focus-visible .contact-tooltip,
+.expand-btn:hover .contact-tooltip,
+.expand-btn:focus .contact-tooltip,
+.expand-btn:focus-visible .contact-tooltip {
+    opacity: 1;
+    visibility: visible;
+    right: 61px;
+}
+
+.secondary-btn:hover .contact-tooltip,
+.secondary-btn:focus .contact-tooltip,
+.secondary-btn:focus-visible .contact-tooltip {
+  transform: translateY(-50%) translateX(0);
+}
+
+.expand-btn:hover .contact-tooltip,
+.expand-btn:focus .contact-tooltip,
+.expand-btn:focus-visible .contact-tooltip {
+  transform: translateX(0) translateY(-50%);
+}
+
+/* 确保工具提示不会溢出屏幕 */
+@media (width <= 768px) {
+  .product-filter-rail {
+    padding-top: 18px;
+  }
+
+  /* Mobile: hide left-side tooltips to avoid clipped text. */
+  .floating-sidebar .contact-tooltip,
+  .floating-sidebar .back-to-top-tooltip {
+    display: none !important;
+  }
+
+    .secondary-btn .contact-tooltip,
+    .expand-btn .contact-tooltip {
+        right: 60px;
+        white-space: normal;
+        max-width: 100px;
+        overflow-wrap: break-word;
+    }
+
+    .secondary-btn:hover .contact-tooltip,
+    .secondary-btn:focus .contact-tooltip,
+    .secondary-btn:focus-visible .contact-tooltip,
+    .expand-btn:hover .contact-tooltip,
+    .expand-btn:focus .contact-tooltip,
+    .expand-btn:focus-visible .contact-tooltip {
+        right: 55px;
+    }
+}
+
+/* 确保展开和收起状态都能正常显示 */
+.expand-btn.expanded .contact-tooltip,
+.expand-btn:not(.expanded) .contact-tooltip {
+    right: 65px;
+}
+
+.expand-btn.expanded:hover .contact-tooltip,
+.expand-btn:not(.expanded):hover .contact-tooltip,
+.expand-btn.expanded:focus .contact-tooltip,
+.expand-btn:not(.expanded):focus .contact-tooltip,
+.expand-btn.expanded:focus-visible .contact-tooltip,
+.expand-btn:not(.expanded):focus-visible .contact-tooltip {
+    right: 61px;
+}
+
+/* 防止按钮位置变化导致提示消失 */
+.floating-sidebar .expand-btn .contact-tooltip {
+    position: absolute;
+    right: 65px;
+    transform: translateX(20px) translateY(-50%);
+}
+
+.floating-sidebar .expand-btn:hover .contact-tooltip,
+.floating-sidebar .expand-btn:focus .contact-tooltip,
+.floating-sidebar .expand-btn:focus-visible .contact-tooltip {
+    transform: translateX(0) translateY(-50%);
+    right: 61px;
+}
+
+/* Primary contact button colors */
+.whatsapp-btn { background: #25D366; }
+.whatsapp-btn:hover { background: #128C7E; }
+.line-btn { background: #00B900; }
+.line-btn:hover { background: #090; }
+.phone-btn { background: #3b82f6; }
+.phone-btn:hover { background: #2563eb; }
+.email-btn { background: #ef4444; }
+.email-btn:hover { background: #dc2626; }
+
+/* Secondary contacts - more subtle */
+.secondary-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 0;
+  overflow: visible;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.secondary-contacts.expanded {
+  max-height: 400px;
+  opacity: 1;
+  overflow: visible;
+}
+
+/* 次要联系人按钮增强 */
+.secondary-btn {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+  box-shadow: 0 10px 22px rgb(39, 27, 59, 0.2), inset 0 1px 0 rgb(255, 255, 255, 0.45);
+  opacity: 0.8;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid rgb(255, 255, 255, 0.42);
+  backdrop-filter: blur(8px);
+}
+
+.secondary-btn:hover {
+  transform: translateY(-1px) scale(1.08);
+  opacity: 1;
+  box-shadow: 0 14px 28px rgb(39, 27, 59, 0.24), inset 0 1px 0 rgb(255, 255, 255, 0.5);
+}
+
+.telegram-btn { background: #08c; }
+.facebook-btn { background: #1877F2; }
+.instagram-btn { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.twitter-btn { background: #000; }
+.linkedin-btn { background: #0077b5; }
+.tiktok-btn { background: #000; }
+
+/* Expand button */
+.expand-btn {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #271b3b, #3a2a52);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+  opacity: 0.8;
+  box-shadow: 0 10px 22px rgb(39, 27, 59, 0.2), inset 0 1px 0 rgb(255, 255, 255, 0.45);
+  padding: 0;
+  flex-shrink: 0;
+  border: 1px solid rgb(255, 255, 255, 0.42);
+  backdrop-filter: blur(8px);
+}
+
+.expand-btn:hover {
+  transform: translateY(-1px) scale(1.08);
+  opacity: 1;
+  box-shadow: 0 14px 28px rgb(39, 27, 59, 0.24), inset 0 1px 0 rgb(255, 255, 255, 0.5);
+}
+
+.expand-btn .material-symbols-outlined {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.expand-btn.expanded .material-symbols-outlined {
+  transform: rotate(180deg);
+}
+
+
+/* Enhanced Popup Styles */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(0, 0, 0, 0.65);
+  z-index: 1001;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fade-in 0.3s ease-out;
+}
+
+.popup-overlay.show {
+  display: flex;
+}
+
+/* Closing animation pointing to sidebar */
+.popup-overlay.closing {
+  animation: fade-out-and-point 0.6s ease-out forwards;
+}
+
+@keyframes fade-out-and-point {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(0.95) translateX(20%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.9) translateX(50%);
+  }
+}
+
+/* Sidebar indicator animation */
+.sidebar-indicator {
+  position: fixed;
+
+  /* Keep a safe gap from the right floating sidebar (16 + 54 + 24). */
+  right: calc(16px + 54px + 24px);
+  top: 50%;
+  transform: translateY(-50%) translateX(20px);
+  z-index: 1002;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease;
+}
+
+.sidebar-indicator.show {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+  pointer-events: auto;
+  animation: bounceGentle 2s infinite;
+}
+
+.sidebar-indicator > div {
+  border: 1px solid rgb(255, 255, 255, 0.5);
+  background: rgb(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 34px rgb(39, 27, 59, 0.2);
+}
+
+/* Keep the indicator avatar icon perfectly square across breakpoints. */
+#sidebar-indicator-card-div-1-p-2-block {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#sidebar-indicator-card-div-1-p-2-block .material-symbols-outlined {
+  font-size: 16px;
+  line-height: 1;
+  display: block;
+}
+
+#sidebar-indicator-card-div-1-div-2 {
+  align-self: center;
+}
+
+.dark .sidebar-indicator > div {
+  border-color: rgb(148, 163, 184, 0.3);
+  background: rgb(15, 23, 42, 0.88);
+  box-shadow: 0 16px 34px rgb(0, 0, 0, 0.35);
+}
+
+.sidebar-indicator::after {
+  content: '\203A';
+
+  --indicator-arrow-size: 30px;
+
+  position: absolute;
+  right: calc(var(--indicator-arrow-size) / -2);
+  top: 50%;
+  width: var(--indicator-arrow-size);
+  height: var(--indicator-arrow-size);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  line-height: 1;
+  font-size: 22px;
+  color: #fff;
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  border: 2px solid #fff;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgb(249, 115, 22, 0.45);
+  animation: slide-arrow 1s infinite;
+}
+
+@media (width <= 768px) {
+  .sidebar-indicator {
+    right: calc(12px + 48px + 16px);
+  }
+}
+
+@keyframes slide-arrow {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(10px); }
+}
+
+/* 新增：元素轮流跳动动画 */
+@keyframes gentle-jump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* 禁用按钮悬停时的跳动动画 */
+.jump-active:hover {
+  animation: none !important;
+  transform: scale(1.15) translateZ(10px) !important;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Product Cards - 新样式 */
+.product-card {
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+/* 确保内容区域正确布局 */
+.product-card > div:nth-child(2) {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* 确保按钮区域始终在底部 */
+.product-card button {
+  flex-shrink: 0;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px rgb(0, 0, 0, 0.15);
+}
+
+.product-card .aspect-\[4\/3\] {
+  aspect-ratio: 4/3;
+}
+
+/* 响应式卡片最小高度 */
+@media (width >= 640px) {
+  .product-card {
+    min-height: 420px;
+  }
+}
+
+@media (width >= 1024px) {
+  .product-card {
+    min-height: 460px;
+  }
+}
+
+/* iOS-like page switcher in product meta */
+.product-grid-meta {
+  backdrop-filter: blur(14px);
+}
+
+.product-meta-nav {
+  border-radius: 9999px;
+  padding: 3px;
+  background: rgb(255, 255, 255, 0.55);
+  border: 1px solid rgb(15, 23, 42, 0.08);
+  box-shadow: 0 8px 24px rgb(15, 23, 42, 0.12), inset 0 1px 0 rgb(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px) saturate(1.15);
+}
+
+.product-meta-nav-btn {
+  appearance: none;
+  border: 0;
+  border-radius: 9999px;
+  min-height: 30px;
+  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #1e293b;
+  background: transparent;
+  transition: transform 0.16s ease, background-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.product-meta-nav-btn:not(.is-disabled):hover {
+  background: rgb(39, 27, 59, 0.08);
+}
+
+.product-meta-nav-btn:not(.is-disabled):active {
+  transform: scale(0.97);
+  background: rgb(39, 27, 59, 0.12);
+}
+
+.product-meta-nav-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(39, 27, 59, 0.2);
+}
+
+.product-meta-nav-btn.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.product-meta-nav-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-size: 13px;
+  line-height: 1;
+  background: rgb(39, 27, 59, 0.12);
+  color: #271b3b;
+}
+
+.product-meta-nav-label {
+  white-space: nowrap;
+}
+
+.dark .product-meta-nav {
+  background: rgb(15, 23, 42, 0.5);
+  border-color: rgb(148, 163, 184, 0.24);
+  box-shadow: 0 8px 24px rgb(2, 6, 23, 0.45), inset 0 1px 0 rgb(255, 255, 255, 0.08);
+}
+
+.dark .product-meta-nav-btn {
+  color: #e2e8f0;
+}
+
+.dark .product-meta-nav-btn:not(.is-disabled):hover {
+  background: rgb(148, 163, 184, 0.18);
+}
+
+.dark .product-meta-nav-btn:not(.is-disabled):active {
+  background: rgb(148, 163, 184, 0.24);
+}
+
+.dark .product-meta-nav-btn:focus-visible {
+  box-shadow: 0 0 0 2px rgb(203, 213, 225, 0.3);
+}
+
+.dark .product-meta-nav-icon {
+  background: rgb(148, 163, 184, 0.26);
+  color: #f8fafc;
+}
+
+@media (width <= 640px) {
+  /* ── Factory Features 两列紧凑 ── */
+  #factory-features-grid > div {
+    padding: 0.5rem;
+  }
+
+  #factory-features-grid .material-symbols-outlined {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  #factory-features-grid h4 {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  #factory-features-grid p.text-sm {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  #factory-note .material-symbols-outlined {
+    font-size: 22px;
+  }
+
+  #factory-note-text {
+    font-size: 12px;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+
+  /* ── Partners 三列紧凑 ── */
+  #partners {
+    padding: 1rem;
+  }
+
+  #partners-title {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  #partners-grid > div {
+    padding: 0.375rem;
+    height: 3rem;
+  }
+
+  #partners-grid span {
+    font-size: 10px;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .product-grid-mobile-shell {
+    position: relative;
+  }
+
+  /* ── Testimonials 两列紧凑布局 ── */
+  #testimonials-grid > div {
+    padding: 0.625rem;
+  }
+
+  #testimonials-grid .flex.items-center.gap-2.mb-4 {
+    gap: 2px;
+    margin-bottom: 0.375rem;
+  }
+
+  #testimonials-grid .flex.items-center.gap-2.mb-4 .material-symbols-outlined {
+    font-size: 14px;
+  }
+
+  #testimonials-grid .flex.items-center.gap-2.mb-4 .text-sm.font-bold {
+    font-size: 10px;
+    margin-left: 2px;
+  }
+
+  #testimonials-grid p.italic {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    line-clamp: 4;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  #testimonials-grid .flex.items-center.gap-3 {
+    gap: 0.375rem;
+  }
+
+  #testimonials-grid .w-12.h-12 {
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    font-size: 11px;
+  }
+
+  #testimonials-grid h4.font-bold {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  #testimonials-grid p.text-sm.text-slate-500,
+  #testimonials-grid p.text-sm.dark\:text-slate-400 {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+
+  .product-grid-mobile-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+    pointer-events: none;
+    z-index: 8;
+  }
+
+  .product-grid-mobile-controls.is-hidden {
+    display: none;
+  }
+
+  .product-side-nav-btn {
+    width: 46px;
+    height: 46px;
+    min-height: 46px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    pointer-events: auto;
+    opacity: 0.58;
+    box-shadow: 0 8px 16px rgb(15, 23, 42, 0.18);
+    transition: opacity 0.6s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .product-side-nav-btn:active:not(:disabled) {
+    opacity: 0.85;
+    transform: scale(1.1);
+  }
+
+  .product-side-nav-btn .material-symbols-outlined {
+    font-size: 30px;
+    line-height: 1;
+  }
+
+  .product-side-nav-btn.is-disabled,
+  .product-side-nav-btn:disabled {
+    opacity: 0.2;
+    box-shadow: none;
+  }
+
+  .product-grid-mobile-controls.is-faded .product-side-nav-btn:not(.is-disabled, :disabled) {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .product-grid-meta {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .product-grid-mobile {
+    display: flex;
+    gap: 14px;
+    overflow: auto hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px 2px 4px;
+  }
+
+  .product-grid-mobile::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-grid-mobile .product-card {
+    flex: 0 0 min(88vw, 315px);
+    max-width: min(88vw, 315px);
+    scroll-snap-align: start;
+    min-height: 400px !important;
+    max-height: 440px !important;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  /* 移动端内容区域微调 */
+  .product-grid-mobile .product-card > div:last-child {
+    padding: 0.625rem 0.625rem 1rem;
+    overflow: hidden;
+  }
+
+  .product-grid-mobile .product-card h3 {
+    font-size: 12px;
+  }
+
+  .product-grid-mobile .product-card button {
+    height: 38px;
+    font-size: 11px;
+  }
+
+  .product-grid-mobile .product-card button .material-symbols-outlined {
+    font-size: 9px;
+  }
+
+  .product-meta-nav {
+    width: 100%;
+    padding: 2px;
+    border-radius: 12px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .product-meta-nav-btn {
+    min-height: 56px;
+    padding: 0;
+    gap: 0;
+    justify-content: center !important;
+  }
+
+  .product-meta-nav-btn.ios-nav-btn {
+    min-height: 56px;
+  }
+
+  .product-meta-nav-btn .product-meta-nav-label {
+    display: none;
+  }
+
+  .product-meta-nav-btn .product-meta-nav-icon {
+    font-size: 30px;
+    line-height: 1;
+  }
+}
+
+#product-filter-bar .filter-btn[data-active='true'] {
+  background: #271b3b !important;
+  color: #fff !important;
+}
+
+#product-filter-bar .filter-btn[data-active='false'] {
+  background: #fff;
+}
+
+.dark #product-filter-bar .filter-btn[data-active='false'] {
+  background: #1e293b;
+}
+
+.product-filter-rail {
+  position: relative;
+  padding-top: 0;
+}
+
+.product-filter-swipe-hint {
+  display: none;
+}
+
+/* Language Dropdown */
+.lang-dropdown-container {
+  position: relative;
+}
+
+.lang-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 8px;
+  width: 280px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgb(0,0,0,0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 200;
+  overflow: hidden;
+  border: 1px solid rgb(39, 27, 59, 0.1);
+  display: none;
+}
+
+.lang-dropdown > .p-2 {
+  max-height: min(62vh, 460px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.lang-dropdown > .p-2::-webkit-scrollbar {
+  width: 8px;
+}
+
+.lang-dropdown > .p-2::-webkit-scrollbar-thumb {
+  background: rgb(100, 116, 139, 0.4);
+  border-radius: 9999px;
+}
+
+.lang-dropdown > .p-2::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dark .lang-dropdown {
+  background: #18151d;
+  border-color: rgb(255,255,255,0.1);
+}
+
+.lang-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  display: block;
+}
+
+.lang-option {
+  transition: all 0.2s ease;
+}
+
+.lang-option:hover {
+  background: rgb(39, 27, 59, 0.05);
+}
+
+.dark .lang-option:hover {
+  background: rgb(255, 255, 255, 0.05);
+}
+
+/* Active language indicator */
+.lang-option.active {
+  background: rgb(39, 27, 59, 0.1);
+  font-weight: 600;
+}
+
+.dark .lang-option.active {
+  background: rgb(255, 255, 255, 0.1);
+}
+
+/* Certificate Cards */
+.certificate-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.certificate-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgb(0, 0, 0, 0.15);
+}
+
+/* 增强放大效果 */
+.certificate-card img {
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center center;
+  filter: brightness(0.95);
+}
+
+.certificate-card:hover img {
+  transform: scale(2.5);
+  filter: brightness(1);
+  box-shadow: 0 10px 30px rgb(0, 0, 0, 0.2);
+}
+
+/* Video Container */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #000;
+}
+
+.video-container iframe,
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* =====================================================
+   智能弹窗样式 - 多屏全适配
+   策略：弹框跟随内容高度（不强制撑满），max-height 防溢出，
+         overflow-y:auto 兜底，断点压缩间距/字号避免滚动
+   ===================================================== */
+#smart-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(0, 0, 0, 0.65);
+  z-index: 1004;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  animation: fade-in 0.3s ease-out;
+}
+
+#smart-popup-overlay.show {
+  display: flex !important;
+}
+
+#smart-popup {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgb(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+
+  /* 只限最大高度，内容少时自然收缩，不留白 */
+  max-height: calc(100dvh - 32px);
+  overflow: hidden;
+  animation: scaleIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.dark #smart-popup {
+  background: #18151d;
+  border: 1px solid rgb(255, 255, 255, 0.1);
+}
+
+/* ── Header：固定高度，不参与压缩 ── */
+.smart-popup-header {
+  background: linear-gradient(135deg, #271b3b, #3a2a52);
+  color: white;
+  padding: 14px 16px;
+  flex-shrink: 0;
+}
+
+.dark .smart-popup-header {
+  background: linear-gradient(135deg, #3a2a52, #271b3b);
+}
+
+/* ── Body：内容自然高度，超出时滚动 ── */
+.smart-popup-body {
+  padding: 14px 16px;
+  overflow: hidden auto;
+}
+
+/* form 正常纵向堆叠 */
+.smart-popup-body > form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 消除 Tailwind space-y-* 的硬间距 */
+.smart-popup-body .space-y-4 > * + * {
+  margin-top: 0 !important;
+}
+
+/* label 样式统一 */
+.smart-popup-body label {
+  display: block;
+  font-size: 0.875rem;
+  margin-bottom: 4px;
+}
+
+/* input / select 统一紧凑高度 */
+.smart-popup-body input,
+.smart-popup-body select {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  height: auto;
+}
+
+.smart-popup-body textarea {
+  resize: none;
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+}
+
+/* ── 矮屏（高度 <= 700px）：压缩间距和字号 ── */
+@media (height <= 700px) {
+  #smart-popup-overlay {
+    padding: 10px;
+  }
+
+  #smart-popup {
+    max-height: calc(100dvh - 20px);
+  }
+
+  .smart-popup-header {
+    padding: 8px 14px;
+  }
+
+  .smart-popup-header h3 {
+    font-size: 1rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .smart-popup-header p {
+    font-size: 0.72rem;
+  }
+
+  .smart-popup-trigger-reason {
+    display: none !important;
+  }
+
+  .smart-popup-body {
+    padding: 8px 14px;
+  }
+
+  .smart-popup-body > form {
+    gap: 6px;
+  }
+
+  .smart-popup-body label {
+    font-size: 0.75rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .smart-popup-body input,
+  .smart-popup-body textarea,
+  .smart-popup-body select {
+    font-size: 0.8rem !important;
+    padding: 0.35rem 0.75rem !important;
+  }
+
+  .smart-popup-body > form > button[type="submit"] {
+    padding-top: 0.45rem !important;
+    padding-bottom: 0.45rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  #smart-popup-form-p-1 {
+    display: none !important;
+  }
+
+  #smart-popup-form-div-6 label {
+    font-size: 0.65rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* ── 极矮屏（高度 <= 560px，横屏手机）── */
+@media (height <= 560px) {
+  #smart-popup-overlay {
+    padding: 6px;
+  }
+
+  #smart-popup {
+    max-height: calc(100dvh - 12px);
+  }
+
+  .smart-popup-header {
+    padding: 5px 12px;
+  }
+
+  .smart-popup-header h3 {
+    font-size: 0.9rem !important;
+  }
+
+  .smart-popup-header > p {
+    display: none !important;
+  }
+
+  .smart-popup-body {
+    padding: 5px 12px;
+  }
+
+  .smart-popup-body > form {
+    gap: 4px;
+  }
+
+  #smart-popup-form-div-4 {
+    display: none !important;
+  }
+}
+
+/* ── 手机竖屏（宽度 <= 480px）── */
+@media (width <= 480px) {
+  #smart-popup-overlay {
+    padding: 12px;
+  }
+
+  #smart-popup {
+    max-height: calc(100dvh - 24px);
+  }
+
+  .smart-popup-header {
+    padding: 10px 14px;
+  }
+
+  .smart-popup-header h3 {
+    font-size: 1.05rem !important;
+  }
+
+  .smart-popup-body {
+    padding: 10px 14px;
+  }
+}
+
+.smart-popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgb(255, 255, 255, 0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  z-index: 10;
+}
+
+/* 为普通弹窗也添加相同的关闭按钮 */
+#popup-overlay .bg-white button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: white;
+  color: #271b3b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgb(0,0,0,0.15);
+}
+
+#popup-overlay .bg-white button:hover {
+  background: #f7f6f7;
+  transform: scale(1.1);
+}
+
+/* 优化弹窗关闭动画 - 简化版，消除抖动 */
+#smart-popup-overlay.closing {
+  animation: fade-out-overlay 0.2s ease-out forwards;
+}
+
+#smart-popup-overlay.closing #smart-popup {
+  animation: none; /* 不移位，仅跟随父级淡出 */
+}
+
+@keyframes fade-out-overlay {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* 弹窗背景淡出动画 */
+.popup-overlay.closing,
+#smart-popup-overlay.closing {
+  animation: fade-out-overlay 0.6s ease-out forwards;
+}
+
+@keyframes fade-out-overlay {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* 导航栏高亮动画 */
+@keyframes sidebar-highlight {
+  0% {
+    box-shadow: 0 0 0 0 rgb(39, 27, 59, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgb(39, 27, 59, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgb(39, 27, 59, 0);
+  }
+}
+
+.floating-sidebar.highlight {
+  animation: sidebar-highlight 1.5s ease-out;
+}
+
+/* 导航栏现代动画效果 */
+.floating-sidebar.modern-animate {
+  animation: modern-pulse 3s ease-in-out;
+}
+
+@keyframes modern-pulse {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+    filter: drop-shadow(0 4px 12px rgb(0, 0, 0, 0.1));
+  }
+
+  25% {
+    transform: translateY(-50%) scale(1.05);
+    filter: drop-shadow(0 8px 24px rgb(39, 27, 59, 0.25));
+  }
+
+  50% {
+    transform: translateY(-50%) scale(1.02);
+    filter: drop-shadow(0 6px 18px rgb(39, 27, 59, 0.2));
+  }
+
+  75% {
+    transform: translateY(-50%) scale(1.05);
+    filter: drop-shadow(0 8px 24px rgb(39, 27, 59, 0.25));
+  }
+}
+
+/* 按钮脉动效果 */
+.primary-contact-btn.pulse {
+  animation: button-pulse 1s ease-in-out;
+}
+
+@keyframes button-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 12px rgb(0,0,0,0.2);
+  }
+
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgb(0,0,0,0.35);
+  }
+}
+
+/* 渐变边框动画效果 */
+.primary-contact-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: linear-gradient(45deg,
+    rgb(255,255,255,0.8),
+    rgb(255,255,255,0.2),
+    rgb(255,255,255,0.8));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.floating-sidebar.modern-animate .primary-contact-btn::before {
+  opacity: 1;
+  animation: borderRotate 2s linear infinite;
+}
+
+@keyframes border-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 弹窗关闭时触发导航栏高亮 */
+.popup-overlay.closing ~ .floating-sidebar,
+#smart-popup-overlay.closing ~ .floating-sidebar {
+  animation: sidebarHighlight 1.5s ease-out 0.3s;
+}
+
+.smart-popup-close:hover {
+  background: rgb(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.smart-popup-trigger-reason {
+  font-size: 0.8rem;
+  color: rgb(255, 255, 255, 0.8);
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.smart-popup-trigger-reason .material-symbols-outlined {
+  font-size: 1rem;
+}
+
+/* 触发条件指示器 */
+.trigger-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: rgb(255, 255, 255, 0.15);
+  border-radius: 12px;
+  font-size: 0.7rem;
+  margin-left: 8px;
+}
+
+/* 新增：今天的次数显示 */
+.popup-today-count {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background: rgb(255, 255, 255, 0.2);
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 回到顶部按钮 */
+.back-to-top-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4a3565, #5d4878);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+  box-shadow: 0 10px 22px rgb(39, 27, 59, 0.2), inset 0 1px 0 rgb(255, 255, 255, 0.45);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  z-index: 1000;
+  opacity: 0.8;
+  visibility: visible;
+  border: 1px solid rgb(255, 255, 255, 0.42);
+  backdrop-filter: blur(8px);
+}
+
+.back-to-top-btn.hide {
+  visibility: hidden;
+  height: 0;
+  transition: visibility 0.4s, height 0.4s;
+}
+
+.back-to-top-btn:hover {
+  transform: translateY(-1px) scale(1.08);
+  opacity: 1;
+  box-shadow: 0 14px 28px rgb(39, 27, 59, 0.24), inset 0 1px 0 rgb(255, 255, 255, 0.5);
+}
+
+#jump-btn-3-line-text,
+.expand-btn .material-symbols-outlined,
+.back-to-top-btn .material-symbols-outlined {
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 提示文字 */
+.back-to-top-tooltip {
+  position: absolute;
+  right: 65px;
+  background: rgb(39, 27, 59, 0.95);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.back-to-top-btn:hover .back-to-top-tooltip,
+.back-to-top-btn:focus .back-to-top-tooltip,
+.back-to-top-btn:focus-visible .back-to-top-tooltip {
+  opacity: 1;
+  visibility: visible;
+  right: 61px;
+}
+
+/* 动画效果 */
+.back-to-top-btn.pulse {
+  animation: button-pulse 1s ease-in-out;
+}
+
+/* ============================================
+   Contact Section 多屏适配
+   ============================================ */
+
+/* 桌面：左右两栏等高对齐 */
+#contact-grid {
+  align-items: start;
+}
+
+/* 联系信息卡片四格 grid，小屏降为一列 */
+@media (width <= 480px) {
+  #contact-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* 地图高度限制，防止移动端过高 */
+  #contact-map-wrapper {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* 表单名称/邮箱行降为单列 */
+  #form-row-name,
+  #form-row-email {
+    grid-template-columns: 1fr;
+  }
+
+  /* 快捷联系按钮间距收紧 */
+  #contact-quick-links-div-1 {
+    gap: 12px;
+  }
+}
+
+/* 平板（481px ~ 1023px）：卡片保持两列，表单双列 */
+@media (width >= 481px) and (width <= 1023px) {
+  #contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #contact-map-wrapper {
+    aspect-ratio: 16 / 6;
+  }
+}
+
+/* 超小屏（≤360px）：进一步压缩内边距 */
+@media (width <= 360px) {
+  #contact {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  #contact-address-card,
+  #contact-phone-card,
+  #contact-email-card,
+  #contact-whatsapp-card {
+    padding: 8px;
+  }
+
+  #contact-quick-whatsapp .w-11,
+  #contact-quick-tiktok .w-11,
+  #contact-quick-email .w-11 {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ============================================
+   Responsive hardening (tablet/mobile)
+   ============================================ */
+@media (width <= 1024px) {
+  .floating-sidebar {
+    right: 12px;
+    gap: 7px;
+  }
+
+  .footer-main-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .footer-company-info,
+  .footer-products,
+  .footer-support,
+  .footer-company-links {
+    background: rgb(255, 255, 255, 0.08);
+    border: 1px solid rgb(255, 255, 255, 0.16);
+    border-radius: 12px;
+    padding: 14px;
+    height: 100%;
+  }
+
+  .footer-company-info h3,
+  .footer-products h4,
+  .footer-support h4,
+  .footer-company-links h4 {
+    margin-bottom: 10px;
+  }
+
+  footer .border-t > div {
+    gap: 12px;
+    text-align: center;
+  }
+
+  .primary-contact-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+
+  .secondary-btn,
+  .expand-btn,
+  .back-to-top-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  .sidebar-indicator {
+    right: calc(12px + 50px + 20px);
+  }
+}
+
+@media (width <= 768px) {
+  .fixed-header {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .fixed-header h2[data-i18n="company_name"] {
+    max-width: 44vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .lang-dropdown {
+    width: min(260px, 84vw);
+    right: 0;
+    margin-top: 6px;
+  }
+
+  .lang-dropdown > .p-2 {
+    max-height: min(48vh, 320px);
+  }
+
+  .min-h-\[480px\] {
+    min-height: 360px !important;
+  }
+
+  [data-i18n="hero_title"],
+  [data-i18n="hero_desc"] {
+    max-width: 100% !important;
+    display: block;
+  }
+
+  .floating-sidebar {
+    top: auto;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 26px);
+    right: 10px;
+    transform: none;
+    gap: 6px;
+  }
+
+  .floating-sidebar:hover {
+    transform: none;
+    gap: 6px;
+  }
+
+  .primary-contact-btn {
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
+  }
+
+  .secondary-btn,
+  .expand-btn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .back-to-top-btn {
+    width: 46px;
+    height: 46px;
+    bottom: 0;
+    font-size: 20px;
+  }
+
+  .sidebar-indicator {
+    top: auto;
+    bottom: 108px;
+    right: calc(10px + 46px + 12px);
+    transform: translateX(16px);
+  }
+
+  .sidebar-indicator.show {
+    transform: translateX(0);
+  }
+
+  .sidebar-indicator > div {
+    max-width: min(74vw, 260px);
+  }
+
+  #product-filter-bar {
+    display: flex !important;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    overflow: auto hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding: 2px 2px 8px;
+    margin-bottom: 18px;
+    mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+  }
+
+  #product-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  #product-filter-bar .filter-btn {
+    flex: 0 0 auto;
+    min-width: 108px;
+    width: auto;
+    height: 34px;
+    padding: 0 0.85rem;
+    font-size: 0.76rem;
+    line-height: 1;
+    white-space: nowrap;
+    scroll-snap-align: start;
+    border: 1px solid rgb(39, 27, 59, 0.14);
+    border-radius: 9999px;
+    box-shadow: 0 1px 2px rgb(39, 27, 59, 0.06);
+  }
+
+  .product-filter-swipe-hint {
+    position: absolute;
+    right: 4px;
+    top: -20px;
+    bottom: auto;
+    width: 98px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+    padding-right: 4px;
+    color: rgb(39, 27, 59, 0.72);
+    background: linear-gradient(to left, rgb(247, 248, 252, 0.96) 56%, rgb(247, 248, 252, 0));
+    pointer-events: auto;
+    cursor: pointer;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    animation: swipeHintPulse 1.2s ease-in-out infinite;
+  }
+
+  .product-filter-swipe-hint .hint-icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .product-filter-swipe-hint .hint-text {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #271b3b 0%, #e84545 40%, #3a2a52 60%, #271b3b 100%);
+    background-size: 250% 100%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: swipeHintTextShimmer 3s ease-in-out infinite;
+  }
+
+  .product-filter-swipe-hint .hint-arrow {
+    font-size: 10px;
+    color: rgb(39, 27, 59, 0.72);
+    line-height: 1;
+  }
+
+  .product-filter-swipe-hint.is-hidden {
+    opacity: 0;
+  }
+
+  .dark .product-filter-swipe-hint {
+    color: rgb(255, 255, 255, 0.8);
+    background: linear-gradient(to left, rgb(30, 28, 40, 0.92) 58%, rgb(30, 28, 40, 0));
+  }
+
+  .dark .product-filter-swipe-hint .hint-text {
+    background: linear-gradient(90deg, rgb(255,255,255,0.92) 0%, #d4aaff 40%, rgb(255,255,255,0.95) 60%, rgb(255,255,255,0.92) 100%);
+    background-size: 250% 100%;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: swipeHintTextShimmer 2.5s ease-in-out infinite;
+  }
+
+  .dark .product-filter-swipe-hint .hint-arrow {
+    color: rgb(255, 255, 255, 0.75);
+  }
+
+  .footer-main-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .footer-main-grid > :first-child,
+  .footer-main-grid > :last-child {
+    grid-column: 1 / -1;
+  }
+
+  .footer-main-grid > div {
+    height: 100%;
+  }
+
+  .footer-company-info,
+  .footer-products,
+  .footer-support,
+  .footer-company-links {
+    background: rgb(255, 255, 255, 0.08);
+    border: 1px solid rgb(255, 255, 255, 0.16);
+    border-radius: 12px;
+    padding: 12px;
+  }
+
+  .footer-company-info h3,
+  .footer-products h4,
+  .footer-support h4,
+  .footer-company-links h4 {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+
+  .footer-company-info p,
+  .footer-products ul,
+  .footer-support ul,
+  .footer-company-links ul {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+}
+
+@keyframes swipe-hint-pulse {
+  0%,
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translateX(3px) scale(1.03);
+    opacity: 1;
+  }
+}
+
+@keyframes swipe-hint-text-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -150% 0;
+  }
+}
+
+@media (width <= 480px) {
+  .product-grid-mobile-controls {
+    padding: 0 2px;
+  }
+
+  .product-side-nav-btn {
+    width: 42px;
+    height: 42px;
+    min-height: 42px;
+  }
+
+  .product-side-nav-btn .material-symbols-outlined {
+    font-size: 28px;
+  }
+
+  .product-filter-rail {
+    padding-top: 16px;
+  }
+
+  .fixed-header h2[data-i18n="company_name"] {
+    max-width: 38vw;
+    font-size: 0.9rem;
+  }
+
+  .lang-dropdown {
+    width: min(230px, 80vw);
+  }
+
+  .lang-dropdown > .p-2 {
+    max-height: min(44vh, 280px);
+    padding: 0.4rem;
+  }
+
+  .lang-option {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    font-size: 0.72rem;
+  }
+
+  .floating-sidebar {
+    right: 8px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 22px);
+  }
+
+  .primary-contact-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .secondary-btn,
+  .expand-btn,
+  .back-to-top-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .sidebar-indicator {
+    bottom: 98px;
+    right: calc(8px + 42px + 10px);
+  }
+
+  .sidebar-indicator::after {
+    --indicator-arrow-size: 26px;
+
+    width: 26px;
+    height: 26px;
+    font-size: 18px;
+    right: calc(var(--indicator-arrow-size) / -2);
+  }
+
+  .sidebar-indicator > div {
+    max-width: min(78vw, 230px);
+    padding: 10px;
+  }
+
+  #product-filter-bar {
+    gap: 8px;
+    padding: 2px 2px 8px;
+    mask-image: none;
+  }
+
+  #product-filter-bar .filter-btn {
+    min-width: 96px;
+    height: 32px;
+    padding: 0 0.72rem;
+    font-size: 0.72rem;
+  }
+
+  .product-filter-swipe-hint {
+    width: 88px;
+    right: 2px;
+    top: -18px;
+    height: 22px;
+    padding-right: 3px;
+  }
+
+  .product-filter-swipe-hint .hint-text {
+    font-size: 10px;
+  }
+
+  .product-filter-swipe-hint .hint-icon {
+    font-size: 14px;
+  }
+
+  .product-filter-swipe-hint .hint-arrow {
+    font-size: 9px;
+  }
+
+  .product-grid-mobile {
+    gap: 12px;
+    padding-left: 1px;
+    padding-right: 1px;
+  }
+
+  .product-grid-mobile .product-card {
+    flex-basis: min(88vw, 315px);
+    max-width: min(88vw, 315px);
+  }
+}
+
+@media (width <= 360px) {
+  .fixed-header h2[data-i18n="company_name"] {
+    max-width: 34vw;
+    font-size: 0.82rem;
+  }
+
+  .floating-sidebar {
+    right: 6px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+    gap: 5px;
+  }
+
+  .primary-contact-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+
+  .secondary-btn,
+  .expand-btn,
+  .back-to-top-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .sidebar-indicator {
+    bottom: 90px;
+    right: calc(6px + 38px + 8px);
+  }
+
+  .sidebar-indicator::after {
+    --indicator-arrow-size: 22px;
+
+    font-size: 15px;
+    right: calc(var(--indicator-arrow-size) / -2);
+  }
+
+  .sidebar-indicator > div {
+    max-width: min(82vw, 208px);
+    padding: 8px;
+  }
+}
+
+/* Prevent mobile menu from flashing on initial page load */
+#mobile-menu {
+  visibility: visible;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#mobile-menu.translate-x-full {
+  opacity: 0;
+}
+
+#mobile-menu.translate-x-0 {
+  opacity: 1;
+}
+
+/* Ensure mobile menu button is clickable */
+#mobile-menu-btn {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 1001;
+}
+
+
+/* ─── Popup / indicator animations (previously injected inline by JS) ──────── */
+
+/* These keyframes were formerly duplicated as <style> tags inside innerHTML,   */
+
+/* causing N copies to accumulate in the DOM on repeated language switches.     */
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translate(-50%, -100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* End of moved CSS */
