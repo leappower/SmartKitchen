@@ -1182,7 +1182,7 @@ function getCategoryI18nKey(category) {
   function startPhone() { window.location.href = 'tel:+8613163756465'; }
   function startTelegram() { window.open('https://t.me/baeckerei-profi', '_blank'); }
   function startEmail() {
-    window.location.href = 'mailto:support@yulkoli.com';
+    window.location.href = 'mailto:support_kitchen@yukoli.com';
   }
   function startFacebook() { window.open('https://www.facebook.com/people/Yukoli-Technology-Co-Ltd/61579549730250/', '_blank'); }
   function startInstagram() { window.open('https://instagram.com/baeckerei.profi', '_blank'); }
@@ -1305,8 +1305,8 @@ const skeletonScreen = {
     isVisible: true,
     isDarkMode: false,
     hasLoaded: false,
-    minDisplayTime: 800, // 最小显示时间（毫秒）
-    maxDisplayTime: 3000, // 最大显示时间（毫秒）
+    minDisplayTime: 400, // 最小显示时间（毫秒）- 减少等待时间
+    maxDisplayTime: 1500, // 最大显示时间（毫秒）- 减少最大时间
     startTime: null,
     fadeDuration: 300 // 淡出动画持续时间
   },
@@ -1482,15 +1482,21 @@ const skeletonScreen = {
 
   hide() {
     if (!this.state.isVisible) return;
-    
+
     const skeletonElement = document.getElementById('skeleton-screen');
     if (!skeletonElement) return;
-    
+
+    const appContainer = document.getElementById('app-container');
+    if (!appContainer) return;
+
     this.state.isVisible = false;
-    
+
     // 添加隐藏类触发淡出动画
     skeletonElement.classList.add('hidden');
-    
+
+    // 同时显示主容器
+    appContainer.classList.add('loaded');
+
     // 动画结束后移除元素
     setTimeout(() => {
       if (skeletonElement.parentNode) {
@@ -2080,7 +2086,7 @@ ${tr('mailto_label_product_interest_clicks', 'Product Interest Clicks')}: 0
 ------------ ${tr('mailto_section_browser_info', 'Browser Information')} ------------
 ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
   `);
-    window.location.href = `mailto:support@yulkoli.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:support_kitchen@yukoli.com?subject=${subject}&body=${body}`;
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -2216,9 +2222,26 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
     const expandBtn = document.getElementById('expand-btn');
     if (expandBtn) expandBtn.addEventListener('click', () => toggleSecondaryContacts());
 
+    // Sidebar indicator card → WhatsApp
+    const indicatorCard = document.getElementById('sidebar-indicator-card');
+    if (indicatorCard) {
+      indicatorCard.addEventListener('click', (e) => {
+        // 如果点击的是关闭按钮，不触发 WhatsApp
+        if (e.target.closest('#sidebar-indicator-card-div-1-hideindicator-button')) {
+          return;
+        }
+        startWhatsApp();
+      });
+    }
+
     // Hide sidebar indicator
     const hideIndicatorBtn = document.getElementById('sidebar-indicator-card-div-1-hideindicator-button');
-    if (hideIndicatorBtn) hideIndicatorBtn.addEventListener('click', () => hideIndicator());
+    if (hideIndicatorBtn) {
+      hideIndicatorBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // 阻止冒泡，不触发 card 的点击
+        hideIndicator();
+      });
+    }
   }
 
   // Run after DOM is ready

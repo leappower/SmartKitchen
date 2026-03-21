@@ -33,28 +33,143 @@
       rel="stylesheet">
   </noscript>
 
+  <!-- Critical CSS - Prevent FOUC and ensure smooth first paint -->
+  <style>
+    /* 基础样式 - 防止样式闪烁 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #f7f6f7;
+      color: #0f172a;
+      visibility: visible !important;
+    }
+
+    /* 深色模式基础样式 */
+    .dark html, .dark body {
+      background: #18151d;
+      color: #f1f5f9;
+    }
+
+    /* 骨架屏样式 - 确保立即显示 */
+    #skeleton-screen {
+      position: relative;
+      background: #ffffff;
+      z-index: 10;
+      display: block;
+      width: 100%;
+      min-height: 100vh;
+    }
+
+    .dark #skeleton-screen {
+      background: #1a202c;
+    }
+
+    /* 主容器 - 初始隐藏,防止内容在骨架屏上方显示 */
+    #app-container {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    #app-container.loaded {
+      opacity: 1;
+    }
+
+    /* 骨架屏隐藏状态 */
+    #skeleton-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+      position: absolute;
+      height: 0;
+      overflow: hidden;
+    }
+
+    /* 骨架屏基础动画 */
+    @keyframes skeleton-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .skeleton {
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      animation: skeleton-pulse 1.5s ease-in-out infinite;
+    }
+
+    .dark .skeleton {
+      background-color: #2d3748;
+    }
+
+    .skeleton-text {
+      height: 1em;
+      margin-bottom: 0.5em;
+    }
+
+    .skeleton-title {
+      height: 1.5em;
+      margin-bottom: 1em;
+    }
+
+    .skeleton-button {
+      height: 2.5em;
+      width: 8em;
+      border-radius: 8px;
+    }
+
+    .skeleton-image {
+      height: 200px;
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .skeleton-row {
+      display: flex;
+      gap: 1em;
+      margin-bottom: 1em;
+    }
+
+    /* Hero 骨架布局 */
+    .skeleton-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem 1rem 2rem;
+    }
+
+    .skeleton-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3em;
+      min-height: 480px;
+    }
+
+    .skeleton-hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+
+    .skeleton-hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+
+    @media (max-width: 1024px) {
+      .skeleton-hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+    }
+  </style>
+
   <!-- Critical CSS for above-the-fold content -->
   <!-- CSS will be injected by webpack's style-loader -->
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
 
-<!-- 骨架屏预加载 -->
+<!-- 骨架屏预加载 - 仅首屏 Hero 区域 -->
 <div id="skeleton-screen">
   <div class="skeleton-content">
-    <!-- 导航骨架 -->
-    <div class="skeleton-nav">
-      <div class="skeleton-nav-left">
-        <div class="skeleton skeleton-circle skeleton-pulse"></div>
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 150px;"></div>
-      </div>
-      <div class="skeleton-nav-right">
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 60px;"></div>
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 80px;"></div>
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
-        <div class="skeleton skeleton-button skeleton-pulse"></div>
-      </div>
-    </div>
-    
     <!-- Hero区域骨架 -->
     <div class="skeleton-hero">
       <div class="skeleton-hero-left">
@@ -69,44 +184,7 @@
       </div>
       <div class="skeleton-hero-right">
         <div class="skeleton skeleton-image skeleton-pulse"></div>
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100%; height: 60px;"></div>
       </div>
-    </div>
-    
-    <!-- 信任徽章骨架 -->
-    <div class="skeleton-badges">
-      <div class="skeleton-badge">
-        <div class="skeleton skeleton-circle skeleton-pulse"></div>
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
-      </div>
-      <div class="skeleton-badge">
-        <div class="skeleton skeleton-circle skeleton-pulse"></div>
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
-      </div>
-      <div class="skeleton-badge">
-        <div class="skeleton skeleton-circle skeleton-pulse"></div>
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
-      </div>
-      <div class="skeleton-badge">
-        <div class="skeleton skeleton-circle skeleton-pulse"></div>
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
-      </div>
-      <div class="skeleton-badge">
-        <div class="skeleton skeleton-circle skeleton-pulse"></div>
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
-      </div>
-      <div class="skeleton-badge">
-        <div class="skeleton skeleton-circle skeleton-pulse"></div>
-        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
-      </div>
-    </div>
-    
-    <!-- 特性卡片骨架 -->
-    <div class="skeleton-grid">
-      <div class="skeleton skeleton-card skeleton-pulse"></div>
-      <div class="skeleton skeleton-card skeleton-pulse"></div>
-      <div class="skeleton skeleton-card skeleton-pulse"></div>
-      <div class="skeleton skeleton-card skeleton-pulse"></div>
     </div>
   </div>
 </div>
@@ -557,7 +635,7 @@
 
         <div id="vorteil-cards" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 mb-10 sm:mb-12 md:mb-16">
           <div id="vorteil-card-1"
-            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-background-light dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
+            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-white dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
             <div id="vorteil-card-1-p-2-block" class="bg-primary/10 text-primary p-2 md:p-3 rounded-lg w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shrink-0">
               <span id="vorteil-card-1-p-2-block-material-symbols-outlined-text"
                 class="material-symbols-outlined text-2xl md:text-3xl leading-none">thermostat</span>
@@ -574,7 +652,7 @@
           </div>
 
           <div id="vorteil-card-2"
-            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-background-light dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
+            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-white dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
             <div id="vorteil-card-2-p-2-block" class="bg-primary/10 text-primary p-2 md:p-3 rounded-lg w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shrink-0">
               <span id="vorteil-card-2-p-2-block-material-symbols-outlined-text"
                 class="material-symbols-outlined text-2xl md:text-3xl leading-none">verified_user</span>
@@ -591,7 +669,7 @@
           </div>
 
           <div id="vorteil-card-3"
-            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-background-light dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
+            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-white dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
             <div id="vorteil-card-3-p-2-block" class="bg-primary/10 text-primary p-2 md:p-3 rounded-lg w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shrink-0">
               <span id="vorteil-card-3-p-2-block-material-symbols-outlined-text"
                 class="material-symbols-outlined text-2xl md:text-3xl leading-none">eco</span>
@@ -608,7 +686,7 @@
           </div>
 
           <div id="vorteil-card-4"
-            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-background-light dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
+            class="flex flex-col gap-2 sm:gap-3 md:gap-4 rounded-xl border border-primary/10 bg-white dark:bg-primary/5 p-3 sm:p-4 md:p-5 lg:p-6 hover:shadow-lg transition-shadow">
             <div id="vorteil-card-4-p-2-block" class="bg-primary/10 text-primary p-2 md:p-3 rounded-lg w-10 h-10 md:w-14 md:h-14 flex items-center justify-center shrink-0">
               <span id="vorteil-card-4-p-2-block-material-symbols-outlined-text"
                 class="material-symbols-outlined text-2xl md:text-3xl leading-none">sanitizer</span>
@@ -846,7 +924,7 @@
 
         <div id="certificates-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           <div id="cert-card-1"
-            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            class="certificate-card bg-white dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
             <img id="cert-card-1-cert-1-image" alt="CE Certification" class="w-24 h-24 object-contain mb-4"
               data-image-key="cert_1" loading="lazy" decoding="async"
               src="images/cert_1.webp">
@@ -854,7 +932,7 @@
             </p>
           </div>
           <div id="cert-card-2"
-            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            class="certificate-card bg-white dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
             <img id="cert-card-2-cert-2-image" alt="GS Certificate" class="w-24 h-24 object-contain mb-4"
               data-image-key="cert_2" loading="lazy" decoding="async"
               src="images/cert_2.webp">
@@ -862,7 +940,7 @@
             </p>
           </div>
           <div id="cert-card-3"
-            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            class="certificate-card bg-white dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
             <img id="cert-card-3-cert-3-image" alt="ISO 9001" class="w-24 h-24 object-contain mb-4"
               data-image-key="cert_3" loading="lazy" decoding="async"
               src="images/cert_3.webp">
@@ -870,7 +948,7 @@
             </p>
           </div>
           <div id="cert-card-4"
-            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            class="certificate-card bg-white dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
             <img id="cert-card-4-cert-4-image" alt="Energy Efficiency" class="w-24 h-24 object-contain mb-4"
               data-image-key="cert_4" loading="lazy" decoding="async"
               src="images/cert_4.webp">
@@ -878,7 +956,7 @@
             </p>
           </div>
           <div id="cert-card-5"
-            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            class="certificate-card bg-white dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
             <img id="cert-card-5-cert-5-image" alt="Made in Germany" class="w-24 h-24 object-contain mb-4"
               data-image-key="cert_5" loading="lazy" decoding="async"
               src="images/cert_5.webp">
@@ -886,7 +964,7 @@
             </p>
           </div>
           <div id="cert-card-6"
-            class="certificate-card bg-background-light dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
+            class="certificate-card bg-white dark:bg-slate-800 rounded-xl p-6 flex flex-col items-center justify-center aspect-square border border-primary/10 hover:border-primary/30">
             <img id="cert-card-6-cert-6-image" alt="Quality Award" class="w-24 h-24 object-contain mb-4"
               data-image-key="cert_6" loading="lazy" decoding="async"
               src="images/cert_6.webp">
@@ -1851,10 +1929,10 @@
 
   <!-- Sidebar Indicator -->
   <div class="sidebar-indicator" id="sidebar-indicator">
-    <div id="sidebar-indicator-card"
-      class="bg-white dark:bg-slate-800 shadow-2xl rounded-xl p-4 max-w-xs border border-slate-200 dark:border-slate-700">
+    <button id="sidebar-indicator-card"
+      class="bg-white dark:bg-slate-800 shadow-2xl rounded-xl p-4 max-w-xs border border-slate-200 dark:border-slate-700 cursor-pointer hover:border-green-500 transition-colors group">
       <div id="sidebar-indicator-card-div-1" class="flex items-center gap-3">
-        <div id="sidebar-indicator-card-div-1-p-2-block" class="bg-green-500 text-white p-2 rounded-full flex-shrink-0">
+        <div id="sidebar-indicator-card-div-1-p-2-block" class="bg-green-500 text-white p-2 rounded-full flex-shrink-0 group-hover:bg-green-600 transition-colors">
           <span id="sidebar-indicator-card-div-1-p-2-block-material-symbols-outlined-text"
             class="material-symbols-outlined text-sm">chat</span>
         </div>
@@ -1865,12 +1943,12 @@
             class="text-xs text-slate-500 dark:text-slate-400" data-i18n="indicator_desc">直接通过侧边栏与我们联系！</p>
         </div>
         <button id="sidebar-indicator-card-div-1-hideindicator-button"
-          class="text-slate-400 hover:text-slate-600 flex-shrink-0">
+          class="text-slate-400 hover:text-slate-600 flex-shrink-0" aria-label="Close">
           <span id="sidebar-indicator-card-div-1-hideindicator-button-material-symbols-outlined-text"
             class="material-symbols-outlined text-sm">close</span>
         </button>
       </div>
-    </div>
+    </button>
   </div>
 
 </html>
