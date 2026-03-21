@@ -1183,7 +1183,7 @@ function getCategoryI18nKey(category) {
   function startPhone() { window.location.href = 'tel:+8613163756465'; }
   function startTelegram() { window.open('https://t.me/baeckerei-profi', '_blank'); }
   function startEmail() {
-    window.location.href = 'mailto:support_kitchen@yukoli.com';
+    window.location.href = 'mailto:support.kitchen@yukoli.com';
   }
   function startFacebook() { window.open('https://www.facebook.com/people/Yukoli-Technology-Co-Ltd/61579549730250/', '_blank'); }
   function startInstagram() { window.open('https://instagram.com/baeckerei.profi', '_blank'); }
@@ -2099,7 +2099,7 @@ ${tr('mailto_label_product_interest_clicks', 'Product Interest Clicks')}: 0
 ------------ ${tr('mailto_section_browser_info', 'Browser Information')} ------------
 ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
   `);
-    window.location.href = `mailto:support_kitchen@yukoli.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:support.kitchen@yukoli.com?subject=${subject}&body=${body}`;
   }
 
   document.addEventListener('DOMContentLoaded', () => {

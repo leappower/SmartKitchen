@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * 批量更新邮箱占位符脚本
- * 将 "form_email_placeholder": "support_kitchen@yukoli.com" 替换为相应的翻译
+ * 将 "form_email_placeholder": "support.kitchen@yukoli.com" 替换为相应的翻译
  */
 
 const fs = require('fs');
@@ -52,7 +52,7 @@ filesToUpdate.forEach(filename => {
   try {
     if (fs.existsSync(filePath)) {
       const content = fs.readFileSync(filePath, 'utf8');
-      const oldPlaceholder = '"form_email_placeholder": "support_kitchen@yukoli.com"';
+      const oldPlaceholder = '"form_email_placeholder": "support.kitchen@yukoli.com"';
       const newPlaceholder = `"form_email_placeholder": "${translations[filename]}"`;
       
       if (content.includes(oldPlaceholder)) {
