@@ -1433,8 +1433,15 @@ const skeletonScreen = {
   waitForCriticalCSS() {
     // 检查关键CSS是否已加载（通过检查特定样式是否存在）
     const checkCriticalCSS = () => {
+      // 检查 Tailwind CSS 是否已加载
       const heroSection = document.getElementById('hero');
-      if (heroSection && getComputedStyle(heroSection).display !== 'inline') {
+      if (!heroSection) return false;
+
+      // 检查关键元素是否有正确的样式
+      const computedStyle = getComputedStyle(heroSection);
+      // 如果元素有实际的宽度高度，说明样式已加载
+      const rect = heroSection.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
         this.checkIfReadyToHide();
         return true;
       }
@@ -1444,12 +1451,18 @@ const skeletonScreen = {
     // 立即检查一次
     if (checkCriticalCSS()) return;
 
-    // 如果未就绪，轮询检查
+    // 如果未就绪，轮询检查（最多5秒后强制就绪）
     const interval = setInterval(() => {
       if (checkCriticalCSS()) {
         clearInterval(interval);
       }
     }, 100);
+
+    // 安全网：5秒后强制停止检查，避免无限循环
+    setTimeout(() => {
+      clearInterval(interval);
+      this.checkIfReadyToHide();
+    }, 5000);
   },
 
   checkIfReadyToHide() {
@@ -2090,6 +2103,8 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    // Initialize skeleton screen
+    skeletonScreen.init();
     setTimeout(() => smartPopup.init(), 1000);
     setupIndicatorPrompt();
     setupMobileMenuAutoClose();

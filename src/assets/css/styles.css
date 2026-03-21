@@ -97,7 +97,7 @@ header nav a.active::after {
 .floating-sidebar {
   position: fixed;
   right: 16px;
-  top: 50%;
+  top: 75%;
   transform: translateY(-50%);
   z-index: 999;
   display: flex;
@@ -608,7 +608,7 @@ header nav a.active::after {
 
   /* Keep a safe gap from the right floating sidebar (16 + 54 + 24). */
   right: calc(16px + 54px + 24px);
-  top: 50%;
+  top: 60%;
   transform: translateY(-50%) translateX(20px);
   z-index: 1002;
   opacity: 0;
@@ -686,6 +686,7 @@ header nav a.active::after {
 @media (width <= 768px) {
   .sidebar-indicator {
     right: calc(12px + 48px + 16px);
+    top: 75%;
   }
 }
 
@@ -1884,6 +1885,7 @@ header nav a.active::after {
 
   .sidebar-indicator {
     right: calc(12px + 50px + 20px);
+    top: 75%;
   }
 }
 
