@@ -10,6 +10,12 @@ let serviceWorkerRegistration = null;
 let pendingSwReload = false;
 
 function registerServiceWorker() {
+  // Disable service worker in development mode for hot reload
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    console.log('[SW] Development mode detected, service worker disabled for hot reload');
+    return;
+  }
+  
   if (!('serviceWorker' in navigator)) return;
 
   navigator.serviceWorker.register('./sw.js')

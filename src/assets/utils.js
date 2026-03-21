@@ -764,7 +764,7 @@ function getCategoryI18nKey(category) {
       return `
     <article class="product-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-primary/10 group" data-category="${p.category}">
       <!-- 图片区域 (50-55%) -->
-      <div class="relative h-[200px] sm:h-[210px] lg:h-[230px] w-full overflow-hidden bg-slate-50 dark:bg-slate-800/60 shrink-0">
+      <div class="relative h-[200px] sm:h-[210px] lg:h-[230px] w-full overflow-hidden bg-slate-50 dark:bg-slate-800/60 bg-white shrink-0">
         <img data-src="${p.productImage || resolveImage(imageRecognitionKey)}"
              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
              alt="${displayName}" loading="lazy" decoding="async"
