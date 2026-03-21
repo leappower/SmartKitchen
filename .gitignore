@@ -126,3 +126,5 @@ docs/sessions/
 .idea/
 *.swp
 *.swo
+
+*/.DS_Store
