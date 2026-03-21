@@ -132,3 +132,16 @@ docs/sessions/
 */.idea/
 */*.swp
 */*.swo
+# Generated image caches and manifests
+src/assets/images/.image-cache.json
+src/assets/images/image-manifest.json
+
+# Coverage artifacts (ensure reports and html are ignored)
+coverage/
+coverage/lcov-report/
+coverage/*.html
+coverage/lcov.info
+
+# Build artifacts
+dist/
+build/
