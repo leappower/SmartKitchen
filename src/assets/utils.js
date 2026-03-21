@@ -2237,16 +2237,10 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
     const expandBtn = document.getElementById('expand-btn');
     if (expandBtn) expandBtn.addEventListener('click', () => toggleSecondaryContacts());
 
-    // Sidebar indicator card → WhatsApp
+    // Sidebar indicator card → removed click event
     const indicatorCard = document.getElementById('sidebar-indicator-card');
     if (indicatorCard) {
-      indicatorCard.addEventListener('click', (e) => {
-        // 如果点击的是关闭按钮，不触发 WhatsApp
-        if (e.target.closest('#sidebar-indicator-card-div-1-hideindicator-button')) {
-          return;
-        }
-        startWhatsApp();
-      });
+      // 移除点击事件，不再跳转到 WhatsApp
     }
 
     // Hide sidebar indicator

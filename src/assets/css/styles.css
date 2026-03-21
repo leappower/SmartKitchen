@@ -672,7 +672,7 @@ header nav a.active::after {
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(0deg);
   line-height: 1;
   font-size: 22px;
   color: #fff;
