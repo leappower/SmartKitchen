@@ -122,3 +122,9 @@ docs/backup/
 docs/gemini/
 docs/reports/
 docs/sessions/
+
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
