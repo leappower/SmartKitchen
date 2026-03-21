@@ -180,9 +180,143 @@ function setupProductSectionTracking() {
 // Make userActivity available globally for debugging
 window.userActivity = userActivity;
 
+// Video focus control system
+function setupVideoFocusControl() {
+  const factoryVideo = document.getElementById('factory-video');
+  if (!factoryVideo) return;
+
+  // Set initial state: muted for autoplay
+  factoryVideo.muted = true;
+  
+  // Track visibility state
+  let isVideoVisible = false;
+  let wasPlaying = false;
+  
+  // Intersection Observer to detect video visibility
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      isVideoVisible = entry.isIntersecting;
+      
+      if (isVideoVisible) {
+        // Video is in viewport - try to play
+        if (!factoryVideo.paused) return;
+        
+        const playPromise = factoryVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log('Video autoplay failed:', error);
+            // If autoplay fails, show play button
+            const playBtn = document.getElementById('factory-video-play-btn');
+            if (playBtn) playBtn.style.display = 'block';
+          });
+        }
+      } else {
+        // Video is out of viewport - pause if playing
+        if (!factoryVideo.paused) {
+          wasPlaying = true;
+          factoryVideo.pause();
+        } else {
+          wasPlaying = false;
+        }
+      }
+    });
+  }, {
+    threshold: 0.3, // 30% of video visible
+    rootMargin: '50px' // Add margin for smoother transitions
+  });
+
+  observer.observe(factoryVideo);
+
+  // Handle page visibility change
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      // Page is hidden - pause video
+      if (!factoryVideo.paused) {
+        wasPlaying = true;
+        factoryVideo.pause();
+      }
+    } else if (wasPlaying && isVideoVisible) {
+      // Page is visible again and video was playing - resume
+      factoryVideo.play().catch(error => {
+        console.log('Video resume failed:', error);
+      });
+    }
+  });
+
+  // Handle window focus/blur
+  window.addEventListener('focus', () => {
+    if (isVideoVisible && wasPlaying) {
+      factoryVideo.play().catch(error => {
+        console.log('Video resume on focus failed:', error);
+      });
+    }
+  });
+
+  window.addEventListener('blur', () => {
+    if (!factoryVideo.paused) {
+      wasPlaying = true;
+      factoryVideo.pause();
+    }
+  });
+
+  // Override play button to unmute and play
+  const playBtn = document.getElementById('factory-video-play-btn');
+  if (playBtn) {
+    playBtn.addEventListener('click', () => {
+      factoryVideo.muted = false;
+      factoryVideo.play()
+        .then(() => {
+          playBtn.style.display = 'none';
+          factoryVideo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        })
+        .catch(error => {
+          console.log('Manual video play failed:', error);
+        });
+    });
+  }
+
+  // Update video duration display
+  factoryVideo.addEventListener('loadedmetadata', () => {
+    const durationElement = document.getElementById('factory-video-duration');
+    if (durationElement) {
+      const minutes = Math.floor(factoryVideo.duration / 60);
+      const seconds = Math.floor(factoryVideo.duration % 60);
+      durationElement.textContent = `时长：${minutes}:${seconds.toString().padStart(2, '0')}分钟`;
+    }
+  });
+
+  // Handle video end
+  factoryVideo.addEventListener('ended', () => {
+    // Reset to beginning and mute for next autoplay
+    factoryVideo.currentTime = 0;
+    factoryVideo.muted = true;
+    if (playBtn) playBtn.style.display = 'block';
+  });
+
+  // Handle video play/pause events
+  factoryVideo.addEventListener('play', () => {
+    if (playBtn) playBtn.style.display = 'none';
+  });
+
+  factoryVideo.addEventListener('pause', () => {
+    // Only show play button if not at the end
+    if (factoryVideo.currentTime < factoryVideo.duration - 1 && playBtn) {
+      playBtn.style.display = 'block';
+    }
+  });
+}
+
 // Start product-section visibility tracking once DOM is ready.
 // This enables `userActivity.inProductSection` to reflect reality so that
 // timeOnProductSection and non-link click counting work correctly.
 document.addEventListener('DOMContentLoaded', () => {
   setupProductSectionTracking();
+  
+  // 初始化骨架屏系统
+  if (window.skeletonScreen && typeof window.skeletonScreen.init === 'function') {
+    window.skeletonScreen.init();
+  }
+
+  // 初始化视频焦点控制系统
+  setupVideoFocusControl();
 });

@@ -204,22 +204,32 @@ export function sleep(ms) {
 
 /**
  * Retry function with exponential backoff
+ * Modified: maxRetries defaults to 1 (instead of 3)
+ * Added: onFailure callback for retry failure handling
  */
 export async function retry(fn, options = {}) {
   const {
-    maxRetries = 3,
+    maxRetries = 1, // Changed from 3 to 1
     delay = 1000,
     backoff = 2,
     onRetry = () => {},
+    onFailure = null, // New: callback for retry failure
   } = options;
 
   let lastError;
+  const errors = []; // Track all errors for summary
 
   for (let i = 0; i < maxRetries; i++) {
     try {
       return await fn();
     } catch (error) {
       lastError = error;
+      errors.push({
+        attempt: i + 1,
+        error: error.message || String(error),
+        timestamp: new Date().toISOString()
+      });
+      
       onRetry(i + 1, error);
 
       if (i < maxRetries - 1) {
@@ -228,7 +238,24 @@ export async function retry(fn, options = {}) {
     }
   }
 
-  throw lastError;
+  // Retry failed - create summary
+  const failureSummary = {
+    totalAttempts: maxRetries,
+    success: false,
+    errors: errors,
+    lastError: lastError?.message || String(lastError),
+    timestamp: new Date().toISOString()
+  };
+
+  // Call onFailure callback if provided
+  if (onFailure && typeof onFailure === 'function') {
+    onFailure(failureSummary);
+  }
+
+  // Throw enhanced error with summary
+  const enhancedError = new Error(`Retry failed after ${maxRetries} attempts. Last error: ${lastError?.message || String(lastError)}`);
+  enhancedError.summary = failureSummary;
+  throw enhancedError;
 }
 
 /**
