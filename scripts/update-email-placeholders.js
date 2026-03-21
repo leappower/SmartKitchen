@@ -28,7 +28,7 @@ const filesToUpdate = [
 // 翻译映射
 const translations = {
   'fil-ui.json': 'Ang iyong email address',
-  'he-ui.json': 'כתובת הדוא\"ל שלך',
+  'he-ui.json': 'כתובת הדוא"ל שלך',
   'hi-ui.json': 'आपका ईमेल पता',
   'id-ui.json': 'Alamat email Anda',
   'km-ui.json': 'អាសយដ្ឋានអ៊ីមែលរបស់អ្នក',
