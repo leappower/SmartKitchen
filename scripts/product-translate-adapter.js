@@ -296,7 +296,7 @@ function saveTranslationFiles(translationsByLang) {
   let saved = 0;
   for (const [lang, data] of Object.entries(translationsByLang)) {
     // Write to {lang}-product.json — product translations are stored separately
-    // from UI translations and later aggregated into src/assets/product-i18n.json
+    // from UI translations and later aggregated into src/assets/product-translations.json
     const filePath = path.join(TRANSLATIONS_DIR, `${lang}-product.json`);
     try {
       let existing = {};

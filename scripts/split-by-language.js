@@ -3,7 +3,7 @@
 /**
  * 将分离的翻译文件按语言拆分为单独文件
  *
- * 从ui-i18n.json和product-i18n.json中提取每种语言，
+ * 从ui-i18n.json和product-translations.json中提取每种语言，
  * 生成独立的lang-code-ui.json和lang-code-product.json文件
  */
 
@@ -18,7 +18,7 @@ const _uiCanonical = path.join(__dirname, '../src/assets/ui-i18n.json');
 const _uiMerged    = path.join(__dirname, '../src/assets/ui-i18n-merged.json');
 const config = {
   inputUIFile: fs.existsSync(_uiCanonical) ? _uiCanonical : _uiMerged,
-  inputProductFile: path.join(__dirname, '../src/assets/product-i18n.json'),
+  inputProductFile: path.join(__dirname, '../src/assets/product-translations.json'),
   outputLangDir: path.join(__dirname, '../src/assets/lang'),
 };
 
@@ -95,11 +95,11 @@ function main() {
 }
 
 /**
- * 反向聚合：从各语言 {lang}-product.json 重建 src/assets/product-i18n.json
+ * 反向聚合：从各语言 {lang}-product.json 重建 src/assets/product-translations.json
  *
  * 这是 translate:products[:incremental] 之后必须运行的步骤：
  *   翻译脚本将产品译文写到 lang/{lang}-product.json
- *   split:lang 需要读 src/assets/product-i18n.json（按语言聚合的大文件）
+ *   split:lang 需要读 src/assets/product-translations.json（按语言聚合的大文件）
  *   本函数将两者桥接起来，确保翻译结果能被 split:lang 消费
  *
  * 运行方式：
@@ -108,7 +108,7 @@ function main() {
  */
 function collectProductTranslations() {
   console.log('\n========================================');
-  console.log('  聚合产品翻译 → product-i18n.json');
+  console.log('  聚合产品翻译 → product-translations.json');
   console.log('========================================\n');
 
   const langDir = config.outputLangDir;
@@ -131,14 +131,14 @@ function collectProductTranslations() {
 
   console.log(`找到 ${productFiles.length} 个产品翻译文件\n`);
 
-  // 读取现有的 product-i18n.json（若存在，用于保留未重新翻译的语言）
+  // 读取现有的 product-translations.json（若存在，用于保留未重新翻译的语言）
   let existingData = {};
   if (fs.existsSync(outputFile)) {
     try {
       existingData = JSON.parse(fs.readFileSync(outputFile, 'utf-8'));
-      console.log(`  ✓ 读取现有 product-i18n.json（${Object.keys(existingData).length} 种语言）`);
+      console.log(`  ✓ 读取现有 product-translations.json（${Object.keys(existingData).length} 种语言）`);
     } catch (err) {
-      console.warn(`  ⚠️  解析现有 product-i18n.json 失败，将重新生成: ${err.message}`);
+      console.warn(`  ⚠️  解析现有 product-translations.json 失败，将重新生成: ${err.message}`);
     }
   }
 
@@ -160,7 +160,7 @@ function collectProductTranslations() {
     }
   }
 
-  // 写回 product-i18n.json（语言 key 排序）
+  // 写回 product-translations.json（语言 key 排序）
   const sorted = {};
   Object.keys(aggregated).sort().forEach(lang => { sorted[lang] = aggregated[lang]; });
 
@@ -169,7 +169,7 @@ function collectProductTranslations() {
     console.log(`\n✅ 聚合完成 → ${outputFile}`);
     console.log(`   ${Object.keys(sorted).length} 种语言，共 ${totalKeys} 个键`);
   } catch (err) {
-    console.error(`❌ 写入 product-i18n.json 失败: ${err.message}`);
+    console.error(`❌ 写入 product-translations.json 失败: ${err.message}`);
     process.exit(1);
   }
 

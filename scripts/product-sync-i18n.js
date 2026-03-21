@@ -4,21 +4,20 @@
  * 产品i18n同步脚本
  *
  * 功能：
- * 1. 加载 producti18n.json（中文原始）和 zh-CN.json 两个源文件
+ * 1. 加载 scripts/product-strings.json（中文原始）和 zh-CN.json 两个源文件
  * 2. 互相补全两文件中缺失的产品 key（hash_field 格式）
  * 3. 将已有中文译文同步到其他所有语言文件（缺失的 key 用中文占位）
  *
  * 使用方法：
  *   node scripts/product-sync-i18n.js             # 完整同步（含其他语言）
- *   node scripts/product-sync-i18n.js --source-only  # 仅同步 zh-CN ↔ producti18n
+ *   node scripts/product-sync-i18n.js --source-only  # 仅同步 zh-CN ↔ scripts/product-strings
  */
 
 const fs = require('fs');
 const path = require('path');
 const { getSupportedCodes } = require(path.join(__dirname, '../src/lang-registry'));
-
+const PRODUCT_I18N_PATH = path.join(process.cwd(), 'scripts/product-strings.json');
 const TRANSLATIONS_DIR = path.join(process.cwd(), 'src/assets/lang');
-const PRODUCT_I18N_PATH = path.join(process.cwd(), 'scripts/producti18n.json');
 
 // 产品key正则（hash_field格式）
 const PRODUCT_KEY_PATTERN = /^[0-9a-f]{8}_[a-z0-9_]+$/;
@@ -35,9 +34,6 @@ const SUPPORTED_LANGS = getSupportedCodes();
  */
 function loadJSON(filePath) {
   try {
-    if (!fs.existsSync(filePath)) {
-      return {};
-    }
     return JSON.parse(fs.readFileSync(filePath, 'utf8'));
   } catch (err) {
     console.error(`❌ Error loading ${filePath}: ${err.message}`);
@@ -71,48 +67,46 @@ function extractProductKeys(data) {
 
 /**
  * Step 1: 加载源文件
- * producti18n.json 是平铺中文格式 { key: "中文值" }，是翻译原始数据
+  console.log(`  Summary: scripts/product-strings (+${piAdded}), zh-CN.json (+${zhCNAdded})\n`);
  */
 function loadSourceFiles() {
   console.log('📚 Loading source files...\n');
 
-  // producti18n.json: 平铺中文 { key: "中文值" }
+  // scripts/product-strings.json: 平铺中文 { key: "中文值" }
   const productI18nData = loadJSON(PRODUCT_I18N_PATH);
   const zhCNData = loadJSON(getTranslationPath('zh-CN'));
 
   const productKeys = new Set(extractProductKeys(productI18nData));
   const zhCNKeys = new Set(extractProductKeys(zhCNData));
 
-  console.log(`  • producti18n.json (中文原始): ${productKeys.size} product keys`);
+  console.log(`  • scripts/product-strings.json (中文原始): ${productKeys.size} product keys`);
   console.log(`  • zh-CN.json: ${zhCNKeys.size} product keys\n`);
 
   return { productI18nData, zhCNData, productKeys, zhCNKeys };
 }
 
 /**
- * Step 2: 差异化补全 producti18n.json ↔ zh-CN.json
+ * Step 2: 差异化补全 scripts/product-strings.json ↔ zh-CN.json
  * 两文件互为备份，合并所有中文产品 key
  */
 function syncSourceFiles(sources) {
-  console.log('🔄 Step 2: Syncing producti18n.json ↔ zh-CN.json...\n');
+  console.log('🔄 Step 2: Syncing scripts/product-strings.json ↔ zh-CN.json...\n');
 
   const { productI18nData, zhCNData, productKeys, zhCNKeys } = sources;
-
-  // 双方合并所有产品 key
   const allKeys = new Set([...productKeys, ...zhCNKeys]);
   console.log(`  • Total unique product keys: ${allKeys.size}`);
 
   let piAdded = 0, zhCNAdded = 0;
 
   for (const key of allKeys) {
-    // 中文值来源优先级：producti18n > zh-CN
+    // 中文值来源优先级：product-strings > zh-CN
     const zhVal = productI18nData[key] || zhCNData[key] || '';
 
-    if (!productKeys.has(key)) { productI18nData[key] = zhVal; piAdded++; }
-    if (!zhCNKeys.has(key))    { zhCNData[key] = zhVal; zhCNAdded++; }
+    if (!productKeys.has(key)) { productI18nData[key] = zhVal; piAdded++; productKeys.add(key); }
+    if (!zhCNKeys.has(key))    { zhCNData[key] = zhVal; zhCNAdded++; zhCNKeys.add(key); }
   }
 
-  console.log(`  Summary: producti18n (+${piAdded}), zh-CN.json (+${zhCNAdded})\n`);
+  console.log(`  Summary: scripts/product-strings (+${piAdded}), zh-CN.json (+${zhCNAdded})\n`);
 
   return { productI18nData, zhCNData, allKeys };
 }
@@ -192,7 +186,7 @@ async function main() {
   console.log('='.repeat(50) + '\n');
 
   if (SOURCE_ONLY) {
-    console.log('ℹ️  Source-only mode: syncing producti18n ↔ zh-CN only (skipping other languages)\n');
+    console.log('ℹ️  Source-only mode: syncing scripts/product-strings ↔ zh-CN only (skipping other languages)\n');
   }
 
   try {
@@ -205,7 +199,7 @@ async function main() {
     // 保存补全后的两个中文源文件
     console.log('💾 Saving source files...\n');
     saveJSON(PRODUCT_I18N_PATH, synced.productI18nData);
-    console.log('  ✓ producti18n.json saved');
+    console.log('  ✓ scripts/product-strings.json saved');
     saveJSON(getTranslationPath('zh-CN'), synced.zhCNData);
     console.log('  ✓ zh-CN.json saved');
     console.log();

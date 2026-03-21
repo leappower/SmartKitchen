@@ -14,7 +14,7 @@ const config = {
   srcLangDir: path.join(__dirname, '../src/assets/lang'),
   srcAssetsDir: path.join(__dirname, '../src/assets'),
   uiFile: path.join(__dirname, '../src/assets/ui-i18n.json'),
-  productFile: path.join(__dirname, '../src/assets/product-i18n.json'),
+  productFile: path.join(__dirname, '../src/assets/product-translations.json'),
 };
 
 /**

@@ -3,7 +3,7 @@
 /**
  * 构建多语言翻译文件
  *
- * 从分离的ui-i18n.json和product-i18n.json生成独立的单语言翻译文件
+ * 从分离的ui-i18n.json和product-translations.json生成独立的单语言翻译文件
  * 输出到 dist/lang/ 目录，用于按需加载
  */
 
@@ -13,7 +13,7 @@ const path = require('path');
 // 配置
 const config = {
   inputUIFile: path.join(__dirname, '../src/assets/ui-i18n.json'),
-  inputProductFile: path.join(__dirname, '../src/assets/product-i18n.json'),
+  inputProductFile: path.join(__dirname, '../src/assets/product-translations.json'),
   outputDir: path.join(__dirname, '../dist/assets/lang'),
 };
 

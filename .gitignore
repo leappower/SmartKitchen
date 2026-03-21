@@ -112,9 +112,7 @@ public
 .pnp.*
 
 # Project specific ignores
-www.CNAME
-src/assets/ui-i18n-merged.json
-src/assets/product-i18n.json
+src/assets/ui-i18n.json
 src/assets/.DS_Store
 src/.DS_Store
 scripts/.DS_Store

@@ -19,7 +19,7 @@ const { getSupportedCodes, getAllCodes } = require(path.join(__dirname, '../src/
 
 const TRANSLATIONS_DIR = path.join(process.cwd(), 'src/assets/lang');
 const PRODUCT_TABLE_PATH = path.join(process.cwd(), 'src/assets/product-data-table.js');
-const PRODUCT_I18N_PATH = path.join(process.cwd(), 'scripts/producti18n.json');
+const PRODUCT_I18N_PATH = path.join(process.cwd(), 'scripts/product-strings.json');
 
 /**
  * 支持的语言集合 — 由 src/lang-registry.js 统一管理（hasTranslation: true）
@@ -153,7 +153,7 @@ function loadAllTranslations() {
  */
 function saveProductI18n(productI18nData) {
   try {
-    // producti18n.json 永远保持平铺中文结构：{ key: "中文值" }
+    // scripts/product-strings.json 永远保持平铺中文结构：{ key: "中文值" }
     const normalized = normalizeProductI18n(productI18nData);
     const sorted = Object.fromEntries(
       Object.entries(normalized).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
@@ -559,7 +559,7 @@ if (action === '--help' || action === '-h') {
 } else if (action === '--plan') {
   displayImplementationPlan();
 } else if (action === '--generate') {
-  console.log('\n🔄 Extracting i18n data from products to producti18n.json...\n');
+  console.log('\n🔄 Extracting i18n data from products to scripts/product-strings.json...\n');
   
   const products = readProductDataTable();
   if (products.length === 0) {
@@ -579,9 +579,9 @@ if (action === '--help' || action === '-h') {
   }
   console.log('');
 
-  // 加载现有的 producti18n.json
+  // 加载现有的 scripts/product-strings.json
   const existingProductI18n = loadProductI18n();
-  console.log(`✓ Loaded existing product i18n (${Object.keys(existingProductI18n).length} keys)\n`);
+  console.log(`✓ Loaded existing scripts/product-strings (${Object.keys(existingProductI18n).length} keys)\n`);
 
   // 合并新数据到现有平铺中文 i18n
   const mergedProductI18n = { ...existingProductI18n, ...generatedZh };
@@ -601,7 +601,7 @@ if (action === '--help' || action === '-h') {
   }
   console.log('');
   
-  // 保存到 producti18n.json
+  // 保存到 scripts/product-strings.json
   const saved = saveProductI18n(mergedProductI18n);
 
   if (saved) {
