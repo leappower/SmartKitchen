@@ -205,9 +205,6 @@ function setupVideoFocusControl() {
         if (playPromise !== undefined) {
           playPromise.catch(error => {
             console.log('Video autoplay failed:', error);
-            // If autoplay fails, show play button
-            const playBtn = document.getElementById('factory-video-play-btn');
-            if (playBtn) playBtn.style.display = 'block';
           });
         }
       } else {
@@ -259,50 +256,11 @@ function setupVideoFocusControl() {
     }
   });
 
-  // Override play button to unmute and play
-  const playBtn = document.getElementById('factory-video-play-btn');
-  if (playBtn) {
-    playBtn.addEventListener('click', () => {
-      factoryVideo.muted = false;
-      factoryVideo.play()
-        .then(() => {
-          playBtn.style.display = 'none';
-          factoryVideo.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        })
-        .catch(error => {
-          console.log('Manual video play failed:', error);
-        });
-    });
-  }
-
-  // Update video duration display
-  factoryVideo.addEventListener('loadedmetadata', () => {
-    const durationElement = document.getElementById('factory-video-duration');
-    if (durationElement) {
-      const minutes = Math.floor(factoryVideo.duration / 60);
-      const seconds = Math.floor(factoryVideo.duration % 60);
-      durationElement.textContent = `时长：${minutes}:${seconds.toString().padStart(2, '0')}分钟`;
-    }
-  });
-
   // Handle video end
   factoryVideo.addEventListener('ended', () => {
     // Reset to beginning and mute for next autoplay
     factoryVideo.currentTime = 0;
     factoryVideo.muted = true;
-    if (playBtn) playBtn.style.display = 'block';
-  });
-
-  // Handle video play/pause events
-  factoryVideo.addEventListener('play', () => {
-    if (playBtn) playBtn.style.display = 'none';
-  });
-
-  factoryVideo.addEventListener('pause', () => {
-    // Only show play button if not at the end
-    if (factoryVideo.currentTime < factoryVideo.duration - 1 && playBtn) {
-      playBtn.style.display = 'block';
-    }
   });
 }
 

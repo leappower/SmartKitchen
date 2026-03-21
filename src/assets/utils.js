@@ -1177,12 +1177,12 @@ function getCategoryI18nKey(category) {
     indicatorState.promptLoopTimer = setInterval(showIndicator, 10000);
   }
 
-  function startWhatsApp() { window.open('https://wa.me/16478158194', '_blank'); }
+  function startWhatsApp() { window.open('https://wa.me/8613163756465', '_blank'); }
   function startLine() { window.open('https://line.me/ti/p/+66840273150', '_blank'); }
-  function startPhone() { window.location.href = 'tel:+16478158194'; }
+  function startPhone() { window.location.href = 'tel:+8613163756465'; }
   function startTelegram() { window.open('https://t.me/baeckerei-profi', '_blank'); }
   function startEmail() {
-    window.location.href = 'mailto:support@yukoli.com';
+    window.location.href = 'mailto:support@yulkoli.com';
   }
   function startFacebook() { window.open('https://www.facebook.com/people/Yukoli-Technology-Co-Ltd/61579549730250/', '_blank'); }
   function startInstagram() { window.open('https://instagram.com/baeckerei.profi', '_blank'); }
@@ -1297,13 +1297,216 @@ function getCategoryI18nKey(category) {
     document.body.style.overflow = '';
   }
 
-  // ============================================
-  // 测试环境判断 (localhost / 127.0.0.1)
-  // ============================================
-  function isTestEnvironment() {
-    const host = window.location.hostname;
-    return host === 'localhost' || host === '127.0.0.1' || host.includes('.local') || host.includes('test');
+// ============================================
+// 骨架屏预加载系统
+// ============================================
+const skeletonScreen = {
+  state: {
+    isVisible: true,
+    isDarkMode: false,
+    hasLoaded: false,
+    minDisplayTime: 800, // 最小显示时间（毫秒）
+    maxDisplayTime: 3000, // 最大显示时间（毫秒）
+    startTime: null,
+    fadeDuration: 300 // 淡出动画持续时间
+  },
+
+  init() {
+    this.state.startTime = Date.now();
+    this.detectDarkMode();
+    this.setupDarkModeListener();
+    this.setupLoadListeners();
+    this.updateDarkModeClass();
+    
+    // 设置最小显示时间
+    setTimeout(() => {
+      this.checkIfReadyToHide();
+    }, this.state.minDisplayTime);
+    
+    // 设置最大显示时间（安全网）
+    setTimeout(() => {
+      if (this.state.isVisible) {
+        this.hide();
+      }
+    }, this.state.maxDisplayTime);
+  },
+
+  detectDarkMode() {
+    this.state.isDarkMode = document.documentElement.classList.contains('dark');
+  },
+
+  setupDarkModeListener() {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          this.detectDarkMode();
+          this.updateDarkModeClass();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  },
+
+  updateDarkModeClass() {
+    const skeletonElement = document.getElementById('skeleton-screen');
+    if (!skeletonElement) return;
+
+    if (this.state.isDarkMode) {
+      skeletonElement.classList.add('dark');
+    } else {
+      skeletonElement.classList.remove('dark');
+    }
+  },
+
+  setupLoadListeners() {
+    // 监听DOM内容加载完成
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        this.markContentLoaded();
+      });
+    } else {
+      this.markContentLoaded();
+    }
+
+    // 监听所有图片加载
+    this.waitForImages();
+    
+    // 监听字体加载
+    this.waitForFonts();
+    
+    // 监听关键CSS加载
+    this.waitForCriticalCSS();
+  },
+
+  markContentLoaded() {
+    this.state.hasLoaded = true;
+    this.checkIfReadyToHide();
+  },
+
+  waitForImages() {
+    const images = document.querySelectorAll('img');
+    if (images.length === 0) return;
+
+    let loadedCount = 0;
+    const totalImages = images.length;
+    
+    images.forEach(img => {
+      if (img.complete) {
+        loadedCount++;
+      } else {
+        img.addEventListener('load', () => {
+          loadedCount++;
+          if (loadedCount === totalImages) {
+            this.checkIfReadyToHide();
+          }
+        });
+        img.addEventListener('error', () => {
+          loadedCount++; // 即使加载失败也计数，避免卡住
+          if (loadedCount === totalImages) {
+            this.checkIfReadyToHide();
+          }
+        });
+      }
+    });
+
+    // 如果所有图片都已加载完成
+    if (loadedCount === totalImages) {
+      this.checkIfReadyToHide();
+    }
+  },
+
+  waitForFonts() {
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        this.checkIfReadyToHide();
+      }).catch(() => {
+        // 字体加载失败不影响骨架屏隐藏
+        this.checkIfReadyToHide();
+      });
+    }
+  },
+
+  waitForCriticalCSS() {
+    // 检查关键CSS是否已加载（通过检查特定样式是否存在）
+    const checkCriticalCSS = () => {
+      const heroSection = document.getElementById('hero');
+      if (heroSection && getComputedStyle(heroSection).display !== 'inline') {
+        this.checkIfReadyToHide();
+        return true;
+      }
+      return false;
+    };
+
+    // 立即检查一次
+    if (checkCriticalCSS()) return;
+
+    // 如果未就绪，轮询检查
+    const interval = setInterval(() => {
+      if (checkCriticalCSS()) {
+        clearInterval(interval);
+      }
+    }, 100);
+  },
+
+  checkIfReadyToHide() {
+    if (!this.state.isVisible) return;
+    
+    const elapsedTime = Date.now() - this.state.startTime;
+    const minTimeElapsed = elapsedTime >= this.state.minDisplayTime;
+    
+    // 检查关键条件
+    const domReady = document.readyState !== 'loading';
+    const fontsReady = !document.fonts || document.fonts.status === 'loaded';
+    
+    // 检查首屏关键元素是否已渲染
+    const criticalElements = [
+      document.getElementById('main-header'),
+      document.getElementById('hero'),
+      document.getElementById('trust-badges')
+    ];
+    
+    const criticalElementsReady = criticalElements.every(el => {
+      if (!el) return true; // 如果元素不存在，视为就绪
+      const rect = el.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    });
+
+    if (minTimeElapsed && domReady && fontsReady && criticalElementsReady) {
+      this.hide();
+    }
+  },
+
+  hide() {
+    if (!this.state.isVisible) return;
+    
+    const skeletonElement = document.getElementById('skeleton-screen');
+    if (!skeletonElement) return;
+    
+    this.state.isVisible = false;
+    
+    // 添加隐藏类触发淡出动画
+    skeletonElement.classList.add('hidden');
+    
+    // 动画结束后移除元素
+    setTimeout(() => {
+      if (skeletonElement.parentNode) {
+        skeletonElement.parentNode.removeChild(skeletonElement);
+      }
+    }, this.state.fadeDuration);
   }
+};
+
+// ============================================
+// 测试环境判断 (localhost / 127.0.0.1)
+// ============================================
+function isTestEnvironment() {
+  const host = window.location.hostname;
+  return host === 'localhost' || host === '127.0.0.1' || host.includes('.local') || host.includes('test');
+}
 
   function setupJumpingAnimation() {
     const jumpButtons = [
@@ -1877,7 +2080,7 @@ ${tr('mailto_label_product_interest_clicks', 'Product Interest Clicks')}: 0
 ------------ ${tr('mailto_section_browser_info', 'Browser Information')} ------------
 ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
   `);
-    window.location.href = `mailto:179564128@qq.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:support@yulkoli.com?subject=${subject}&body=${body}`;
   }
 
   document.addEventListener('DOMContentLoaded', () => {

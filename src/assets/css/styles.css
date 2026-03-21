@@ -471,6 +471,11 @@ header nav a.active::after {
 .email-btn { background: #ef4444; }
 .email-btn:hover { background: #dc2626; }
 
+/* Default hide LINE button */
+.line-btn {
+  display: none !important;
+}
+
 /* Secondary contacts - more subtle */
 .secondary-contacts {
   display: flex;

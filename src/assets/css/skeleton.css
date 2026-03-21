@@ -1,0 +1,225 @@
+/* 骨架屏动画 */
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* 骨架屏基础样式 */
+.skeleton {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton.dark {
+  background-color: #2d3748;
+}
+
+/* 骨架屏动画效果 */
+.skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.4) 50%, 
+    rgba(255, 255, 255, 0) 100%);
+  background-size: 200px 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+/* 骨架屏元素类型 */
+.skeleton-text {
+  height: 1em;
+  margin-bottom: 0.5em;
+}
+
+.skeleton-title {
+  height: 1.5em;
+  margin-bottom: 1em;
+}
+
+.skeleton-button {
+  height: 2.5em;
+  width: 8em;
+  border-radius: 8px;
+}
+
+.skeleton-image {
+  height: 200px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.skeleton-card {
+  height: 300px;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.skeleton-circle {
+  height: 3em;
+  width: 3em;
+  border-radius: 50%;
+}
+
+/* 骨架屏布局 */
+.skeleton-header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5em;
+  margin-bottom: 2em;
+}
+
+.skeleton-row {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+/* 首屏骨架屏容器 */
+#skeleton-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.3s ease-out;
+}
+
+#skeleton-screen.dark {
+  background: #1a202c;
+}
+
+#skeleton-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* 骨架屏内容 */
+.skeleton-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+/* 顶部导航骨架 */
+.skeleton-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 0;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 2em;
+}
+
+.skeleton-nav.dark {
+  border-bottom-color: #2d3748;
+}
+
+.skeleton-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.skeleton-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+/* Hero区域骨架 */
+.skeleton-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3em;
+  margin-bottom: 3em;
+}
+
+.skeleton-hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.skeleton-hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+/* 信任徽章骨架 */
+.skeleton-badges {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1em;
+  margin-bottom: 3em;
+}
+
+.skeleton-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .skeleton-hero {
+    grid-template-columns: 1fr;
+    gap: 2em;
+  }
+  
+  .skeleton-badges {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .skeleton-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .skeleton-badges {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .skeleton-nav {
+    flex-direction: column;
+    gap: 1em;
+  }
+  
+  .skeleton-nav-left,
+  .skeleton-nav-right {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -210,7 +210,7 @@ CMD ["npm", "start"]
 ## 📞 联系方式
 
 - 项目维护者: YuKoLi Technology
-- 邮箱: contact@yukoli.com
+- 邮箱: support_kitchen@yukoli.com
 - 网站: [www.yukoli.com](https://www.yukoli.com)
 
 ### 安装依赖

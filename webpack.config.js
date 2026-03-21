@@ -97,6 +97,12 @@ module.exports = (_, argv = {}) => {
                 to: 'factory-tour.mp4',
                 noErrorOnMissing: true,
               },
+              // Copy video directory
+              {
+                from: 'src/assets/video',
+                to: 'video',
+                noErrorOnMissing: true,
+              },
             ],
           }),
         ]
@@ -126,6 +132,15 @@ module.exports = (_, argv = {}) => {
         {
           directory: path.join(__dirname, 'src/assets/images'),
           publicPath: '/images',
+        },
+        // Serve video files from src/assets/video (development) or dist/video (production)
+        {
+          directory: path.join(__dirname, 'dist/video'),
+          publicPath: '/video',
+        },
+        {
+          directory: path.join(__dirname, 'src/assets/video'),
+          publicPath: '/video',
         },
       ],
       compress: true,

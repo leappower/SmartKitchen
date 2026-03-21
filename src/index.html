@@ -38,6 +38,79 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">
 
+<!-- 骨架屏预加载 -->
+<div id="skeleton-screen">
+  <div class="skeleton-content">
+    <!-- 导航骨架 -->
+    <div class="skeleton-nav">
+      <div class="skeleton-nav-left">
+        <div class="skeleton skeleton-circle skeleton-pulse"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 150px;"></div>
+      </div>
+      <div class="skeleton-nav-right">
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 60px;"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 80px;"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
+        <div class="skeleton skeleton-button skeleton-pulse"></div>
+      </div>
+    </div>
+    
+    <!-- Hero区域骨架 -->
+    <div class="skeleton-hero">
+      <div class="skeleton-hero-left">
+        <div class="skeleton skeleton-title skeleton-pulse" style="width: 80%;"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 90%;"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 70%;"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 85%;"></div>
+        <div class="skeleton-row">
+          <div class="skeleton skeleton-button skeleton-pulse"></div>
+          <div class="skeleton skeleton-button skeleton-pulse"></div>
+        </div>
+      </div>
+      <div class="skeleton-hero-right">
+        <div class="skeleton skeleton-image skeleton-pulse"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100%; height: 60px;"></div>
+      </div>
+    </div>
+    
+    <!-- 信任徽章骨架 -->
+    <div class="skeleton-badges">
+      <div class="skeleton-badge">
+        <div class="skeleton skeleton-circle skeleton-pulse"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
+      </div>
+      <div class="skeleton-badge">
+        <div class="skeleton skeleton-circle skeleton-pulse"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
+      </div>
+      <div class="skeleton-badge">
+        <div class="skeleton skeleton-circle skeleton-pulse"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
+      </div>
+      <div class="skeleton-badge">
+        <div class="skeleton skeleton-circle skeleton-pulse"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
+      </div>
+      <div class="skeleton-badge">
+        <div class="skeleton skeleton-circle skeleton-pulse"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
+      </div>
+      <div class="skeleton-badge">
+        <div class="skeleton skeleton-circle skeleton-pulse"></div>
+        <div class="skeleton skeleton-text skeleton-pulse" style="width: 100px;"></div>
+      </div>
+    </div>
+    
+    <!-- 特性卡片骨架 -->
+    <div class="skeleton-grid">
+      <div class="skeleton skeleton-card skeleton-pulse"></div>
+      <div class="skeleton skeleton-card skeleton-pulse"></div>
+      <div class="skeleton skeleton-card skeleton-pulse"></div>
+      <div class="skeleton skeleton-card skeleton-pulse"></div>
+    </div>
+  </div>
+</div>
+
 <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
 
   <div id="app-container" class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
@@ -566,21 +639,11 @@
         <div id="factory-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <!-- Video Player -->
           <div id="factory-video-player" class="rounded-xl overflow-hidden shadow-2xl">
-            <div id="factory-video-wrapper" class="relative aspect-video bg-black">
-              <video id="factory-video" class="w-full h-full object-cover" data-poster-key="factory_video_poster"
-                poster="images/factory_video_poster.webp"
-                controls>
-                <source id="factory-video-factory-tour-source" src="factory-tour.mp4" type="video/mp4">
+            <div id="factory-video-wrapper" class="relative aspect-[4/3] bg-black">
+              <video id="factory-video" class="w-full h-full object-contain" data-poster-key="factory_video_poster"
+                poster="images/factory_video_poster.webp" controls>
+                <source id="factory-video-factory-tour-source" src="video/aboutus.mp4" type="video/mp4">
               </video>
-            </div>
-            <div id="factory-video-bar" class="bg-slate-900 p-4">
-              <div id="factory-video-bar-inner" class="flex items-center justify-between">
-                <span id="factory-video-duration" class="text-sm text-slate-400"
-                  data-i18n="video_duration">时长：5:30分钟</span>
-                <button id="factory-video-play-btn"
-                  class="bg-white text-primary px-4 py-2 rounded-lg font-bold hover:bg-slate-100 transition-colors"
-                  data-i18n="video_play">播放视频</button>
-              </div>
             </div>
           </div>
 
@@ -1230,7 +1293,7 @@
                     class="text-sm font-bold text-primary dark:text-slate-100" data-i18n="contact_phone_title">电话</h3>
                 </div>
                 <p id="contact-phone-card-86-13163756465-text" class="text-xs text-slate-600 dark:text-slate-400">+86
-                  131 6375 6465</p>
+                  1316375465</p>
                 <p id="contact-phone-card-contact-hours-text" class="text-xs text-slate-500 dark:text-slate-500 mt-1"
                   data-i18n="contact_hours">周一至周日 8:00-18:00
                 </p>
@@ -1246,7 +1309,7 @@
                     class="text-sm font-bold text-primary dark:text-slate-100" data-i18n="contact_email_title">邮箱</h3>
                 </div>
                 <p id="contact-email-card-info-baeckereitechnik-profi-de-text"
-                  class="text-xs text-slate-600 dark:text-slate-400">support@yukoli.com</p>
+                  class="text-xs text-slate-600 dark:text-slate-400">support_kitchen@yukoli.com</p>
                 <p id="contact-email-card-contact-response-text" class="text-xs text-slate-500 dark:text-slate-500 mt-1"
                   data-i18n="contact_response">24小时内回复</p>
               </div>
@@ -1262,7 +1325,7 @@
                     WhatsApp</h3>
                 </div>
                 <p id="contact-whatsapp-card-49-751-123-456-78-text" class="text-xs text-slate-600 dark:text-slate-400">
-                  +1 647 815 8194</p>
+                  +86 13163756465</p>
                 <p id="contact-whatsapp-card-contact-whatsapp-note-text"
                   class="text-xs text-slate-500 dark:text-slate-500 mt-1" data-i18n="contact_whatsapp_note">24/7服务</p>
               </div>
@@ -1676,7 +1739,7 @@
               data-i18n="smart_form_email">E-Mail *</label>
             <input id="smart-popup-form-div-2-form-email-placeholder-input" type="email" name="email" required
               class="w-full px-4 py-2 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-primary transition-all"
-              data-i18n-placeholder="form_email_placeholder" placeholder="support@yukoli.com">
+              data-i18n-placeholder="form_email_placeholder" placeholder="support_kitchen@yukoli.com">
           </div>
 
           <div id="smart-popup-form-div-3">
