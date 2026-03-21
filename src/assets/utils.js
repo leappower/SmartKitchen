@@ -1172,9 +1172,10 @@ function getCategoryI18nKey(category) {
     }, { passive: true });
 
     // First check after first-screen protection, then re-check periodically.
-    const initialDelay = mqMobile ? 5000 : 10000;
-    setTimeout(showIndicator, initialDelay);
-    indicatorState.promptLoopTimer = setInterval(showIndicator, 10000);
+    // 注释掉自动显示sidebar-indicator的代码，使其默认隐藏
+    // const initialDelay = mqMobile ? 5000 : 10000;
+    // setTimeout(showIndicator, initialDelay);
+    // indicatorState.promptLoopTimer = setInterval(showIndicator, 10000);
   }
 
   function startWhatsApp() { window.open('https://wa.me/8613163756465', '_blank'); }
