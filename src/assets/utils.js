@@ -1197,14 +1197,52 @@ function getCategoryI18nKey(category) {
   function showNotification(message, type = 'success') {
     const container = document.getElementById('notification-container') || createNotificationContainer();
     const notification = document.createElement('div');
-    notification.className = `notification flex items-center gap-3 p-4 rounded-lg shadow-lg mb-3 transform translate-x-full transition-transform duration-300 ${type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`;
-    notification.innerHTML = `<span class="material-symbols-outlined">${type === 'success' ? 'check_circle' : 'error'}</span><span class="text-sm font-medium">${message}</span>`;
+
+    let icon = 'check_circle';
+    let bgClass = 'bg-green-500 text-white';
+    let autoDismiss = true;
+    let duration = 4000;
+
+    if (type === 'success') {
+      icon = 'check_circle';
+      bgClass = 'bg-green-500 text-white';
+    } else if (type === 'fail') {
+      // 严重失败：更醒目的样式并提供手动关闭（不自动消失）
+      icon = 'report_problem';
+      bgClass = 'bg-red-700 text-white';
+      autoDismiss = false;
+      duration = 8000;
+    } else {
+      // 默认视为普通错误
+      icon = 'error';
+      bgClass = 'bg-red-500 text-white';
+    }
+
+    notification.className = `notification flex items-center gap-3 p-4 rounded-lg shadow-lg mb-3 transform translate-x-full transition-transform duration-300 ${bgClass}`;
+    notification.innerHTML = `<span class="material-symbols-outlined">${icon}</span><span class="text-sm font-medium">${message}</span>`;
+
+    if (!autoDismiss) {
+      const closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'ml-3 px-2 py-1 rounded text-sm font-medium underline opacity-90';
+      closeBtn.textContent = 'Close';
+      closeBtn.addEventListener('click', () => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => notification.remove(), 300);
+      });
+      notification.appendChild(closeBtn);
+    }
+
     container.appendChild(notification);
+    // 入场动画
     setTimeout(() => notification.classList.remove('translate-x-full'), 10);
-    setTimeout(() => {
-      notification.classList.add('translate-x-full');
-      setTimeout(() => notification.remove(), 300);
-    }, 4000);
+
+    if (autoDismiss) {
+      setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => notification.remove(), 300);
+      }, duration);
+    }
   }
 
   function createNotificationContainer() {
@@ -2028,14 +2066,13 @@ function isTestEnvironment() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
+      smartPopup.closePopup({ converted: true });
       showNotification(tr('notify_submit_success', 'Submitted successfully!'), 'success');
       form.reset();
-      setTimeout(() => smartPopup.closePopup({ converted: true }), 500);
     } catch (error) {
       console.error('提交失败:', error);
-      showNotification(tr('notify_submit_received', 'Submitted successfully! We have received your information.'), 'success');
-      form.reset();
-      setTimeout(() => smartPopup.closePopup({ converted: true }), 500);
+      showNotification(tr('notify_submit_failed', 'Submission failed — please check your information and try again.'), 'error');
+      // 保留表单数据，便于用户检查/重试 — 不重置、不关闭弹窗
     }
   }
 
