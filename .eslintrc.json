@@ -13,6 +13,15 @@
   "rules": {
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
     "no-console": "off",
-    "semi": ["warn", "always"]
+    "semi": ["warn", "always"],
+    "no-undef": "off",
+    "no-empty": "off"
   }
+
+  ,"overrides": [
+    {
+      "files": ["tests/**/*.js", "tests/*.js", "jest.setup.js"],
+      "env": { "jest": true }
+    }
+  ]
 }
