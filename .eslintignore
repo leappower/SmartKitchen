@@ -1,0 +1,9 @@
+dist/
+build/
+out/
+node_modules/
+src/assets/images/
+src/assets/video/
+src/assets/*.webp
+src/assets/*.json
+.release-tmp/
