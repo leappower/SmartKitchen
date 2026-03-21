@@ -39,7 +39,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      background: #f7f6f7;
+      background: #ffffff; /* 改为白色，避免白屏 */
       color: #0f172a;
       visibility: visible !important;
     }
@@ -54,8 +54,8 @@
     #skeleton-screen {
       position: relative;
       background: #ffffff;
-      z-index: 10;
-      display: block;
+      z-index: 9999; /* 提高层级 */
+      display: block; /* 确保显示 */
       width: 100%;
       min-height: 100vh;
     }
@@ -989,7 +989,7 @@
         <div id="testimonials-grid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8 mb-12">
           <!-- Testimonial 1 -->
           <div id="testimonial-card-1"
-            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
+            class="bg-white dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
             <div id="testimonial-card-1-div-1" class="flex items-center gap-2 mb-4">
               <span id="testimonial-card-1-div-1-material-symbols-outlined-text"
                 class="material-symbols-outlined text-yellow-500">star</span>
@@ -1023,7 +1023,7 @@
 
           <!-- Testimonial 2 -->
           <div id="testimonial-card-2"
-            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
+            class="bg-white dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
             <div id="testimonial-card-2-div-1" class="flex items-center gap-2 mb-4">
               <span id="testimonial-card-2-div-1-material-symbols-outlined-text"
                 class="material-symbols-outlined text-yellow-500">star</span>
@@ -1057,7 +1057,7 @@
 
           <!-- Testimonial 3 -->
           <div id="testimonial-card-3"
-            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
+            class="bg-white dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
             <div id="testimonial-card-3-div-1" class="flex items-center gap-2 mb-4">
               <span id="testimonial-card-3-div-1-material-symbols-outlined-text"
                 class="material-symbols-outlined text-yellow-500">star</span>
@@ -1091,7 +1091,7 @@
 
           <!-- Testimonial 4 -->
           <div id="testimonial-card-4"
-            class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow lg:col-span-2">
+            class="bg-white dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow lg:col-span-2">
             <div id="testimonial-card-4-div-1" class="flex items-center gap-2 mb-4">
               <span id="testimonial-card-4-div-1-material-symbols-outlined-text"
                 class="material-symbols-outlined text-yellow-500">star</span>
