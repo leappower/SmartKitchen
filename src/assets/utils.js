@@ -1250,7 +1250,7 @@ function getCategoryI18nKey(category) {
   }
 
   function startWhatsApp() { window.open('https://wa.me/8613163756465', '_blank'); }
-  function startLine() { window.open('https://line.me/ti/p/+66840273150', '_blank'); }
+  function startLine() { showNotification(tr('notify_coming_soon', 'Coming Soon...'), 'success'); }
   function startPhone() { window.location.href = 'tel:+8613163756465'; }
   function startTelegram() { window.open('https://t.me/baeckerei-profi', '_blank'); }
   function startEmail() {
@@ -1577,26 +1577,50 @@ const skeletonScreen = {
 
   checkIfReadyToHide() {
     if (!this.state.isVisible) return;
-    
+
     const elapsedTime = Date.now() - this.state.startTime;
     const minTimeElapsed = elapsedTime >= this.state.minDisplayTime;
-    
+
     // 检查关键条件
     const domReady = document.readyState !== 'loading';
     const fontsReady = !document.fonts || document.fonts.status === 'loaded';
-    
+
     // 检查首屏关键元素是否已渲染
+    // 注意：小屏幕上某些元素可能被隐藏或尚未渲染，需要特殊处理
+    const screenWidth = window.innerWidth;
+    const isTablet = screenWidth >= 768 && screenWidth < 1024;
+    const isMobile = screenWidth < 768;
+
     const criticalElements = [
       document.getElementById('main-header'),
-      document.getElementById('hero'),
-      document.getElementById('trust-badges')
+      document.getElementById('hero')
     ];
-    
+
+    // trust-badges 在小屏幕和平板上可能延迟加载或不显示
+    // 只在桌面端 (>=1024px) 严格要求
+    const trustBadges = document.getElementById('trust-badges');
+    if (!isMobile && !isTablet && trustBadges) {
+      criticalElements.push(trustBadges);
+    }
+
     const criticalElementsReady = criticalElements.every(el => {
       if (!el) return true; // 如果元素不存在，视为就绪
       const rect = el.getBoundingClientRect();
       return rect.width > 0 && rect.height > 0;
     });
+
+    // 调试日志（仅在开发环境）
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      console.log('[Skeleton] Checking...', {
+        isMobile,
+        isTablet,
+        minTimeElapsed,
+        domReady,
+        fontsReady,
+        criticalElementsReady,
+        elapsedTime
+      });
+    }
 
     if (minTimeElapsed && domReady && fontsReady && criticalElementsReady) {
       this.hide();
@@ -2395,6 +2419,71 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
     }
   }
 
+  // ============================================
+  // Legal Modal Functions
+  // ============================================
+  function openLegalModal(type) {
+    const modal = document.getElementById('legal-modal');
+    const backdrop = document.getElementById('legal-modal-backdrop');
+    const content = document.getElementById('legal-modal-content');
+    const title = document.getElementById('legal-modal-title');
+    const userAgreementContent = document.getElementById('userAgreement-content');
+    const privacyContent = document.getElementById('privacy-content');
+    
+    if (!modal) return;
+    
+    // Set title and content based on type
+    if (type === 'userAgreement') {
+      title.textContent = tr('user_agreement_title', 'User Agreement');
+      userAgreementContent.classList.remove('hidden');
+      privacyContent.classList.add('hidden');
+    } else if (type === 'privacy') {
+      title.textContent = tr('privacy_policy_title', 'Privacy Policy');
+      userAgreementContent.classList.add('hidden');
+      privacyContent.classList.remove('hidden');
+    }
+    
+    // Show modal
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    
+    // Animate in
+    setTimeout(() => {
+      backdrop.classList.remove('opacity-0');
+      content.classList.remove('scale-95', 'opacity-0');
+      content.classList.add('scale-100', 'opacity-100');
+    }, 10);
+  }
+
+  function closeLegalModal() {
+    const modal = document.getElementById('legal-modal');
+    const backdrop = document.getElementById('legal-modal-backdrop');
+    const content = document.getElementById('legal-modal-content');
+    
+    if (!modal) return;
+    
+    // Animate out
+    backdrop.classList.add('opacity-0');
+    content.classList.remove('scale-100', 'opacity-100');
+    content.classList.add('scale-95', 'opacity-0');
+    
+    // Hide modal after animation
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 300);
+  }
+
+  // Close legal modal on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('legal-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        closeLegalModal();
+      }
+    }
+  });
+
   // Run after DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', bindAllEvents);
@@ -2405,6 +2494,8 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
   global.bindAllEvents = bindAllEvents;
   global.smartPopup = smartPopup;
   global.userState = userState;
+  global.openLegalModal = openLegalModal;
+  global.closeLegalModal = closeLegalModal;
   Object.assign(global, {
     tr,
     setupBackToTopButton,

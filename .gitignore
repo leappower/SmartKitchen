@@ -145,3 +145,4 @@ coverage/lcov.info
 # Build artifacts
 dist/
 build/
+.workbuddy/

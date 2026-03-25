@@ -7,6 +7,14 @@
   <link rel="icon" type="image/webp" href="images/logo_html.webp">
   <link rel="shortcut icon" type="image/webp" href="images/logo_html.webp">
   <title>跃迁力科技 | 智能商厨专家</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NZ9DTP4D4M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NZ9DTP4D4M');
+  </script>
   <!-- Preconnect to Google Fonts (actively used) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1687,38 +1695,26 @@
             </ul>
           </div>
 
-          <!-- Company -->
-          <div id="footer-grid-footer-company-links-block" class="footer-company-links">
-            <h4 id="footer-grid-footer-company-links-block-footer-company-title-title" class="text-white font-bold mb-4"
-              data-i18n="footer_company_title">Unternehmen</h4>
-            <ul id="footer-grid-footer-company-links-block-ul-1" class="space-y-2 text-sm">
-              <li id="footer-grid-footer-company-links-block-ul-1-li-1"><a
-                  id="footer-grid-footer-company-links-block-ul-1-li-1-footer-company-1-link" href="#"
-                  class="hover:text-white transition-colors" data-i18n="footer_company_1">Über uns</a></li>
-              <li id="footer-grid-footer-company-links-block-ul-1-li-2"><a
-                  id="footer-grid-footer-company-links-block-ul-1-li-2-footer-company-4-link" href="#"
-                  class="hover:text-white transition-colors" data-i18n="footer_company_4">Impressum</a></li>
-              <li id="footer-grid-footer-company-links-block-ul-1-li-3"><a
-                  id="footer-grid-footer-company-links-block-ul-1-li-3-footer-company-5-link" href="#"
-                  class="hover:text-white transition-colors" data-i18n="footer_company_5">Datenschutz</a></li>
+          <!-- Legal -->
+          <div id="footer-grid-footer-legal-block" class="footer-legal-links">
+            <h4 id="footer-grid-footer-legal-block-footer-legal-title" class="text-white font-bold mb-4"
+              data-i18n="footer_legal_title">Legal</h4>
+            <ul id="footer-grid-footer-legal-block-ul-1" class="space-y-2 text-sm">
+              <li id="footer-grid-footer-legal-block-ul-1-li-1"><a
+                  id="footer-grid-footer-legal-block-ul-1-li-1-footer-legal-user-link" href="javascript:void(0)"
+                  class="hover:text-white transition-colors" data-i18n="footer_legal_user_agreement"
+                  onclick="openLegalModal('userAgreement')">User Agreement</a></li>
+              <li id="footer-grid-footer-legal-block-ul-1-li-2"><a
+                  id="footer-grid-footer-legal-block-ul-1-li-2-footer-legal-privacy-link" href="javascript:void(0)"
+                  class="hover:text-white transition-colors" data-i18n="footer_legal_privacy_policy"
+                  onclick="openLegalModal('privacy')">Privacy Policy</a></li>
             </ul>
           </div>
         </div>
 
         <div id="footer-bottom" class="border-t border-white/20 pt-8">
-          <div id="footer-bottom-div-1" class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-            <p id="footer-bottom-div-1-2024-text"><span id="footer-copyright-year"></span> <span id="footer-bottom-div-1-2024-text-company-name-text"
                 data-i18n="company_name">Foshan YuKoLi Technology Co., Ltd.</span> <span
-                id="footer-bottom-div-1-2024-text-footer-rights-text" data-i18n="footer_rights">Alle Rechte
-                vorbehalten.</span></p>
-            <div id="footer-bottom-div-1-div-1" class="flex gap-6">
-              <a id="footer-bottom-div-1-div-1-footer-legal-1-link" href="#" class="hover:text-white transition-colors"
-                data-i18n="footer_legal_1">AGB</a>
-              <a id="footer-bottom-div-1-div-1-footer-legal-2-link" href="#" class="hover:text-white transition-colors"
-                data-i18n="footer_legal_2">Datenschutz</a>
-              <a id="footer-bottom-div-1-div-1-footer-legal-3-link" href="#" class="hover:text-white transition-colors"
-                data-i18n="footer_legal_3">Impressum</a>
-            </div>
+                id="footer-bottom-div-1-2024-text-footer-rights-text" data-i18n="footer_rights">All Rights Reserved.</span></p>
           </div>
         </div>
       </div>
@@ -1785,8 +1781,8 @@
       </button>
     </div>
 
-    <!-- Expand/Collapse Button -->
-    <button class="expand-btn" id="expand-btn" aria-label="More contacts" data-i18n-aria="sidebar_expand">
+    <!-- Expand/Collapse Button - Hidden to fix visual placeholder issue -->
+    <button class="expand-btn hidden" id="expand-btn" aria-label="More contacts" data-i18n-aria="sidebar_expand">
       <span id="expand-btn-material-symbols-outlined-text" class="material-symbols-outlined">expand_more</span>
       <span id="expand-btn-sidebar-expand-text" class="contact-tooltip" data-i18n="sidebar_expand">更多联系人</span>
     </button>
@@ -1934,5 +1930,148 @@
     </button>
   </div>
 
-<script>document.getElementById('footer-copyright-year')&&(document.getElementById('footer-copyright-year').textContent='© 2024\u2013'+new Date().getFullYear());</script>
+  <!-- Legal Modal - User Agreement & Privacy Policy -->
+  <div id="legal-modal" class="fixed inset-0 z-[9999] hidden" aria-modal="true" role="dialog">
+    <!-- Backdrop -->
+    <div id="legal-modal-backdrop" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity opacity-0"
+      onclick="closeLegalModal()"></div>
+    
+    <!-- Modal Container -->
+    <div class="relative min-h-screen flex items-center justify-center p-4">
+      <div id="legal-modal-content"
+        class="relative bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden transform scale-95 opacity-0 transition-all duration-300">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
+          <h2 id="legal-modal-title" class="text-xl font-bold text-slate-800 dark:text-slate-100" data-i18n="user_agreement_title">User Agreement</h2>
+          <button onclick="closeLegalModal()" class="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors" aria-label="Close">
+            <span class="material-symbols-outlined text-slate-600 dark:text-slate-400">close</span>
+          </button>
+        </div>
+        
+        <!-- Content -->
+        <div id="legal-modal-body" class="overflow-y-auto p-6 max-h-[calc(85vh-80px)]">
+          <!-- User Agreement Content -->
+          <div id="userAgreement-content" class="hidden space-y-4 text-slate-600 dark:text-slate-300">
+            <p class="text-sm leading-relaxed" data-i18n="user_agreement_intro">Welcome to Foshan YuKoLi Technology Co., Ltd. By accessing or using our website and services, you agree to be bound by these Terms of Service.</p>
+            
+            <div class="space-y-3">
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="user_agreement_section_1_title">1. Acceptance of Terms</h3>
+                <p class="text-sm leading-relaxed" data-i18n="user_agreement_section_1_content">By accessing our website, you acknowledge that you have read, understood, and agree to be bound by these terms.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="user_agreement_section_2_title">2. Commercial Kitchen Equipment Services</h3>
+                <p class="text-sm leading-relaxed" data-i18n="user_agreement_section_2_content">Our services are specifically designed for B2B commercial kitchen equipment inquiries, quotations, and purchases. We specialize in fermentation cabinets, commercial ovens, and industrial kitchen solutions.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="user_agreement_section_3_title">3. Product Information & Pricing</h3>
+                <p class="text-sm leading-relaxed" data-i18n="user_agreement_section_3_content">All product specifications, prices, and availability are subject to change without notice. Final pricing is confirmed upon official quotation.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="user_agreement_section_4_title">4. International Trade Terms</h3>
+                <p class="text-sm leading-relaxed" data-i18n="user_agreement_section_4_content">All orders are subject to Incoterms 2020. Shipping costs, customs duties, and import taxes are the responsibility of the buyer unless otherwise agreed in writing.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="user_agreement_section_5_title">5. Warranty & Certification</h3>
+                <p class="text-sm leading-relaxed" data-i18n="user_agreement_section_5_content">Our products come with CE certification and comply with international food safety standards. Warranty terms are specified in the official sales contract.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="user_agreement_section_6_title">6. Intellectual Property</h3>
+                <p class="text-sm leading-relaxed" data-i18n="user_agreement_section_6_content">All product designs, trademarks, and content on this website are the property of Foshan YuKoLi Technology Co., Ltd.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="user_agreement_section_7_title">7. Limitation of Liability</h3>
+                <p class="text-sm leading-relaxed" data-i18n="user_agreement_section_7_content">We shall not be liable for any indirect, incidental, or consequential damages arising from the use of our products or services.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="user_agreement_section_8_title">8. Governing Law</h3>
+                <p class="text-sm leading-relaxed" data-i18n="user_agreement_section_8_content">These terms are governed by the laws of the People's Republic of China. Any disputes shall be resolved through friendly negotiation or submitted to the competent courts in Foshan, Guangdong.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="user_agreement_section_9_title">9. Contact Information</h3>
+                <p class="text-sm leading-relaxed" data-i18n="user_agreement_section_9_content">For any questions regarding these terms, please contact us via WhatsApp, email, or the contact form on our website.</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Privacy Policy Content -->
+          <div id="privacy-content" class="hidden space-y-4 text-slate-600 dark:text-slate-300">
+            <p class="text-sm leading-relaxed" data-i18n="privacy_policy_intro">Foshan YuKoLi Technology Co., Ltd. is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information.</p>
+            
+            <div class="space-y-3">
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_1_title">1. Information We Collect</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_1_content">We collect business contact information including your name, email, phone number, company name, and business address when you request quotes or contact us. We also collect technical data such as IP address and browser type.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_2_title">2. Purpose of Data Collection</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_2_content">We use your information to: (a) Process your inquiries and provide quotations; (b) Communicate about orders and deliveries; (c) Provide after-sales support; (d) Send product updates and promotional information (with your consent).</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_3_title">3. Legal Basis for Processing</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_3_content">We process your data based on: (a) Contractual necessity for order fulfillment; (b) Legitimate interests in business operations; (c) Your consent for marketing communications; (d) Legal compliance requirements.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_4_title">4. Data Sharing & Third Parties</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_4_content">We do not sell your personal data. We may share information with: (a) Shipping and logistics partners for delivery; (b) Payment processors for transaction handling; (c) Legal authorities when required by law.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_5_title">5. International Data Transfers</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_5_content">As an international business, your data may be transferred to and processed in China and other countries where our service providers operate. We ensure appropriate safeguards are in place.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_6_title">6. Data Security</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_6_content">We implement industry-standard security measures including encryption, access controls, and regular security audits to protect your data from unauthorized access or disclosure.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_7_title">7. Your Rights</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_7_content">You have the right to: (a) Access your personal data; (b) Request correction or deletion; (c) Object to processing; (d) Withdraw consent; (e) Request data portability. Contact us to exercise these rights.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_8_title">8. Cookies & Tracking</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_8_content">We use cookies and similar technologies to enhance your browsing experience, analyze site traffic, and personalize content. You can manage cookie preferences through your browser settings.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_9_title">9. Data Retention</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_9_content">We retain your personal data for as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce agreements.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_10_title">10. Changes to This Policy</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_10_content">We may update this Privacy Policy periodically. Changes will be posted on this page with an updated effective date. Continued use of our services constitutes acceptance of the updated policy.</p>
+              </div>
+              
+              <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                <h3 class="font-semibold text-slate-800 dark:text-slate-200 mb-2 text-sm" data-i18n="privacy_section_11_title">11. Contact Us</h3>
+                <p class="text-sm leading-relaxed" data-i18n="privacy_section_11_content">For privacy-related inquiries, please contact us via WhatsApp, email at support.kitchen@yukoli.com, or through our website contact form.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 flex justify-end">
+          <button onclick="closeLegalModal()" class="px-6 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors text-sm font-medium" data-i18n="btn_close">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </html>
