@@ -542,9 +542,10 @@
             </div>
             <div id="hero-image-area"
               class="flex-1 w-full max-w-xl flex flex-col shadow-2xl rounded-2xl overflow-hidden">
-              <div id="hero-image-card" class="max-h-[300px] overflow-hidden">
-                <img id="hero-img" alt="Professional fermentation cabinet" class="w-full h-full object-cover block"
-                  data-image-key="hero_main" fetchpriority="high" src="images/hero_main.webp">
+              <div id="hero-image-card" class="max-h-[300px] overflow-hidden bg-black">
+                <video id="hero-video" class="w-full h-full object-cover" autoplay muted loop playsinline>
+                  <source src="video/smart.mp4" type="video/mp4">
+                </video>
               </div>
               <div id="hero-trust-overlay" class="w-full bg-white/95 p-4 flex flex-col gap-2">
                 <div id="hero-trust-overlay-div-1" class="flex items-center gap-2 text-primary">
@@ -1946,7 +1947,7 @@
         <!-- Header -->
         <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
           <h2 id="legal-modal-title" class="text-xl font-bold text-slate-800 dark:text-slate-100" data-i18n="user_agreement_title">User Agreement</h2>
-          <button onclick="closeLegalModal()" class="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors" aria-label="Close">
+          <button onclick="closeLegalModal()" class="w-10 h-10 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors flex-shrink-0" aria-label="Close">
             <span class="material-symbols-outlined text-slate-600 dark:text-slate-400">close</span>
           </button>
         </div>
