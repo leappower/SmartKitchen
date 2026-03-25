@@ -2092,13 +2092,15 @@ let _inactivityCheckInterval = null;
         this.saveConversionSuppression();
       }
 
-      overlay.classList.add('closing');
-      setTimeout(() => {
-        overlay.classList.remove('show', 'closing');
+      // 直接移除show类触发CSS过渡动画，不使用closing类避免动画冲突
+      overlay.classList.remove('show');
+      
+      // 使用 requestAnimationFrame 确保在下一帧恢复样式，避免抖动
+      requestAnimationFrame(() => {
         // Restore body styles
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
-      }, 300);
+      });
     },
 
     setupFriendlyCloseHandlers() {
