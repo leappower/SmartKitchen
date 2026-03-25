@@ -47,9 +47,9 @@
       visibility: visible !important;
     }
 
-    /* 深色模式基础样式 */
-    .dark html,
-    .dark body {
+    /* 深色模式基础样式（dark class 在 <html> 上） */
+    html.dark,
+    html.dark body {
       background: #18151d;
       color: #f1f5f9;
     }
@@ -177,6 +177,13 @@
 
   <!-- Critical CSS for above-the-fold content -->
   <!-- CSS will be injected by webpack's style-loader -->
+
+  <!-- 暗色模式早期初始化：在首屏渲染前应用 dark class，防止 FOUC -->
+  <script>
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100">

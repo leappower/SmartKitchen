@@ -405,6 +405,8 @@ function getCategoryI18nKey(category) {
       currentFilter = defaultFilter;
     }
     updateProductFilterButtonState(currentFilter || defaultFilter);
+    // 语言切换时卡片内容需要全部刷新，清空 DOM diff 缓存
+    _renderedCards.clear();
     scheduleRenderProducts();
   });
 
@@ -412,6 +414,8 @@ function getCategoryI18nKey(category) {
   // Re-render product cards once they're ready so Material / Application Scenario
   // and other i18n fields show the translated values rather than the zh-CN fallback.
   window.addEventListener('productTranslationsLoaded', () => {
+    // 产品翻译加载完成后卡片内容需刷新
+    _renderedCards.clear();
     scheduleRenderProducts();
   });
 
@@ -672,105 +676,47 @@ function getCategoryI18nKey(category) {
     return fallback;
   }
 
-  function renderProducts() {
-    const grid = document.getElementById('product-grid');
-    if (!grid) return;
-
-    let meta = document.getElementById('product-grid-meta');
-    if (!meta) {
-      meta = document.createElement('div');
-      meta.id = 'product-grid-meta';
-      meta.className = 'mb-4 rounded-xl border border-primary/10 bg-white/80 px-3 py-2 text-xs text-slate-600 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-300 product-grid-meta';
-      grid.parentNode.insertBefore(meta, grid);
-    }
-
-    const allProducts = getProducts();
-    const filtered = currentFilter ? allProducts.filter((p) => p.category === currentFilter) : allProducts;
-    const orderedProducts = filtered;
-    const mobileCarousel = isMobileProductCarousel();
-    const itemsPerPage = mobileCarousel ? Math.max(1, orderedProducts.length) : getItemsPerPage();
-    const totalPages = Math.max(1, Math.ceil(orderedProducts.length / itemsPerPage));
-
-    if (currentPage > totalPages) {
-      currentPage = totalPages;
-    }
-
-    const start = (currentPage - 1) * itemsPerPage;
-    const pageProducts = orderedProducts.slice(start, start + itemsPerPage);
-
-    const from = orderedProducts.length === 0 ? 0 : start + 1;
-    const to = orderedProducts.length === 0 ? 0 : Math.min(start + pageProducts.length, orderedProducts.length);
-    const currentPageCount = pageProducts.length;
-    const prevDisabled = currentPage <= 1;
-    const nextDisabled = currentPage >= totalPages;
-
-    meta.innerHTML = `
-      <div class="lg:flex lg:items-center lg:justify-between lg:gap-4">
-      <div class="flex w-full items-center justify-between gap-3 overflow-x-auto whitespace-nowrap px-1 pb-1 sm:justify-center sm:px-0 sm:pb-0 lg:flex-1 lg:justify-start lg:pb-0">
-        <span class="shrink-0">${tr('product_label_series', 'Series')}: <strong>${currentFilter ? tr(getCategoryI18nKey(currentFilter), currentFilter) : tr('all', 'All')}</strong></span>
-        <span class="hidden shrink-0 sm:inline">${tr('product_label_page', 'Page')}: <strong>${currentPage}/${totalPages}</strong></span>
-        <span class="hidden shrink-0 sm:inline">${tr('product_label_results', 'Results')}: <strong>${currentPageCount}</strong> / ${orderedProducts.length}</span>
-      </div>
-      <div class="mt-2 hidden w-full grid-cols-2 gap-2 product-meta-nav sm:mt-1 sm:flex sm:w-auto sm:grid-cols-none sm:gap-2 sm:justify-end lg:mt-0 lg:ml-4 lg:shrink-0">
-        <button
-          type="button"
-          data-page="${currentPage - 1}"
-          class="product-meta-nav-btn ios-nav-btn w-full justify-start ${prevDisabled ? 'is-disabled' : ''} sm:w-auto sm:justify-center"
-          ${prevDisabled ? 'disabled' : ''}
-          aria-label="${tr('product_prev_page', 'Previous page')}">
-          <span class="product-meta-nav-icon material-symbols-outlined" aria-hidden="true">keyboard_arrow_left</span>
-          <span class="product-meta-nav-label">${tr('product_prev_page', 'Previous')}</span>
-        </button>
-        <button
-          type="button"
-          data-page="${currentPage + 1}"
-          class="product-meta-nav-btn ios-nav-btn w-full justify-end ${nextDisabled ? 'is-disabled' : ''} sm:w-auto sm:justify-center"
-          ${nextDisabled ? 'disabled' : ''}
-          aria-label="${tr('product_next_page', 'Next page')}">
-          <span class="product-meta-nav-label">${tr('product_next_page', 'Next')}</span>
-          <span class="product-meta-nav-icon material-symbols-outlined" aria-hidden="true">keyboard_arrow_right</span>
-        </button>
-      </div>
-      </div>
-    `;
-    // Re-bind meta nav buttons after innerHTML replacement (CSP: no inline handlers)
-    meta.querySelectorAll('.product-meta-nav-btn[data-page]').forEach((btn) => {
-      btn.addEventListener('click', () => goToPage(Number(btn.dataset.page)));
+  // ─── 产品卡片事件委托 ────────────────────────────────────────────────────────
+  // 在 product-grid 上用事件委托监听点击，新卡片无需重复绑定
+  let _productGridDelegated = false;
+  function initProductGridDelegation() {
+    if (_productGridDelegated) return;
+    _productGridDelegated = true;
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('#product-grid [data-action="show-popup"]');
+      if (btn) showSmartPopupManual();
     });
+  }
+  initProductGridDelegation();
 
-    if (orderedProducts.length === 0) {
-      grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8';
-      renderMobileProductSideControls(false);
-      grid.innerHTML = `
-        <div class="col-span-full rounded-2xl border border-dashed border-primary/30 bg-white/70 dark:bg-slate-900/60 p-10 text-center">
-          <span class="material-symbols-outlined text-4xl text-primary/70">inventory_2</span>
-          <p class="mt-3 text-base font-bold text-primary dark:text-slate-100">${tr('product_empty_title', 'No matching products found')}</p>
-          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">${tr('product_empty_desc', 'Try another series filter or contact us for custom recommendation.')}</p>
-        </div>
-      `;
-      renderPagination(1);
-      return;
-    }
+  // ─── 产品卡片 DOM diff 缓存 ────────────────────────────────────────────────
+  // 记录当前 grid 中已渲染的产品 ID → DOM 节点，翻页/过滤时只增删变化的卡片，
+  // 避免全量 innerHTML 替换导致的回流和事件解绑/重绑定。
+  const _renderedCards = new Map(); // productId → HTMLElement
 
-    grid.innerHTML = pageProducts.map((p) => {
-      // 获取产品多语言文本（已由数据层自动处理，无需降级）
-      const displayName = _esc(getProductI18nField(p, 'name', p.name) || `${tr(getCategoryI18nKey(p.category), p.category)} ${p.model || ''}`.trim());
-      const badgeColorClass = p.badgeColor || 'bg-primary';
-      const material = _esc(getProductI18nField(p, 'material', p.material) || '-');
-      const minimumOrderQuantity = _esc(getProductI18nField(p, 'minimumOrderQuantity', p.minimumOrderQuantity) || '-');
-      const throughput = _esc(getProductI18nField(p, 'throughput', p.throughput) || '-');
-      const voltage = _esc(getProductI18nField(p, 'voltage', p.voltage) || '-');
-      const frequency = _esc(getProductI18nField(p, 'frequency', p.frequency) || '-');
-      const badge = _esc(getProductI18nField(p, 'badge', p.badge));
-      const status = _esc(getProductI18nField(p, 'status', p.status));
-      const imageRecognitionKey = _esc(p.imageRecognitionKey);
-      const launchDate = _esc(getProductI18nField(p, 'launchTime', p.launchTime) || p.launchDate || '2025');
-      const scene = _esc(getProductI18nField(p, 'scenarios', p.scenarios) || '-');
-      const category = _esc(p.category);
-      const productImage = _esc(p.productImage || resolveImage(imageRecognitionKey));
-      const model = _esc(p.model || '-');
-      return `
-    <article class="product-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-primary/10 group" data-category="${category}">
+  /**
+   * 构建单个产品卡片的 HTML 字符串
+   * @param {Object} p 产品数据对象
+   * @returns {string} 卡片 HTML
+   */
+  function buildProductCardHTML(p) {
+    const displayName = _esc(getProductI18nField(p, 'name', p.name) || `${tr(getCategoryI18nKey(p.category), p.category)} ${p.model || ''}`.trim());
+    const badgeColorClass = p.badgeColor || 'bg-primary';
+    const material = _esc(getProductI18nField(p, 'material', p.material) || '-');
+    const minimumOrderQuantity = _esc(getProductI18nField(p, 'minimumOrderQuantity', p.minimumOrderQuantity) || '-');
+    const throughput = _esc(getProductI18nField(p, 'throughput', p.throughput) || '-');
+    const voltage = _esc(getProductI18nField(p, 'voltage', p.voltage) || '-');
+    const frequency = _esc(getProductI18nField(p, 'frequency', p.frequency) || '-');
+    const badge = _esc(getProductI18nField(p, 'badge', p.badge));
+    const status = _esc(getProductI18nField(p, 'status', p.status));
+    const imageRecognitionKey = _esc(p.imageRecognitionKey);
+    const launchDate = _esc(getProductI18nField(p, 'launchTime', p.launchTime) || p.launchDate || '2025');
+    const scene = _esc(getProductI18nField(p, 'scenarios', p.scenarios) || '-');
+    const category = _esc(p.category);
+    const productImage = _esc(p.productImage || resolveImage(imageRecognitionKey));
+    const model = _esc(p.model || '-');
+    return `
+    <article class="product-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-primary/10 group" data-category="${category}" data-product-id="${p.id}">
       <!-- 图片区域 (50-55%) -->
       <div class="relative h-[200px] sm:h-[210px] lg:h-[230px] w-full overflow-hidden bg-slate-50 dark:bg-slate-800/60 bg-white shrink-0">
         <img data-src="${productImage}"
@@ -849,7 +795,126 @@ function getCategoryI18nKey(category) {
       </div>
     </article>
   `;
-    }).join('');
+  }
+
+  function diffProductCards(grid, pageProducts) {
+    const newIds = new Set(pageProducts.map(p => String(p.id)));
+
+    // 1) 移除不在新列表中的旧卡片
+    for (const [id, el] of _renderedCards) {
+      if (!newIds.has(id)) {
+        el.remove();
+        _renderedCards.delete(id);
+      }
+    }
+
+    // 2) 按 pageProducts 顺序重新排列 + 创建缺失的卡片
+    const frag = document.createDocumentFragment();
+    for (const p of pageProducts) {
+      const id = String(p.id);
+      const existing = _renderedCards.get(id);
+      if (existing) {
+        frag.appendChild(existing); // 复用已有 DOM 节点
+      } else {
+        // 创建新卡片（使用临时容器 + DocumentFragment 批量操作减少回流）
+        const tmp = document.createElement('div');
+        tmp.innerHTML = buildProductCardHTML(p);
+        const card = tmp.firstElementChild;
+        if (card) {
+          _renderedCards.set(id, card);
+          frag.appendChild(card);
+        }
+      }
+    }
+
+    grid.innerHTML = '';
+    grid.appendChild(frag);
+  }
+
+  function renderProducts() {
+    const grid = document.getElementById('product-grid');
+    if (!grid) return;
+
+    let meta = document.getElementById('product-grid-meta');
+    if (!meta) {
+      meta = document.createElement('div');
+      meta.id = 'product-grid-meta';
+      meta.className = 'mb-4 rounded-xl border border-primary/10 bg-white/80 px-3 py-2 text-xs text-slate-600 dark:border-slate-700 dark:bg-slate-900/80 dark:text-slate-300 product-grid-meta';
+      grid.parentNode.insertBefore(meta, grid);
+    }
+
+    const allProducts = getProducts();
+    const filtered = currentFilter ? allProducts.filter((p) => p.category === currentFilter) : allProducts;
+    const orderedProducts = filtered;
+    const mobileCarousel = isMobileProductCarousel();
+    const itemsPerPage = mobileCarousel ? Math.max(1, orderedProducts.length) : getItemsPerPage();
+    const totalPages = Math.max(1, Math.ceil(orderedProducts.length / itemsPerPage));
+
+    if (currentPage > totalPages) {
+      currentPage = totalPages;
+    }
+
+    const start = (currentPage - 1) * itemsPerPage;
+    const pageProducts = orderedProducts.slice(start, start + itemsPerPage);
+
+    const from = orderedProducts.length === 0 ? 0 : start + 1;
+    const to = orderedProducts.length === 0 ? 0 : Math.min(start + pageProducts.length, orderedProducts.length);
+    const currentPageCount = pageProducts.length;
+    const prevDisabled = currentPage <= 1;
+    const nextDisabled = currentPage >= totalPages;
+
+    meta.innerHTML = `
+      <div class="lg:flex lg:items-center lg:justify-between lg:gap-4">
+      <div class="flex w-full items-center justify-between gap-3 overflow-x-auto whitespace-nowrap px-1 pb-1 sm:justify-center sm:px-0 sm:pb-0 lg:flex-1 lg:justify-start lg:pb-0">
+        <span class="shrink-0">${tr('product_label_series', 'Series')}: <strong>${currentFilter ? tr(getCategoryI18nKey(currentFilter), currentFilter) : tr('all', 'All')}</strong></span>
+        <span class="hidden shrink-0 sm:inline">${tr('product_label_page', 'Page')}: <strong>${currentPage}/${totalPages}</strong></span>
+        <span class="hidden shrink-0 sm:inline">${tr('product_label_results', 'Results')}: <strong>${currentPageCount}</strong> / ${orderedProducts.length}</span>
+      </div>
+      <div class="mt-2 hidden w-full grid-cols-2 gap-2 product-meta-nav sm:mt-1 sm:flex sm:w-auto sm:grid-cols-none sm:gap-2 sm:justify-end lg:mt-0 lg:ml-4 lg:shrink-0">
+        <button
+          type="button"
+          data-page="${currentPage - 1}"
+          class="product-meta-nav-btn ios-nav-btn w-full justify-start ${prevDisabled ? 'is-disabled' : ''} sm:w-auto sm:justify-center"
+          ${prevDisabled ? 'disabled' : ''}
+          aria-label="${tr('product_prev_page', 'Previous page')}">
+          <span class="product-meta-nav-icon material-symbols-outlined" aria-hidden="true">keyboard_arrow_left</span>
+          <span class="product-meta-nav-label">${tr('product_prev_page', 'Previous')}</span>
+        </button>
+        <button
+          type="button"
+          data-page="${currentPage + 1}"
+          class="product-meta-nav-btn ios-nav-btn w-full justify-end ${nextDisabled ? 'is-disabled' : ''} sm:w-auto sm:justify-center"
+          ${nextDisabled ? 'disabled' : ''}
+          aria-label="${tr('product_next_page', 'Next page')}">
+          <span class="product-meta-nav-label">${tr('product_next_page', 'Next')}</span>
+          <span class="product-meta-nav-icon material-symbols-outlined" aria-hidden="true">keyboard_arrow_right</span>
+        </button>
+      </div>
+      </div>
+    `;
+    // Re-bind meta nav buttons after innerHTML replacement (CSP: no inline handlers)
+    meta.querySelectorAll('.product-meta-nav-btn[data-page]').forEach((btn) => {
+      btn.addEventListener('click', () => goToPage(Number(btn.dataset.page)));
+    });
+
+    if (orderedProducts.length === 0) {
+      grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8';
+      renderMobileProductSideControls(false);
+      // 清空卡片缓存（无匹配产品时不需要保留旧节点）
+      _renderedCards.clear();
+      grid.innerHTML = `
+        <div class="col-span-full rounded-2xl border border-dashed border-primary/30 bg-white/70 dark:bg-slate-900/60 p-10 text-center">
+          <span class="material-symbols-outlined text-4xl text-primary/70">inventory_2</span>
+          <p class="mt-3 text-base font-bold text-primary dark:text-slate-100">${tr('product_empty_title', 'No matching products found')}</p>
+          <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">${tr('product_empty_desc', 'Try another series filter or contact us for custom recommendation.')}</p>
+        </div>
+      `;
+      renderPagination(1);
+      return;
+    }
+
+    // 使用 DOM diff 渲染产品卡片，翻页时复用未变化的 DOM 节点
+    diffProductCards(grid, pageProducts);
 
     if (mobileCarousel) {
       grid.className = 'product-grid-mobile mb-8';
@@ -918,10 +983,8 @@ function getCategoryI18nKey(category) {
       currentPageCount
     });
 
-    // Re-bind product card & filter buttons after innerHTML replacement (CSP: no inline handlers)
-    grid.querySelectorAll('[data-action="show-popup"]').forEach((btn) => {
-      btn.addEventListener('click', () => showSmartPopupManual());
-    });
+    // 产品卡片按钮通过事件委托绑定（在 grid 上监听），无需每次渲染后重绑定
+    // 事件委托在 initProductGridDelegation() 中初始化（仅执行一次）
     const filterBar = document.getElementById('product-filter-bar');
     if (filterBar) {
       filterBar.querySelectorAll('button[data-filter]').forEach((btn) => {
