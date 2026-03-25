@@ -1,0 +1,13 @@
+# Nginx configuration for serving pre-compressed static assets
+# This file is for reference only — integrate these directives into your server block.
+
+# Serve pre-compressed .gz files automatically (generated at build time by webpack)
+gzip_static on;
+
+# Serve pre-compressed .br files automatically (if you add brotli compression later)
+# brotli_static on;
+
+# Recommended: also enable dynamic gzip as fallback for assets not pre-compressed
+gzip on;
+gzip_types text/plain text/css application/json application/javascript text/xml application/xml text/javascript image/svg+xml;
+gzip_min_length 1024;

@@ -2,6 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = (_, argv = {}) => {
   const isProduction = argv.mode === 'production';
@@ -28,6 +31,11 @@ module.exports = (_, argv = {}) => {
           },
         },
       },
+      minimize: true,
+      minimizer: [
+        new TerserPlugin(),
+        new CssMinimizerPlugin(),
+      ],
     } : {},
     output: {
       // Add contenthash so browsers bust cache after each release
@@ -54,6 +62,16 @@ module.exports = (_, argv = {}) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './src/index.html',
+        ...(isProduction ? {
+          minify: {
+            collapseWhitespace: true,
+            removeComments: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            useShortDoctype: true,
+          },
+        } : {}),
       }),
       ...(isProduction
         ? [
@@ -104,6 +122,14 @@ module.exports = (_, argv = {}) => {
                 noErrorOnMissing: true,
               },
             ],
+          }),
+          // Pre-compress assets with gzip for Nginx gzip_static / CDN
+          new CompressionPlugin({
+            algorithm: 'gzip',
+            test: /\.(js|css|html|json|svg)$/,
+            threshold: 1024,
+            minRatio: 0.8,
+            deleteOriginalAssets: false,
           }),
         ]
         : []),
