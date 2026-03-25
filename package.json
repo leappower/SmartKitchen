@@ -1,6 +1,6 @@
 {
   "name": "bakery-tech-pro",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Professional bakery equipment website with multi-language support and modular architecture",
   "main": "server.js",
   "scripts": {
