@@ -1361,20 +1361,6 @@ header nav a.active::after {
   padding-bottom: 0.45rem;
 }
 
-/* 国家选择框下拉图标定位 */
-.smart-popup-body .icon-expand-more {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: #64748b;
-}
-
-.dark .smart-popup-body .icon-expand-more {
-  color: #94a3b8;
-}
-
 /* ── 矮屏（高度 <= 700px）：压缩间距和字号 ── */
 @media (height <= 700px) {
   #smart-popup-overlay {
