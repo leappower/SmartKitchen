@@ -134,7 +134,13 @@ app.use(express.static(path.join(__dirname, 'dist'), {
 // SPA fallback with proper 404 handling
 app.get('*', (req, res) => {
   // Only look inside dist/ — never expose project root files (scripts/, .env, etc.)
-  const filePath = path.join(__dirname, 'dist', req.path);
+  const distDir = path.resolve(__dirname, 'dist');
+  const filePath = path.resolve(distDir, req.path);
+
+  // Path traversal guard: ensure resolved path stays inside dist/
+  if (!filePath.startsWith(distDir + path.sep) && filePath !== distDir) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
 
   // Check if file exists
   if (require('fs').existsSync(filePath) && require('fs').statSync(filePath).isFile()) {

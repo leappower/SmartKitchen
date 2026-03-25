@@ -1,8 +1,12 @@
 // sw.js - Service Worker for caching language files and images
 // Implements offline caching and intelligent cache management
 
-const CACHE_NAME = 'language-cache-v0-0-0';
-const LANGUAGE_FILES_CACHE = 'language-files-v0-0-0';
+// Build-time injectable version — replace via sed/string-replace in CI or a bundler plugin.
+// When no injection happens, falls back to a dev-friendly default.
+const SW_VERSION = typeof __SW_VERSION__ !== 'undefined' ? __SW_VERSION__ : '0.0.0';
+
+const CACHE_NAME = `language-cache-v${SW_VERSION}`;
+const LANGUAGE_FILES_CACHE = `language-files-v${SW_VERSION}`;
 
 // ─── 图片缓存配置 ──────────────────────────────────────────────────────────────
 const IMAGE_CACHE = 'image-cache-v0-0-4';
@@ -153,31 +157,32 @@ self.addEventListener('fetch', (event) => {
 
         // Try to get from cache first (ignoreSearch as extra safety net)
         return cache.match(normalizedRequest, { ignoreSearch: true }).then((cachedResponse) => {
-          if (cachedResponse) {
-            console.log('[SW] Serving language file from cache:', url.pathname);
-            return cachedResponse;
-          }
-
-          // Not in cache, fetch from network
-          console.log('[SW] Fetching language file from network:', url.pathname);
-          return fetch(event.request).then((networkResponse) => {
+          // Stale-While-Revalidate: return cached version immediately while
+          // refreshing in the background so users get updates on next visit.
+          const networkPromise = fetch(event.request).then((networkResponse) => {
             // Check if we received a valid response
             if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
               console.warn('[SW] Invalid network response for:', url.pathname);
               return networkResponse;
             }
 
-            // Clone response
-            const responseToCache = networkResponse.clone();
-
             // Store with normalized key (no query string) to match pre-cached entries
-            cache.put(normalizedRequest, responseToCache).catch(err => {
+            cache.put(normalizedRequest, networkResponse.clone()).catch(err => {
               console.warn('[SW] Failed to cache language file:', err);
             });
 
-            console.log('[SW] Language file cached:', url.pathname);
+            console.log('[SW] Language file refreshed:', url.pathname);
             return networkResponse;
-          }).catch((error) => {
+          });
+
+          if (cachedResponse) {
+            console.log('[SW] Serving language file from cache (background refresh):', url.pathname);
+            return cachedResponse;
+          }
+
+          // Not in cache, wait for network
+          console.log('[SW] Fetching language file from network:', url.pathname);
+          return networkPromise.catch((error) => {
             console.error('[SW] Network fetch failed, trying fallback:', error);
 
             // Fallback: try to serve Chinese (zh-CN) ui file as universal fallback
