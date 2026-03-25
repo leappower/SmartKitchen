@@ -2431,15 +2431,32 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
     }
 
     // Legal modal close buttons
-    const legalModalCloseBtn = document.querySelector('#legal-modal button[aria-label="Close"]');
+    const legalModalCloseBtn = document.getElementById('legal-modal-close-btn');
     if (legalModalCloseBtn) {
       legalModalCloseBtn.addEventListener('click', () => closeLegalModal());
     }
 
-    const legalModalCloseFooterBtn = document.querySelector('#legal-modal button[data-action="close-legal-modal"]');
+    const legalModalCloseFooterBtn = document.getElementById('legal-modal-close-btn-footer');
     if (legalModalCloseFooterBtn) {
       legalModalCloseFooterBtn.addEventListener('click', () => closeLegalModal());
     }
+
+    // Legal modal backdrop click
+    const legalModalBackdrop = document.getElementById('legal-modal-backdrop');
+    if (legalModalBackdrop) {
+      legalModalBackdrop.addEventListener('click', () => closeLegalModal());
+    }
+
+    // Legal modal trigger links (footer)
+    document.querySelectorAll('.legal-modal-trigger').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const type = link.getAttribute('data-legal-type');
+        if (type) {
+          openLegalModal(type);
+        }
+      });
+    });
   }
 
   // ============================================

@@ -26,8 +26,7 @@
 
   <!-- Load fonts asynchronously -->
   <link id="main-html-main-head-stylesheet-link"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"
-    media="print" onload="this.media='all'">
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link id="main-html-main-head-stylesheet-link-2"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     rel="stylesheet">
@@ -1704,13 +1703,13 @@
               data-i18n="footer_legal_title">Legal</h4>
             <ul id="footer-grid-footer-legal-block-ul-1" class="space-y-2 text-sm">
               <li id="footer-grid-footer-legal-block-ul-1-li-1"><a
-                  id="footer-grid-footer-legal-block-ul-1-li-1-footer-legal-user-link" href="javascript:void(0)"
-                  class="hover:text-white transition-colors" data-i18n="footer_legal_user_agreement"
-                  onclick="openLegalModal('userAgreement')">User Agreement</a></li>
+                  id="footer-grid-footer-legal-block-ul-1-li-1-footer-legal-user-link" href="#"
+                  class="hover:text-white transition-colors legal-modal-trigger" data-i18n="footer_legal_user_agreement"
+                  data-legal-type="userAgreement">User Agreement</a></li>
               <li id="footer-grid-footer-legal-block-ul-1-li-2"><a
-                  id="footer-grid-footer-legal-block-ul-1-li-2-footer-legal-privacy-link" href="javascript:void(0)"
-                  class="hover:text-white transition-colors" data-i18n="footer_legal_privacy_policy"
-                  onclick="openLegalModal('privacy')">Privacy Policy</a></li>
+                  id="footer-grid-footer-legal-block-ul-1-li-2-footer-legal-privacy-link" href="#"
+                  class="hover:text-white transition-colors legal-modal-trigger" data-i18n="footer_legal_privacy_policy"
+                  data-legal-type="privacy">Privacy Policy</a></li>
             </ul>
           </div>
         </div>
@@ -1937,8 +1936,7 @@
   <div id="legal-modal" class="fixed inset-0 z-[9999] hidden" aria-modal="true" role="dialog">
     <!-- Backdrop -->
     <div id="legal-modal-backdrop" class="absolute inset-0 bg-black/60 opacity-0"
-      style="transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1); will-change: opacity;"
-      onclick="closeLegalModal()"></div>
+      style="transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1); will-change: opacity;"></div>
     
     <!-- Modal Container -->
     <div class="relative min-h-screen flex items-center justify-center p-4 pointer-events-none">
@@ -1949,7 +1947,7 @@
         <!-- Header -->
         <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800">
           <h2 id="legal-modal-title" class="text-xl font-bold text-slate-800 dark:text-slate-100" data-i18n="user_agreement_title">User Agreement</h2>
-          <button onclick="closeLegalModal()" class="w-10 h-10 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors flex-shrink-0" aria-label="Close">
+          <button id="legal-modal-close-btn" class="w-10 h-10 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors flex-shrink-0" aria-label="Close">
             <span class="material-symbols-outlined text-slate-600 dark:text-slate-400">close</span>
           </button>
         </div>
@@ -2088,7 +2086,7 @@
         
         <!-- Footer -->
         <div class="px-6 py-4 border-t border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 flex justify-end">
-          <button onclick="closeLegalModal()" class="px-6 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors text-sm font-medium" data-i18n="btn_close" data-action="close-legal-modal">Close</button>
+          <button id="legal-modal-close-btn-footer" class="px-6 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors text-sm font-medium" data-i18n="btn_close" data-action="close-legal-modal">Close</button>
         </div>
       </div>
     </div>
