@@ -1637,6 +1637,10 @@ const skeletonScreen = {
     // 同时显示主容器
     appContainer.classList.add('loaded');
 
+    // 显示浮动侧边栏和侧边栏指示器（FOUC 修复）
+    document.getElementById('floating-sidebar')?.classList.add('fouc-ready');
+    document.getElementById('sidebar-indicator')?.classList.add('fouc-ready');
+
     // 动画结束后移除元素
     setTimeout(() => {
       if (skeletonElement.parentNode) {

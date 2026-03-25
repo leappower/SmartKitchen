@@ -54,6 +54,11 @@
       visibility: visible !important;
     }
 
+    /* 评价星星 - 空星 */
+    .star_rate {
+      opacity: 0.25;
+    }
+
     /* 深色模式基础样式（dark class 在 <html> 上） */
     html.dark,
     html.dark body {
@@ -100,6 +105,27 @@
     /* Material Symbols: 隐藏文字直到图标字体加载完成，防止 FOUT */
     .material-symbols-outlined:not(.font-loaded) {
       visibility: hidden;
+    }
+
+    /* 浮动侧边栏：CSS 加载前隐藏，防止从普通文档流跳到 fixed 位置导致闪烁 */
+    .floating-sidebar,
+    .sidebar-indicator {
+      visibility: hidden;
+    }
+
+    /* 外部 CSS 加载完成后恢复可见（通过 JS 添加 .fouc-ready class） */
+    .floating-sidebar.fouc-ready,
+    .sidebar-indicator.fouc-ready {
+      visibility: visible;
+    }
+
+    /* 回到顶部按钮：初始已通过 .hide class 隐藏，无需额外处理 */
+    /* 但确保 CSS 加载前 .hide 也正确隐藏 */
+    .back-to-top-btn.hide {
+      visibility: hidden;
+      height: 0;
+      overflow: hidden;
+      pointer-events: none;
     }
 
     /* 智能弹窗：内联初始隐藏（外部 CSS 还没加载时防闪现）
@@ -1006,322 +1032,228 @@
               data-i18n="testimonials_title">我们的客户怎么说</h2>
             <p id="testimonials-desc" class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
               data-i18n="testimonials_desc">
-              了解我们的产品和服务如何支持全球各地的餐饮店。</p>
+              了解我们的产品和服务如何支持全球各地的餐饮企业。</p>
           </div>
 
           <!-- Testimonials Grid -->
           <div id="testimonials-grid" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8 mb-12">
-            <!-- Testimonial 1 -->
+            <!-- Testimonial 1: 5/5 - Thailand, Bakery -->
             <div id="testimonial-card-1"
               class="bg-white dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
               <div id="testimonial-card-1-div-1" class="flex items-center gap-2 mb-4">
-                <span id="testimonial-card-1-div-1-material-symbols-outlined-text"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-1-div-1-material-symbols-outlined-text-2"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-1-div-1-material-symbols-outlined-text-3"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-1-div-1-material-symbols-outlined-text-4"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-1-div-1-material-symbols-outlined-text-5"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-1-div-1-5-5-text"
-                  class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
               </div>
-              <p id="testimonial-card-1-testimonial-1-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              <p class="text-slate-700 dark:text-slate-300 mb-6 italic"
                 data-i18n="testimonial_1_text">
-                "温度控制非常精确。我们大大提高了面团的质量，并将回收率降低了30%。"</p>
-              <div id="testimonial-card-1-div-2" class="flex items-center gap-3">
-                <div id="testimonial-card-1-div-2-div-1"
-                  class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span id="testimonial-card-1-div-2-div-1-rs-text" class="text-primary font-bold">RS</span>
+                "发酵柜的温湿度控制非常精准，面团发酵品质明显提升。一年下来废品率降低了近30%。"</p>
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                  <span class="text-primary font-bold">SC</span>
                 </div>
-                <div id="testimonial-card-1-div-2-div-2">
-                  <h4 id="testimonial-card-1-div-2-div-2-testimonial-1-name-title" class="font-bold"
-                    data-i18n="testimonial_1_name">赖纳·施密特</h4>
-                  <p id="testimonial-card-1-div-2-div-2-testimonial-1-position-text"
-                    class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_1_position">施密特的面包店老板</p>
+                <div>
+                  <h4 class="font-bold" data-i18n="testimonial_1_name">Somchai Chaiyaporn</h4>
+                  <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_1_position">曼谷 Golden Crust 面包工坊创始人</p>
                 </div>
               </div>
             </div>
 
-            <!-- Testimonial 2 -->
+            <!-- Testimonial 2: 4.5/5 - UAE, Hotel -->
             <div id="testimonial-card-2"
               class="bg-white dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
               <div id="testimonial-card-2-div-1" class="flex items-center gap-2 mb-4">
-                <span id="testimonial-card-2-div-1-material-symbols-outlined-text"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-2-div-1-material-symbols-outlined-text-2"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-2-div-1-material-symbols-outlined-text-3"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-2-div-1-material-symbols-outlined-text-4"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-2-div-1-material-symbols-outlined-text-5"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-2-div-1-5-5-text"
-                  class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star_half</span>
+                <span class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">4.5/5</span>
               </div>
-              <p id="testimonial-card-2-testimonial-2-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              <p class="text-slate-700 dark:text-slate-300 mb-6 italic"
                 data-i18n="testimonial_2_text">
-                "优秀的客户服务！如果有任何问题，团队将在24小时内到达现场。这种可靠性是值得的。"</p>
-              <div id="testimonial-card-2-div-2" class="flex items-center gap-3">
-                <div id="testimonial-card-2-div-2-div-1"
-                  class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span id="testimonial-card-2-div-2-div-1-ct-text" class="text-primary font-bold">CT</span>
+                "为旗下六家酒店统一采购了智能烤箱和万能蒸烤箱，出餐效率提升40%。售后服务响应也很快。"</p>
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                  <span class="text-primary font-bold">AA</span>
                 </div>
-                <div id="testimonial-card-2-div-2-div-2">
-                  <h4 id="testimonial-card-2-div-2-div-2-testimonial-2-name-title" class="font-bold"
-                    data-i18n="testimonial_2_name">Claudia 塔尔贝格</h4>
-                  <p id="testimonial-card-2-div-2-div-2-testimonial-2-position-text"
-                    class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_2_position">总经理，手工披萨餐厅</p>
+                <div>
+                  <h4 class="font-bold" data-i18n="testimonial_2_name">Ahmed Al-Rashid</h4>
+                  <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_2_position">迪拜 Oasis Hospitality 集团采购总监</p>
                 </div>
               </div>
             </div>
 
-            <!-- Testimonial 3 -->
+            <!-- Testimonial 3: 4/5 - Brazil, Restaurant Chain -->
             <div id="testimonial-card-3"
               class="bg-white dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
-              <div id="testimonial-card-3-div-1" class="flex items-center gap-2 mb-4">
-                <span id="testimonial-card-3-div-1-material-symbols-outlined-text"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-3-div-1-material-symbols-outlined-text-2"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-3-div-1-material-symbols-outlined-text-3"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-3-div-1-material-symbols-outlined-text-4"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-3-div-1-material-symbols-outlined-text-5"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-3-div-1-5-5-text"
-                  class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+              <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500 star_rate">star</span>
+                <span class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">4/5</span>
               </div>
-              <p id="testimonial-card-3-testimonial-3-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              <p class="text-slate-700 dark:text-slate-300 mb-6 italic"
                 data-i18n="testimonial_3_text">
-                "能源效率和质量都非常的好。这次投资在18个月后回本。绝对推荐！"</p>
-              <div id="testimonial-card-3-div-2" class="flex items-center gap-3">
-                <div id="testimonial-card-3-div-2-div-1"
-                  class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span id="testimonial-card-3-div-2-div-1-jm-text" class="text-primary font-bold">JM</span>
+                "油炸炉的性能超出预期，恒温控油效果很好。唯一建议是希望能增加葡萄牙语操作面板。"</p>
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                  <span class="text-primary font-bold">RS</span>
                 </div>
-                <div id="testimonial-card-3-div-2-div-2">
-                  <h4 id="testimonial-card-3-div-2-div-2-testimonial-3-name-title" class="font-bold"
-                    data-i18n="testimonial_3_name">于尔根·梅耶</h4>
-                  <p id="testimonial-card-3-div-2-div-2-testimonial-3-position-text"
-                    class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_3_position">经营经理，贝克豪斯梅尔
-                  </p>
+                <div>
+                  <h4 class="font-bold" data-i18n="testimonial_3_name">Ricardo Santos</h4>
+                  <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_3_position">圣保罗 Sabor Brasileiro 餐饮连锁运营经理</p>
                 </div>
               </div>
             </div>
 
-            <!-- Testimonial 4 -->
+            <!-- Testimonial 4: 5/5 - Germany, Dealer (wide card) -->
             <div id="testimonial-card-4"
               class="bg-white dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow lg:col-span-2">
-              <div id="testimonial-card-4-div-1" class="flex items-center gap-2 mb-4">
-                <span id="testimonial-card-4-div-1-material-symbols-outlined-text"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-4-div-1-material-symbols-outlined-text-2"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-4-div-1-material-symbols-outlined-text-3"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-4-div-1-material-symbols-outlined-text-4"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-4-div-1-material-symbols-outlined-text-5"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-4-div-1-5-5-text"
-                  class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+              <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
               </div>
-              <p id="testimonial-card-4-testimonial-4-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              <p class="text-slate-700 dark:text-slate-300 mb-6 italic"
                 data-i18n="testimonial_4_text">
-                "作为经销商，我们非常重视与BakeriTechnik Profi的合作。产品可靠，利润率有吸引力，技术支持一流。去年，我们的收入增长了40%。"</p>
-              <div id="testimonial-card-4-div-2" class="flex items-center gap-3">
-                <div id="testimonial-card-4-div-2-div-1"
-                  class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span id="testimonial-card-4-div-2-div-1-ob-text" class="text-primary font-bold">OB</span>
+                "作为欧洲经销商，我们与 SmartKitchen 的合作已有四年。产品线涵盖商用烤箱、发酵柜和洗碗机，质量稳定、利润空间好、技术支持响应及时。去年我们的设备销售额增长了40%。"</p>
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                  <span class="text-primary font-bold">MK</span>
                 </div>
-                <div id="testimonial-card-4-div-2-div-2">
-                  <h4 id="testimonial-card-4-div-2-div-2-testimonial-4-name-title" class="font-bold"
-                    data-i18n="testimonial_4_name">奥斯卡·布伦纳</h4>
-                  <p id="testimonial-card-4-div-2-div-2-testimonial-4-position-text"
-                    class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_4_position">
-                    汉堡Brotfabrik经销商
-                  </p>
+                <div>
+                  <h4 class="font-bold" data-i18n="testimonial_4_name">Markus Klein</h4>
+                  <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_4_position">GastroPro GmbH，科隆 · 欧洲区域经销商</p>
                 </div>
               </div>
             </div>
 
-            <!-- Testimonial 5 -->
+            <!-- Testimonial 5: 3.5/5 - Indonesia, Catering -->
             <div id="testimonial-card-5"
               class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
-              <div id="testimonial-card-5-div-1" class="flex items-center gap-2 mb-4">
-                <span id="testimonial-card-5-div-1-material-symbols-outlined-text"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-5-div-1-material-symbols-outlined-text-2"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-5-div-1-material-symbols-outlined-text-3"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-5-div-1-material-symbols-outlined-text-4"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-5-div-1-material-symbols-outlined-text-5"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-5-div-1-5-5-text"
-                  class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+              <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star_half</span>
+                <span class="material-symbols-outlined text-yellow-500 star_rate">star</span>
+                <span class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">3.5/5</span>
               </div>
-              <p id="testimonial-card-5-testimonial-5-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              <p class="text-slate-700 dark:text-slate-300 mb-6 italic"
                 data-i18n="testimonial_5_text">
-                "为我们的业务量身定制的解决方案是改变游戏规则的。完美融入我们现有的生产线。"</p>
-              <div id="testimonial-card-5-div-2" class="flex items-center gap-3">
-                <div id="testimonial-card-5-div-2-div-1"
-                  class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span id="testimonial-card-5-div-2-div-1-pj-text" class="text-primary font-bold">PJ</span>
+                "炒菜机适合大规模团餐场景，出菜速度很快。不过培训员工适应智能菜单系统花了些时间，建议提供更多当地菜谱预设。"</p>
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                  <span class="text-primary font-bold">DW</span>
                 </div>
-                <div id="testimonial-card-5-div-2-div-2">
-                  <h4 id="testimonial-card-5-div-2-div-2-testimonial-5-name-title" class="font-bold"
-                    data-i18n="testimonial_5_name">佩特拉·荣</h4>
-                  <p id="testimonial-card-5-div-2-div-2-testimonial-5-position-text"
-                    class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_5_position">业主，KondiWerk
-                    慕尼黑</p>
+                <div>
+                  <h4 class="font-bold" data-i18n="testimonial_5_name">Dewi Wijaya</h4>
+                  <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_5_position">雅加达 Nusantara Catering 执行主厨</p>
                 </div>
               </div>
             </div>
 
-            <!-- Testimonial 6 -->
+            <!-- Testimonial 6: 4/5 - Spain, Bakery (wide card) -->
             <div id="testimonial-card-6"
               class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow lg:col-span-2">
-              <div id="testimonial-card-6-div-1" class="flex items-center gap-2 mb-4">
-                <span id="testimonial-card-6-div-1-material-symbols-outlined-text"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-6-div-1-material-symbols-outlined-text-2"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-6-div-1-material-symbols-outlined-text-3"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-6-div-1-material-symbols-outlined-text-4"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-6-div-1-material-symbols-outlined-text-5"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-6-div-1-5-5-text"
-                  class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+              <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500 star_rate">star</span>
+                <span class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">4/5</span>
               </div>
-              <p id="testimonial-card-6-testimonial-6-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              <p class="text-slate-700 dark:text-slate-300 mb-6 italic"
                 data-i18n="testimonial_6_text">
-                "5年保修令我们信服。但更令人印象深刻的是顺利的安装和指导。只是顶部！"</p>
-              <div id="testimonial-card-6-div-2" class="flex items-center gap-3">
-                <div id="testimonial-card-6-div-2-div-1"
-                  class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span id="testimonial-card-6-div-2-div-1-mk-text" class="text-primary font-bold">MK</span>
+                "我们的三层工坊用了四台发酵柜和两台层式烤炉，运行两年几乎零故障。5年质保确实让人放心。唯一小遗憾是远程监控功能只能连Wi-Fi，希望后续支持有线网络。"</p>
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                  <span class="text-primary font-bold">EM</span>
                 </div>
-                <div id="testimonial-card-6-div-2-div-2">
-                  <h4 id="testimonial-card-6-div-2-div-2-testimonial-6-name-title" class="font-bold"
-                    data-i18n="testimonial_6_name">马库斯·克莱恩
-                  </h4>
-                  <p id="testimonial-card-6-div-2-div-2-testimonial-6-position-text"
-                    class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_6_position">科隆有机面包店生产经理
-                  </p>
+                <div>
+                  <h4 class="font-bold" data-i18n="testimonial_6_name">Elena Moreno</h4>
+                  <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_6_position">马德里 Panadería El Horno 生产总监</p>
                 </div>
               </div>
             </div>
 
-            <!-- Testimonial 7 -->
+            <!-- Testimonial 7: 5/5 - Turkey, Food Factory -->
             <div id="testimonial-card-7"
               class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
-              <div id="testimonial-card-7-div-1" class="flex items-center gap-2 mb-4">
-                <span id="testimonial-card-7-div-1-material-symbols-outlined-text"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-7-div-1-material-symbols-outlined-text-2"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-7-div-1-material-symbols-outlined-text-3"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-7-div-1-material-symbols-outlined-text-4"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-7-div-1-material-symbols-outlined-text-5"
-                  class="material-symbols-outlined text-yellow-500">star</span>
-                <span id="testimonial-card-7-div-1-5-5-text"
-                  class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
+              <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="material-symbols-outlined text-yellow-500">star</span>
+                <span class="text-sm font-bold text-slate-600 dark:text-slate-300 ml-2">5/5</span>
               </div>
-              <p id="testimonial-card-7-testimonial-7-text-text" class="text-slate-700 dark:text-slate-300 mb-6 italic"
+              <p class="text-slate-700 dark:text-slate-300 mb-6 italic"
                 data-i18n="testimonial_7_text">
-                "真正的德国优质产品。从咨询到维护一流！"</p>
-              <div id="testimonial-card-7-div-2" class="flex items-center gap-3">
-                <div id="testimonial-card-7-div-2-div-1"
-                  class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span id="testimonial-card-7-div-2-div-1-aw-text" class="text-primary font-bold">AW</span>
+                "从前期咨询到安装调试，团队非常专业。产线定制的电烤箱和搅拌机完美匹配我们的烘焙产能，投资回报周期仅14个月。"</p>
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                  <span class="text-primary font-bold">KY</span>
                 </div>
-                <div id="testimonial-card-7-div-2-div-2">
-                  <h4 id="testimonial-card-7-div-2-div-2-testimonial-7-name-title" class="font-bold"
-                    data-i18n="testimonial_7_name">真正的德国品质产品Andreas Wolff 从咨询到维护一流！</h4>
-                  <p id="testimonial-card-7-div-2-div-2-testimonial-7-position-text"
-                    class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_7_position">业主，面包店沃尔夫，维也纳
-                  </p>
+                <div>
+                  <h4 class="font-bold" data-i18n="testimonial_7_name">Kemal Yılmaz</h4>
+                  <p class="text-sm text-slate-500 dark:text-slate-400" data-i18n="testimonial_7_position">伊斯坦布尔 Anadolu Gıda 食品加工厂厂长</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Partner Logos -->
+          <!-- Partner Logos & Certifications -->
           <div id="partners" class="bg-slate-100 dark:bg-slate-800/50 rounded-xl p-8 mb-8">
-            <h3 id="partners-title" class="text-xl font-bold text-center mb-8" data-i18n="partners_title">我们的合作伙伴 &amp;
-              客户
+            <h3 id="partners-title" class="text-xl font-bold text-center mb-8" data-i18n="partners_title">合作伙伴 &amp;
+              行业认证
             </h3>
             <div id="partners-grid" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-6">
-              <div id="partners-grid-p-4-block"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-schmidt-s-b-ckerei-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">Schmidt's Bäckerei</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_1">CE Certified</span>
               </div>
-              <div id="partners-grid-p-4-block-2"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-2-thalberg-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">Thalberg</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_2">ISO 9001</span>
               </div>
-              <div id="partners-grid-p-4-block-3"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-3-backhaus-meier-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">Backhaus Meier</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_3">SGS Verified</span>
               </div>
-              <div id="partners-grid-p-4-block-4"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-4-brotfabrik-hh-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">Brotfabrik HH</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_4">NSF International</span>
               </div>
-              <div id="partners-grid-p-4-block-5"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-5-kondiwerk-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">KondiWerk</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_5">UL Listed</span>
               </div>
-              <div id="partners-grid-p-4-block-6"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-6-biob-ckerei-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">BioBäckerei</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_6">TÜV Rheinland</span>
               </div>
-              <div id="partners-grid-p-4-block-7"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-7-wolff-s-brot-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">Wolff's Brot</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_7">Marriott Hotels</span>
               </div>
-              <div id="partners-grid-p-4-block-8"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-8-m-hle-b-ckerei-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">Mühle Bäckerei</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_8">Accor Group</span>
               </div>
-              <div id="partners-grid-p-4-block-9"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-9-handwerk-brot-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">Handwerk Brot</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_9">Sodexo</span>
               </div>
-              <div id="partners-grid-p-4-block-10"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-10-gastropro-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">GastroPro</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_10">GastroPro EU</span>
               </div>
-              <div id="partners-grid-p-4-block-11"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-11-b-ckerei-plus-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">Bäckerei Plus</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_11">Anadolu Gıda</span>
               </div>
-              <div id="partners-grid-p-4-block-12"
-                class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
-                <span id="partners-grid-p-4-block-12-feinb-ckerei-text"
-                  class="text-base font-bold text-slate-700 dark:text-slate-300">Feinbäckerei</span>
+              <div class="bg-white dark:bg-slate-800 rounded-lg p-4 flex items-center justify-center h-20">
+                <span class="text-base font-bold text-slate-700 dark:text-slate-300" data-i18n="partner_12">Nusantara Group</span>
               </div>
             </div>
           </div>
