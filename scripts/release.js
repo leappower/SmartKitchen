@@ -341,6 +341,7 @@ if (opts.skipBuild) {
   try {
     // Step 5b 已单独执行 download:images（增量），这里用 build:pack 跳过重复的 download 步骤
     // optimize:images(增量) → split:lang → webpack → copy-translations → build-i18n → verify
+    // Note: split:lang 必须在 webpack 之前执行，确保语言文件拆分产物在 webpack 打包时已就绪
     runLive('npm run build:pack');
     ok('打包完成');
   } catch (e) {
@@ -398,6 +399,30 @@ if (!opts.skipBuild && fs.existsSync(swSrcPath)) {
   warn('已跳过打包（--skip-build），sw.js 缓存版本号未更新');
 } else {
   warn('src/sw.js 不存在，跳过缓存版本更新');
+}
+
+// ─── Step 6c: 将 package.json 和 sw.js 的改动提交到 main 分支 ───────────────
+// release 流程修改了 package.json（版本号）和 src/sw.js（缓存版本），
+// 必须提交回 main 并推送，否则下次构建会丢失这些改动。
+title('Step 6c  提交改动到 main 分支');
+
+if (!opts.dryRun) {
+  try {
+    const hasChanges = run('git diff --name-only package.json src/sw.js', { silent: true });
+    if (hasChanges) {
+      run('git add package.json src/sw.js');
+      run(`git commit -m "chore: bump version to ${newVersion} and update sw.js cache"`);
+      log('推送改动到 origin main...');
+      run('git push origin main');
+      ok(`已提交并推送到 main: chore: bump version to ${newVersion} and update sw.js cache`);
+    } else {
+      warn('package.json 和 src/sw.js 均无改动，跳过提交');
+    }
+  } catch (e) {
+    // 非致命错误，不阻断发布流程，但需要提醒
+    warn(`提交改动到 main 失败: ${e.message}`);
+    warn('建议手动执行: git add package.json src/sw.js && git commit && git push origin main');
+  }
 }
 
 // ─── Step 7: 推送到 release 分支 ──────────────────────────────────────────────
