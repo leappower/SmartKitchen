@@ -36,7 +36,7 @@
 const https = require('https');
 const fs   = require('fs');
 const path = require('path');
-const { getEnglishNames } = require(path.join(__dirname, '../src/lang-registry'));
+const { getEnglishNames } = require(path.join(__dirname, '../../src/lang-registry'));
 
 // 自动加载 .env 文件（优先级低于已存在的环境变量）
 // 不依赖 dotenv 包，直接手动解析，保持零外部依赖

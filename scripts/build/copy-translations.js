@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const sourceDir = path.resolve(__dirname, '../src/assets/lang');
+const sourceDir = path.resolve(__dirname, '../../src/assets/lang');
 const targetDir = path.resolve(__dirname, '../dist/assets/lang');
 
 if (!fs.existsSync(sourceDir)) {

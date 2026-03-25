@@ -71,7 +71,7 @@ async function checkApiKey() {
 async function checkProductData() {
   step('步骤2: 检查产品数据');
   
-  const dataPath = path.join(__dirname, '../src/assets/product-data-table.js');
+  const dataPath = path.join(__dirname, '../../src/assets/product-data-table.js');
   
   if (!fs.existsSync(dataPath)) {
     error(`未找到产品数据文件: ${dataPath}`);
@@ -103,7 +103,7 @@ async function checkProductData() {
 async function checkTranslationFiles() {
   step('步骤3: 检查已有的翻译文件');
   
-  const translationsDir = path.join(__dirname, '../src/assets/lang');
+  const translationsDir = path.join(__dirname, '../../src/assets/lang');
   
   if (!fs.existsSync(translationsDir)) {
     warn('未找到翻译目录，将在执行翻译时创建');

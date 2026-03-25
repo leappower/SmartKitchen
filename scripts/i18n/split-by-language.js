@@ -14,12 +14,12 @@ const path = require('path');
 // ui-i18n.json is the canonical source; fall back to ui-i18n-merged.json when
 // the canonical file does not exist (build environments that only produce the
 // merged file).
-const _uiCanonical = path.join(__dirname, '../src/assets/ui-i18n.json');
-const _uiMerged    = path.join(__dirname, '../src/assets/ui-i18n-merged.json');
+const _uiCanonical = path.join(__dirname, '../../src/assets/ui-i18n.json');
+const _uiMerged    = path.join(__dirname, '../../src/assets/ui-i18n-merged.json');
 const config = {
   inputUIFile: fs.existsSync(_uiCanonical) ? _uiCanonical : _uiMerged,
-  inputProductFile: path.join(__dirname, '../src/assets/product-translations.json'),
-  outputLangDir: path.join(__dirname, '../src/assets/lang'),
+  inputProductFile: path.join(__dirname, '../../src/assets/product-translations.json'),
+  outputLangDir: path.join(__dirname, '../../src/assets/lang'),
 };
 
 /**

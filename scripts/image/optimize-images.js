@@ -65,7 +65,7 @@ const http = require('http');
 const crypto = require('crypto');
 
 // ─── 路径配置 ─────────────────────────────────────────────────────────────────
-const ASSETS_DIR   = path.join(__dirname, '../src/assets');
+const ASSETS_DIR   = path.join(__dirname, '../../src/assets');
 const IMAGES_DIR   = path.join(ASSETS_DIR, 'images');
 const BACKUP_DIR   = path.join(ASSETS_DIR, 'imagesCopy');
 
@@ -81,7 +81,7 @@ const INIT_CACHE      = args.includes('--init-cache');  // 为已压缩图片初
 
 // ─── 路径配置（download-remote 用到的源文件）────────────────────────────────
 const IMAGE_ASSETS_JS = path.join(ASSETS_DIR, 'image-assets.js');
-const INDEX_HTML      = path.join(__dirname, '../src/index.html');
+const INDEX_HTML      = path.join(__dirname, '../../src/index.html');
 
 // ─── 增量缓存路径 ─────────────────────────────────────────────────────────────
 // 记录每个源文件的 SHA-256 → 输出文件名 映射，防止反复压缩劣化

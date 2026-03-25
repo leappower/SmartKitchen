@@ -12,8 +12,8 @@ const path = require('path');
 
 // 配置
 const config = {
-  inputUIFile: path.join(__dirname, '../src/assets/ui-i18n.json'),
-  inputProductFile: path.join(__dirname, '../src/assets/product-translations.json'),
+  inputUIFile: path.join(__dirname, '../../src/assets/ui-i18n.json'),
+  inputProductFile: path.join(__dirname, '../../src/assets/product-translations.json'),
   outputDir: path.join(__dirname, '../dist/assets/lang'),
 };
 
