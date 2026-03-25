@@ -2056,9 +2056,16 @@ let _inactivityCheckInterval = null;
       this.updateTriggerReason(triggerReason);
       applyPopupVisibility();
 
+      // Prevent body scroll without layout shift (same as legal modal)
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.paddingRight = scrollbarWidth + 'px';
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = scrollbarWidth + 'px';
+      }
       document.body.style.overflow = 'hidden';
+      
+      // Force reflow for smooth animation
+      overlay.offsetHeight;
+      
       overlay.classList.add('show');
     },
 
@@ -2088,9 +2095,10 @@ let _inactivityCheckInterval = null;
       overlay.classList.add('closing');
       setTimeout(() => {
         overlay.classList.remove('show', 'closing');
+        // Restore body styles
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
-      }, 200);
+      }, 300);
     },
 
     setupFriendlyCloseHandlers() {

@@ -333,7 +333,13 @@
     "privacy_section_10_title": "十、条款变更",
     "privacy_section_10_content": "我们可能会定期更新本隐私政策。更改将发布在此页面上，并更新生效日期。继续使用我们的服务即表示接受更新后的政策。",
     "privacy_section_11_title": "十一、联系我们",
-    "privacy_section_11_content": "如有隐私相关问题，请通过 WhatsApp、电子邮件 support.kitchen@yukoli.com 或我们网站上的联系表单与我们联系。"
+    "privacy_section_11_content": "如有隐私相关问题，请通过 WhatsApp、电子邮件 support.kitchen@yukoli.com 或我们网站上的联系表单与我们联系。",
+    "privacy_section_12_title": "十二、Facebook Pixel 与跟踪技术",
+    "privacy_section_12_content": "我们使用 Facebook Pixel 和类似的跟踪技术来：(a) 衡量广告效果；(b) 为未来的广告建立目标受众；(c) 跟踪 Facebook 广告的转化。您可以通过 Facebook 广告偏好设置或使用浏览器请勿跟踪设置来选择退出 Facebook 跟踪。",
+    "privacy_section_13_title": "十三、儿童隐私",
+    "privacy_section_13_content": "我们的服务不面向 18 岁以下的个人。我们不会故意收集儿童的个人数据。如果您认为我们收集了未成年人的数据，请立即与我们联系。",
+    "privacy_section_14_title": "十四、自动化决策",
+    "privacy_section_14_content": "我们不使用产生法律效力的自动化决策或用户画像。所有业务决策都涉及人工审核。"
   },
   "zh-TW": {
     "all": "全部",
@@ -669,7 +675,13 @@
     "privacy_section_10_title": "十、條款變更",
     "privacy_section_10_content": "我們可能會定期更新本隱私政策。更改將發布在此頁面上，並更新生效日期。繼續使用我們的服務即表示接受更新後的政策。",
     "privacy_section_11_title": "十一、聯繫我們",
-    "privacy_section_11_content": "如有隱私相關問題，請通過 WhatsApp、電子郵件 support.kitchen@yukoli.com 或我們網站上的聯繫表單與我們聯繫。"
+    "privacy_section_11_content": "如有隱私相關問題，請通過 WhatsApp、電子郵件 support.kitchen@yukoli.com 或我們網站上的聯繫表單與我們聯繫。",
+    "privacy_section_12_title": "十二、Facebook Pixel 與跟蹤技術",
+    "privacy_section_12_content": "我們使用 Facebook Pixel 和類似的跟蹤技術來：(a) 衡量廣告效果；(b) 為未來的廣告建立目標受眾；(c) 跟蹤 Facebook 廣告的轉化。您可以通過 Facebook 廣告偏好設置或使用瀏覽器請勿跟蹤設置來選擇退出 Facebook 跟蹤。",
+    "privacy_section_13_title": "十三、兒童隱私",
+    "privacy_section_13_content": "我們的服務不面向 18 歲以下的個人。我們不會故意收集兒童的個人數據。如果您認為我們收集了未成年人的數據，請立即與我們聯繫。",
+    "privacy_section_14_title": "十四、自動化決策",
+    "privacy_section_14_content": "我們不使用產生法律效力的自動化決策或用戶畫像。所有業務決策都涉及人工審核。"
   },
   "en": {
     "all": "All",
@@ -1005,7 +1017,13 @@
     "privacy_section_10_title": "10. Changes to This Policy",
     "privacy_section_10_content": "We may update this Privacy Policy periodically. Changes will be posted on this page with an updated effective date. Continued use of our services constitutes acceptance of the updated policy.",
     "privacy_section_11_title": "11. Contact Us",
-    "privacy_section_11_content": "For privacy-related inquiries, please contact us via WhatsApp, email at support.kitchen@yukoli.com, or through our website contact form."
+    "privacy_section_11_content": "For privacy-related inquiries, please contact us via WhatsApp, email at support.kitchen@yukoli.com, or through our website contact form.",
+    "privacy_section_12_title": "12. Facebook Pixel & Tracking Technologies",
+    "privacy_section_12_content": "We use Facebook Pixel and similar tracking technologies to: (a) Measure advertising effectiveness; (b) Build targeted audiences for future ads; (c) Track conversions from Facebook ads. You can opt out of Facebook tracking through your Facebook ad preferences or by using browser do-not-track settings.",
+    "privacy_section_13_title": "13. Children's Privacy",
+    "privacy_section_13_content": "Our services are not directed to individuals under 18. We do not knowingly collect personal data from children. If you believe we have collected data from a minor, please contact us immediately.",
+    "privacy_section_14_title": "14. Automated Decision-Making",
+    "privacy_section_14_content": "We do not use automated decision-making or profiling that produces legal effects. All business decisions involve human review."
   },
   "ar": {
     "all": "الكل",
