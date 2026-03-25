@@ -37,18 +37,11 @@ const _esc = escapeHtml;
  * 使用 ASCII slug 避免 JSON key 含中文字符，同时支持 data-i18n 属性安全传递
  */
 const CATEGORY_SLUG_MAP = {
-  '中小型智能炒菜机':  'smart_cooker_mid',
-  '其他烹饪设备':      'other_cooking',
-  '团餐专用炒菜机':    'catering_cooker',
-  '多功能搅拌炒锅':    'mixing_wok',
-  '大型商用炒菜机':    'commercial_large',
-  '智能全自动炒菜机':  'auto_cooker',
-  '智能喷料炒菜机':    'spray_cooker',
-  '智能油炸炉系列':    'fryer_series',
-  '智能煮面/饭炉系列': 'noodle_rice_series',
-  '智能电磁滚筒炒菜机':'drum_induction',
-  '智能触屏滚筒炒菜机':'drum_touchscreen',
-  '行星搅拌炒菜机':    'planetary_mixer',
+  '炒菜机系列': 'stir_fryer',
+  '多功能搅拌炒锅/炖烩机': 'mixing_wok_stew',
+  '漂烫/焯水/油炸机': 'blanch_fryer',
+  '主食系列（面/饭）': 'staple_food',
+  '其他设备': 'other_equipment',
 };
 
 /**
