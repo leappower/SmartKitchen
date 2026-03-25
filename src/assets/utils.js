@@ -2258,6 +2258,8 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
     setupSecondaryContactsAutoCollapse();
     // Ensure mobile menu is closed on page load
     ensureMobileMenuClosed();
+    // Check URL hash for legal modal
+    checkHashAndOpenModal();
   });
 
   let jumpAnimationSystem = null;
@@ -2417,45 +2419,124 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
         hideIndicator();
       });
     }
+
+    // Legal modal close buttons
+    const legalModalCloseBtn = document.querySelector('#legal-modal button[aria-label="Close"]');
+    if (legalModalCloseBtn) {
+      legalModalCloseBtn.addEventListener('click', () => closeLegalModal());
+    }
+
+    const legalModalCloseFooterBtn = document.querySelector('#legal-modal button[data-action="close-legal-modal"]');
+    if (legalModalCloseFooterBtn) {
+      legalModalCloseFooterBtn.addEventListener('click', () => closeLegalModal());
+    }
   }
 
   // ============================================
   // Legal Modal Functions
   // ============================================
-  function openLegalModal(type) {
-    const modal = document.getElementById('legal-modal');
-    const backdrop = document.getElementById('legal-modal-backdrop');
-    const content = document.getElementById('legal-modal-content');
+  
+  // Store original body styles to prevent layout shift
+  let originalBodyOverflow = '';
+  let originalBodyPaddingRight = '';
+  let scrollBarWidth = 0;
+  
+  function getScrollbarWidth() {
+    // Calculate scrollbar width only once and cache it
+    if (scrollBarWidth === 0) {
+      const outer = document.createElement('div');
+      outer.style.visibility = 'hidden';
+      outer.style.overflow = 'scroll';
+      outer.style.msOverflowStyle = 'scrollbar';
+      document.body.appendChild(outer);
+      
+      const inner = document.createElement('div');
+      outer.appendChild(inner);
+      
+      scrollBarWidth = outer.offsetWidth - inner.offsetWidth;
+      outer.parentNode.removeChild(outer);
+    }
+    return scrollBarWidth;
+  }
+  
+  // Update legal modal content with current translations
+  function updateLegalModalContent(type) {
     const title = document.getElementById('legal-modal-title');
     const userAgreementContent = document.getElementById('userAgreement-content');
     const privacyContent = document.getElementById('privacy-content');
     
-    if (!modal) return;
+    if (!title) return;
     
     // Set title and content based on type
     if (type === 'userAgreement') {
       title.textContent = tr('user_agreement_title', 'User Agreement');
-      userAgreementContent.classList.remove('hidden');
-      privacyContent.classList.add('hidden');
+      if (userAgreementContent) userAgreementContent.classList.remove('hidden');
+      if (privacyContent) privacyContent.classList.add('hidden');
     } else if (type === 'privacy') {
       title.textContent = tr('privacy_policy_title', 'Privacy Policy');
-      userAgreementContent.classList.add('hidden');
-      privacyContent.classList.remove('hidden');
+      if (userAgreementContent) userAgreementContent.classList.add('hidden');
+      if (privacyContent) privacyContent.classList.remove('hidden');
     }
+    
+    // Update all data-i18n elements within the modal
+    const modal = document.getElementById('legal-modal');
+    if (modal && window.translationManager && window.translationManager.isInitialized) {
+      const i18nElements = modal.querySelectorAll('[data-i18n]');
+      i18nElements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (key) {
+          const translated = tr(key, el.textContent);
+          if (translated && translated !== key) {
+            el.textContent = translated;
+          }
+        }
+      });
+    }
+  }
+  
+  function openLegalModal(type, updateHash = true) {
+    const modal = document.getElementById('legal-modal');
+    const backdrop = document.getElementById('legal-modal-backdrop');
+    const content = document.getElementById('legal-modal-content');
+    
+    if (!modal) return;
+    
+    // Update content with current translations
+    updateLegalModalContent(type);
+    
+    // Prevent body scroll without layout shift
+    const scrollbarWidth = getScrollbarWidth();
+    const hasScrollbar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
+    
+    if (hasScrollbar && scrollbarWidth > 0) {
+      originalBodyPaddingRight = document.body.style.paddingRight;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+    originalBodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
     
     // Show modal
     modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
     
-    // Animate in
-    setTimeout(() => {
-      backdrop.classList.remove('opacity-0');
-      content.classList.remove('scale-95', 'opacity-0');
-      content.classList.add('scale-100', 'opacity-100');
-    }, 10);
+    // Force reflow to ensure smooth animation
+    modal.offsetHeight;
+    
+    // Animate in - use double requestAnimationFrame for smoother animation
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        backdrop.style.opacity = '1';
+        content.style.transform = 'scale(1)';
+        content.style.opacity = '1';
+      });
+    });
+    
+    // Update URL hash without triggering scroll
+    if (updateHash && history.pushState) {
+      history.pushState(null, null, `#${type}`);
+    }
   }
 
-  function closeLegalModal() {
+  function closeLegalModal(updateHash = true) {
     const modal = document.getElementById('legal-modal');
     const backdrop = document.getElementById('legal-modal-backdrop');
     const content = document.getElementById('legal-modal-content');
@@ -2463,16 +2544,54 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
     if (!modal) return;
     
     // Animate out
-    backdrop.classList.add('opacity-0');
-    content.classList.remove('scale-100', 'opacity-100');
-    content.classList.add('scale-95', 'opacity-0');
+    backdrop.style.opacity = '0';
+    content.style.transform = 'scale(0.95)';
+    content.style.opacity = '0';
     
     // Hide modal after animation
     setTimeout(() => {
       modal.classList.add('hidden');
-      document.body.style.overflow = '';
+      // Restore body styles
+      document.body.style.overflow = originalBodyOverflow;
+      document.body.style.paddingRight = originalBodyPaddingRight;
     }, 300);
+    
+    // Remove hash from URL
+    if (updateHash && history.pushState) {
+      history.pushState(null, null, window.location.pathname + window.location.search);
+    }
   }
+
+  // Check URL hash on page load and open corresponding modal
+  function checkHashAndOpenModal() {
+    const hash = window.location.hash.slice(1); // Remove #
+    if (hash === 'userAgreement' || hash === 'privacy') {
+      // Wait for translations to be ready
+      const tryOpenModal = () => {
+        if (window.translationManager && window.translationManager.isInitialized) {
+          openLegalModal(hash, false);
+        } else {
+          // Retry after a short delay
+          setTimeout(tryOpenModal, 100);
+        }
+      };
+      tryOpenModal();
+    }
+  }
+
+  // Listen for hash changes
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash === 'userAgreement' || hash === 'privacy') {
+      openLegalModal(hash, false);
+    } else {
+      // Close modal if hash is removed
+      const modal = document.getElementById('legal-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        closeLegalModal(false);
+      }
+    }
+  });
 
   // Close legal modal on Escape key
   document.addEventListener('keydown', (e) => {
