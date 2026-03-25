@@ -547,22 +547,30 @@ async function translateProducts() {
   const targetLangs = SUPPORTED_LANGS.filter(l => l !== 'zh-CN');
   console.log(`🌐 共需翻译 ${targetLangs.length} 种目标语言（全并发）\n`);
 
-  // 全语言并发
-  const batchResults = await Promise.all(
-    targetLangs.map((lang, i) =>
-      translateOneLang(lang, i, targetLangs.length, productSeries, translations, null)
-    )
+  // 全语言并发 — 每种语言完成后立即保存到磁盘（防止中途被杀丢失全部）
+  const pendingLangs = targetLangs.map((lang, i) =>
+    translateOneLang(lang, i, targetLangs.length, productSeries, translations, null)
+      .then(({ lang: l, writes, langStats }) => {
+        if (!translations[l]) translations[l] = {};
+        Object.assign(translations[l], writes);
+        if (stats[l]) {
+          stats[l].added   += langStats.added;
+          stats[l].skipped += langStats.skipped;
+          stats[l].samples.push(...langStats.samples.slice(0, 10 - stats[l].samples.length));
+        }
+        // 每完成一种语言立即持久化
+        saveTranslationFiles(translations);
+        console.log(`💾 [${l}] 已保存到磁盘`);
+        return { lang: l, writes, langStats };
+      })
+      .catch(err => {
+        console.error(`❌ [${lang}] 翻译失败: ${err.message}`);
+        return null;
+      })
   );
 
-  for (const { lang, writes, langStats } of batchResults) {
-    if (!translations[lang]) translations[lang] = {};
-    Object.assign(translations[lang], writes);
-    if (stats[lang]) {
-      stats[lang].added   += langStats.added;
-      stats[lang].skipped += langStats.skipped;
-      stats[lang].samples.push(...langStats.samples.slice(0, 10 - stats[lang].samples.length));
-    }
-  }
+  const batchResults = await Promise.allSettled(pendingLangs)
+    .then(results => results.filter(r => r.status === 'fulfilled').map(r => r.value).filter(Boolean));
 
   processChineseLang(productSeries, translations, stats, null);
 
