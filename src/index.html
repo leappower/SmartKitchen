@@ -508,7 +508,7 @@
       </div>
 
       <!-- Hero Section -->
-      <section id="hero" class="relative px-4 py-10 lg:py-16 mt-16 animate-fadeIn" data-bg-image-key="hero_bg"
+      <section id="hero" class="relative px-4 py-10 lg:py-16 mt-16 animate-fadeIn" data-bg-image-key="hero_main"
         style="background-image: url('images/workshop_bgm.webp'); background-size: cover; background-position: center; background-repeat: no-repeat;">
         <!-- 方案C：左侧渐变遮罩，只覆盖文字区，右侧透出背景图 -->
         <div class="absolute inset-0 bg-gradient-to-r from-black/65 via-black/40 to-transparent pointer-events-none">
@@ -542,8 +542,8 @@
             </div>
             <div id="hero-image-area"
               class="flex-1 w-full max-w-xl flex flex-col shadow-2xl rounded-2xl overflow-hidden">
-              <div id="hero-image-card" class="max-h-[300px] overflow-hidden bg-black">
-                <video id="hero-video" class="w-full h-full object-cover" autoplay muted loop playsinline>
+              <div id="hero-video-wrapper" class="relative aspect-[4/3] bg-black">
+                <video id="hero-video" class="w-full h-full object-contain" autoplay muted loop playsinline controls>
                   <source src="video/smart.mp4" type="video/mp4">
                 </video>
               </div>
