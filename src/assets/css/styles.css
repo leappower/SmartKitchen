@@ -1828,7 +1828,8 @@ header nav a.active::after {
   .footer-company-info,
   .footer-products,
   .footer-support,
-  .footer-company-links {
+  .footer-company-links,
+  .footer-legal-links {
     background: rgb(255, 255, 255, 0.08);
     border: 1px solid rgb(255, 255, 255, 0.16);
     border-radius: 12px;
@@ -1839,7 +1840,8 @@ header nav a.active::after {
   .footer-company-info h3,
   .footer-products h4,
   .footer-support h4,
-  .footer-company-links h4 {
+  .footer-company-links h4,
+  .footer-legal-links h4 {
     margin-bottom: 10px;
   }
 
@@ -2064,7 +2066,8 @@ header nav a.active::after {
   .footer-company-info,
   .footer-products,
   .footer-support,
-  .footer-company-links {
+  .footer-company-links,
+  .footer-legal-links {
     background: rgb(255, 255, 255, 0.08);
     border: 1px solid rgb(255, 255, 255, 0.16);
     border-radius: 12px;
@@ -2074,7 +2077,8 @@ header nav a.active::after {
   .footer-company-info h3,
   .footer-products h4,
   .footer-support h4,
-  .footer-company-links h4 {
+  .footer-company-links h4,
+  .footer-legal-links h4 {
     margin-bottom: 8px;
     font-size: 0.95rem;
   }
@@ -2082,7 +2086,8 @@ header nav a.active::after {
   .footer-company-info p,
   .footer-products ul,
   .footer-support ul,
-  .footer-company-links ul {
+  .footer-company-links ul,
+  .footer-legal-links ul {
     font-size: 0.82rem;
     line-height: 1.45;
   }
