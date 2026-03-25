@@ -130,7 +130,7 @@ const CONFIG = {
     // Hunyuan-MT-7B 不支持的语言代码（需降级到 scnet 处理）
     // 完整支持语言：zh, en, fr, es, de, it, pt, ru, nl, pl, tr, ar,
     //               ja, ko, vi, th, id, fil(tl), zh-TW 等 33+ 种
-    unsupportedLangs: new Set(['he', 'ms']),
+    unsupportedLangs: new Set([]), // he/ms 也用 Hunyuan（scnet 无 key）
   },
 };
 
