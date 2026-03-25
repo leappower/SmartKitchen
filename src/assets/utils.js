@@ -1250,7 +1250,7 @@ function getCategoryI18nKey(category) {
   }
 
   function startWhatsApp() { window.open('https://wa.me/8613163756465', '_blank'); }
-  function startLine() { window.open('https://line.me/ti/p/+66840273150', '_blank'); }
+  function startLine() { showNotification(tr('notify_coming_soon', 'Coming Soon...'), 'success'); }
   function startPhone() { window.location.href = 'tel:+8613163756465'; }
   function startTelegram() { window.open('https://t.me/baeckerei-profi', '_blank'); }
   function startEmail() {
@@ -1577,26 +1577,50 @@ const skeletonScreen = {
 
   checkIfReadyToHide() {
     if (!this.state.isVisible) return;
-    
+
     const elapsedTime = Date.now() - this.state.startTime;
     const minTimeElapsed = elapsedTime >= this.state.minDisplayTime;
-    
+
     // 检查关键条件
     const domReady = document.readyState !== 'loading';
     const fontsReady = !document.fonts || document.fonts.status === 'loaded';
-    
+
     // 检查首屏关键元素是否已渲染
+    // 注意：小屏幕上某些元素可能被隐藏或尚未渲染，需要特殊处理
+    const screenWidth = window.innerWidth;
+    const isTablet = screenWidth >= 768 && screenWidth < 1024;
+    const isMobile = screenWidth < 768;
+
     const criticalElements = [
       document.getElementById('main-header'),
-      document.getElementById('hero'),
-      document.getElementById('trust-badges')
+      document.getElementById('hero')
     ];
-    
+
+    // trust-badges 在小屏幕和平板上可能延迟加载或不显示
+    // 只在桌面端 (>=1024px) 严格要求
+    const trustBadges = document.getElementById('trust-badges');
+    if (!isMobile && !isTablet && trustBadges) {
+      criticalElements.push(trustBadges);
+    }
+
     const criticalElementsReady = criticalElements.every(el => {
       if (!el) return true; // 如果元素不存在，视为就绪
       const rect = el.getBoundingClientRect();
       return rect.width > 0 && rect.height > 0;
     });
+
+    // 调试日志（仅在开发环境）
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      console.log('[Skeleton] Checking...', {
+        isMobile,
+        isTablet,
+        minTimeElapsed,
+        domReady,
+        fontsReady,
+        criticalElementsReady,
+        elapsedTime
+      });
+    }
 
     if (minTimeElapsed && domReady && fontsReady && criticalElementsReady) {
       this.hide();
@@ -2032,9 +2056,16 @@ let _inactivityCheckInterval = null;
       this.updateTriggerReason(triggerReason);
       applyPopupVisibility();
 
+      // Prevent body scroll without layout shift (same as legal modal)
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.paddingRight = scrollbarWidth + 'px';
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = scrollbarWidth + 'px';
+      }
       document.body.style.overflow = 'hidden';
+      
+      // Force reflow for smooth animation
+      overlay.offsetHeight;
+      
       overlay.classList.add('show');
     },
 
@@ -2061,12 +2092,15 @@ let _inactivityCheckInterval = null;
         this.saveConversionSuppression();
       }
 
-      overlay.classList.add('closing');
-      setTimeout(() => {
-        overlay.classList.remove('show', 'closing');
+      // 直接移除show类触发CSS过渡动画，不使用closing类避免动画冲突
+      overlay.classList.remove('show');
+      
+      // 使用 requestAnimationFrame 确保在下一帧恢复样式，避免抖动
+      requestAnimationFrame(() => {
+        // Restore body styles
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
-      }, 200);
+      });
     },
 
     setupFriendlyCloseHandlers() {
@@ -2234,6 +2268,8 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
     setupSecondaryContactsAutoCollapse();
     // Ensure mobile menu is closed on page load
     ensureMobileMenuClosed();
+    // Check URL hash for legal modal
+    checkHashAndOpenModal();
   });
 
   let jumpAnimationSystem = null;
@@ -2393,7 +2429,206 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
         hideIndicator();
       });
     }
+
+    // Legal modal close buttons
+    const legalModalCloseBtn = document.getElementById('legal-modal-close-btn');
+    if (legalModalCloseBtn) {
+      legalModalCloseBtn.addEventListener('click', () => closeLegalModal());
+    }
+
+    const legalModalCloseFooterBtn = document.getElementById('legal-modal-close-btn-footer');
+    if (legalModalCloseFooterBtn) {
+      legalModalCloseFooterBtn.addEventListener('click', () => closeLegalModal());
+    }
+
+    // Legal modal backdrop click
+    const legalModalBackdrop = document.getElementById('legal-modal-backdrop');
+    if (legalModalBackdrop) {
+      legalModalBackdrop.addEventListener('click', () => closeLegalModal());
+    }
+
+    // Legal modal trigger links (footer)
+    document.querySelectorAll('.legal-modal-trigger').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const type = link.getAttribute('data-legal-type');
+        if (type) {
+          openLegalModal(type);
+        }
+      });
+    });
   }
+
+  // ============================================
+  // Legal Modal Functions
+  // ============================================
+  
+  // Store original body styles to prevent layout shift
+  let originalBodyOverflow = '';
+  let originalBodyPaddingRight = '';
+  let scrollBarWidth = 0;
+  
+  function getScrollbarWidth() {
+    // Calculate scrollbar width only once and cache it
+    if (scrollBarWidth === 0) {
+      const outer = document.createElement('div');
+      outer.style.visibility = 'hidden';
+      outer.style.overflow = 'scroll';
+      outer.style.msOverflowStyle = 'scrollbar';
+      document.body.appendChild(outer);
+      
+      const inner = document.createElement('div');
+      outer.appendChild(inner);
+      
+      scrollBarWidth = outer.offsetWidth - inner.offsetWidth;
+      outer.parentNode.removeChild(outer);
+    }
+    return scrollBarWidth;
+  }
+  
+  // Update legal modal content with current translations
+  function updateLegalModalContent(type) {
+    const title = document.getElementById('legal-modal-title');
+    const userAgreementContent = document.getElementById('userAgreement-content');
+    const privacyContent = document.getElementById('privacy-content');
+    
+    if (!title) return;
+    
+    // Set title and content based on type
+    if (type === 'userAgreement') {
+      title.textContent = tr('user_agreement_title', 'User Agreement');
+      if (userAgreementContent) userAgreementContent.classList.remove('hidden');
+      if (privacyContent) privacyContent.classList.add('hidden');
+    } else if (type === 'privacy') {
+      title.textContent = tr('privacy_policy_title', 'Privacy Policy');
+      if (userAgreementContent) userAgreementContent.classList.add('hidden');
+      if (privacyContent) privacyContent.classList.remove('hidden');
+    }
+    
+    // Update all data-i18n elements within the modal
+    const modal = document.getElementById('legal-modal');
+    if (modal && window.translationManager && window.translationManager.isInitialized) {
+      const i18nElements = modal.querySelectorAll('[data-i18n]');
+      i18nElements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (key) {
+          const translated = tr(key, el.textContent);
+          if (translated && translated !== key) {
+            el.textContent = translated;
+          }
+        }
+      });
+    }
+  }
+  
+  function openLegalModal(type, updateHash = true) {
+    const modal = document.getElementById('legal-modal');
+    const backdrop = document.getElementById('legal-modal-backdrop');
+    const content = document.getElementById('legal-modal-content');
+    
+    if (!modal) return;
+    
+    // Update content with current translations
+    updateLegalModalContent(type);
+    
+    // Prevent body scroll without layout shift
+    const scrollbarWidth = getScrollbarWidth();
+    const hasScrollbar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
+    
+    if (hasScrollbar && scrollbarWidth > 0) {
+      originalBodyPaddingRight = document.body.style.paddingRight;
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+    originalBodyOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    
+    // Show modal
+    modal.classList.remove('hidden');
+    
+    // Force reflow to ensure smooth animation
+    modal.offsetHeight;
+    
+    // Animate in - use double requestAnimationFrame for smoother animation
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        backdrop.style.opacity = '1';
+        content.style.transform = 'scale(1)';
+        content.style.opacity = '1';
+      });
+    });
+    
+    // Update URL hash without triggering scroll
+    if (updateHash && history.pushState) {
+      history.pushState(null, null, `#${type}`);
+    }
+  }
+
+  function closeLegalModal(updateHash = true) {
+    const modal = document.getElementById('legal-modal');
+    const backdrop = document.getElementById('legal-modal-backdrop');
+    const content = document.getElementById('legal-modal-content');
+    
+    if (!modal) return;
+    
+    // Animate out
+    backdrop.style.opacity = '0';
+    content.style.transform = 'scale(0.95)';
+    content.style.opacity = '0';
+    
+    // Hide modal after animation
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      // Restore body styles
+      document.body.style.overflow = originalBodyOverflow;
+      document.body.style.paddingRight = originalBodyPaddingRight;
+    }, 300);
+    
+    // Remove hash from URL
+    if (updateHash && history.pushState) {
+      history.pushState(null, null, window.location.pathname + window.location.search);
+    }
+  }
+
+  // Check URL hash on page load and open corresponding modal
+  function checkHashAndOpenModal() {
+    const hash = window.location.hash.slice(1); // Remove #
+    if (hash === 'userAgreement' || hash === 'privacy') {
+      // Wait for translations to be ready
+      const tryOpenModal = () => {
+        if (window.translationManager && window.translationManager.isInitialized) {
+          openLegalModal(hash, false);
+        } else {
+          // Retry after a short delay
+          setTimeout(tryOpenModal, 100);
+        }
+      };
+      tryOpenModal();
+    }
+  }
+
+  // Listen for hash changes
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash === 'userAgreement' || hash === 'privacy') {
+      openLegalModal(hash, false);
+    } else {
+      // Close modal if hash is removed
+      const modal = document.getElementById('legal-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        closeLegalModal(false);
+      }
+    }
+  });
+
+  // Close legal modal on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('legal-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        closeLegalModal();
+      }
+    }
+  });
 
   // Run after DOM is ready
   if (document.readyState === 'loading') {
@@ -2405,6 +2640,8 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
   global.bindAllEvents = bindAllEvents;
   global.smartPopup = smartPopup;
   global.userState = userState;
+  global.openLegalModal = openLegalModal;
+  global.closeLegalModal = closeLegalModal;
   Object.assign(global, {
     tr,
     setupBackToTopButton,
