@@ -2217,6 +2217,16 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
 
   document.addEventListener('DOMContentLoaded', () => {
     // Initialize skeleton screen
+    // Material Symbols 字体加载完成后移除隐藏，防止 FOUT（图标文字闪现）
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        document.querySelectorAll('.material-symbols-outlined').forEach(el => el.classList.add('font-loaded'));
+      });
+    } else {
+      // fallback：直接标记
+      document.querySelectorAll('.material-symbols-outlined').forEach(el => el.classList.add('font-loaded'));
+    }
+
     skeletonScreen.init();
     setTimeout(() => smartPopup.init(), 1000);
     setupIndicatorPrompt();
