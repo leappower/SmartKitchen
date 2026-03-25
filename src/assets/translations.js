@@ -229,6 +229,19 @@ class TranslationManager {
   }
 
   /**
+   * 转义 HTML 特殊字符（内部工具方法，防止 XSS）
+   */
+  _escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') return String(unsafe ?? '');
+    return unsafe
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  /**
    * Show loading indicator for product data
    */
   showLoadingIndicator() {
@@ -248,6 +261,7 @@ class TranslationManager {
         justify-content: center;
         z-index: 9999;
       `;
+      const loadingText = this._escapeHtml(this.uiText('loading', '加载中...'));
       indicator.innerHTML = `
         <div style="
           background: white;
@@ -264,7 +278,7 @@ class TranslationManager {
             animation: spin 1s linear infinite;
             margin: 0 auto 10px;
           "></div>
-          <p style="margin: 0; color: #333;">${this.uiText('loading', '加载中...')}</p>
+          <p style="margin: 0; color: #333;">${loadingText}</p>
         </div>
       `;
       document.body.appendChild(indicator);
@@ -304,8 +318,9 @@ class TranslationManager {
         z-index: 10000;
         animation: slide-in 0.3s ease-out;
       `;
+      const loadingText = this._escapeHtml(this.uiText('loading_language', 'Loading language...'));
       indicator.innerHTML = `
-        <span style="color: #333; font-size: 14px; font-weight: 500;">${this.uiText('loading_language', 'Loading language...')}</span>
+        <span style="color: #333; font-size: 14px; font-weight: 500;">${loadingText}</span>
       `;
       document.body.appendChild(indicator);
     }
@@ -649,6 +664,14 @@ class TranslationManager {
     this.domObserver.observe(document.body, {
       childList: true,
       subtree: true,
+    });
+
+    // 页面卸载时断开 observer，防止内存泄漏
+    window.addEventListener('beforeunload', () => {
+      if (this.domObserver) {
+        this.domObserver.disconnect();
+        this.domObserver = null;
+      }
     });
   }
 

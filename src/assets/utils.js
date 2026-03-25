@@ -1,6 +1,6 @@
 import { PRODUCT_DEFAULTS, PRODUCT_SERIES } from './product-list.js';
 import { IMAGE_ASSETS } from './image-assets.js';
-import { debounce } from './common.js';
+import { debounce, escapeHtml } from './common.js';
 
 // ─── matchMedia 缓存 ──────────────────────────────────────────────────────────
 // 将 window.matchMedia 结果缓存为布尔变量，避免在每次渲染 / 事件回调里重复触发
@@ -25,6 +25,11 @@ _mq1024.addEventListener('change',   (e) => { mqDesktop     = e.matches; });
 _mq768min.addEventListener('change', (e) => { mqTablet      = e.matches; });
 
 // utils.js - Shared asset and product helpers
+
+// ─── XSS 防护辅助 ──────────────────────────────────────────────────────────
+// escapeHtml 从 common.js 导入，在 IIFE 内部以 _esc 引用，确保所有 innerHTML
+// 拼接中的动态数据均经过转义
+const _esc = escapeHtml;
 
 /**
  * 产品分类名 → i18n key 中的 ASCII slug 映射表
@@ -749,23 +754,26 @@ function getCategoryI18nKey(category) {
 
     grid.innerHTML = pageProducts.map((p) => {
       // 获取产品多语言文本（已由数据层自动处理，无需降级）
-      const displayName = getProductI18nField(p, 'name', p.name) || `${tr(getCategoryI18nKey(p.category), p.category)} ${p.model || ''}`.trim();
+      const displayName = _esc(getProductI18nField(p, 'name', p.name) || `${tr(getCategoryI18nKey(p.category), p.category)} ${p.model || ''}`.trim());
       const badgeColorClass = p.badgeColor || 'bg-primary';
-      const material = getProductI18nField(p, 'material', p.material);
-      const minimumOrderQuantity = getProductI18nField(p, 'minimumOrderQuantity', p.minimumOrderQuantity);
-      const throughput = getProductI18nField(p, 'throughput', p.throughput);
-      const voltage = getProductI18nField(p, 'voltage', p.voltage);
-      const frequency = getProductI18nField(p, 'frequency', p.frequency);
-      const badge = getProductI18nField(p, 'badge', p.badge);
-      const status = getProductI18nField(p, 'status', p.status);
-      const imageRecognitionKey = p.imageRecognitionKey;
-      const launchDate = getProductI18nField(p, 'launchTime', p.launchTime) || p.launchDate;
-      const scene = getProductI18nField(p, 'scenarios', p.scenarios);
+      const material = _esc(getProductI18nField(p, 'material', p.material) || '-');
+      const minimumOrderQuantity = _esc(getProductI18nField(p, 'minimumOrderQuantity', p.minimumOrderQuantity) || '-');
+      const throughput = _esc(getProductI18nField(p, 'throughput', p.throughput) || '-');
+      const voltage = _esc(getProductI18nField(p, 'voltage', p.voltage) || '-');
+      const frequency = _esc(getProductI18nField(p, 'frequency', p.frequency) || '-');
+      const badge = _esc(getProductI18nField(p, 'badge', p.badge));
+      const status = _esc(getProductI18nField(p, 'status', p.status));
+      const imageRecognitionKey = _esc(p.imageRecognitionKey);
+      const launchDate = _esc(getProductI18nField(p, 'launchTime', p.launchTime) || p.launchDate || '2025');
+      const scene = _esc(getProductI18nField(p, 'scenarios', p.scenarios) || '-');
+      const category = _esc(p.category);
+      const productImage = _esc(p.productImage || resolveImage(imageRecognitionKey));
+      const model = _esc(p.model || '-');
       return `
-    <article class="product-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-primary/10 group" data-category="${p.category}">
+    <article class="product-card flex flex-col bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-primary/10 group" data-category="${category}">
       <!-- 图片区域 (50-55%) -->
       <div class="relative h-[200px] sm:h-[210px] lg:h-[230px] w-full overflow-hidden bg-slate-50 dark:bg-slate-800/60 bg-white shrink-0">
-        <img data-src="${p.productImage || resolveImage(imageRecognitionKey)}"
+        <img data-src="${productImage}"
              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
              alt="${displayName}" loading="lazy" decoding="async"
              class="w-full h-full object-contain p-4 group-hover:scale-[1.03] transition-transform duration-500 lazy-img">
@@ -783,7 +791,7 @@ function getCategoryI18nKey(category) {
           </div>
           <div class="shrink-0 w-20 h-full min-h-[36px] flex flex-col items-center justify-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-1 py-1 text-center self-stretch">
             <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate leading-none mb-0.5">${tr('product_label_model', 'Model')}</p>
-            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate leading-none">${p.model || '-'}</p>
+            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate leading-none">${model}</p>
           </div>
         </div>
 
@@ -792,7 +800,7 @@ function getCategoryI18nKey(category) {
           <!-- 容量 -->
           <div class="flex items-center rounded-md bg-slate-50 dark:bg-slate-800/70 p-1 min-w-0">
             <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate flex-shrink-0">${tr('product_label_capacity_throughput', 'Capacity') + ':'}</p>
-            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">${throughput || '-'}</p>
+            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">${throughput}</p>
           </div>
           <!-- 电压/频率 -->
           <div class="flex items-center rounded-md bg-slate-50 dark:bg-slate-800/70 p-1 min-w-0">
@@ -800,18 +808,18 @@ function getCategoryI18nKey(category) {
               ${tr('product_label_voltage_frequency', 'Voltage') + ':'}
             </p>
             <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">
-              ${voltage || frequency ? `${voltage || '-'} / ${frequency || '-'}` : '-'}
+              ${voltage} / ${frequency}
             </p>
           </div>
           <!-- MOQ -->
           <div class="flex items-center rounded-md bg-slate-50 dark:bg-slate-800/70 p-1 min-w-0">
             <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate flex-shrink-0">${tr('product_label_min_order_qty', 'MOQ') + ':'}</p>
-            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">${tr(minimumOrderQuantity || '-', minimumOrderQuantity || '-')}</p>
+            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">${minimumOrderQuantity}</p>
           </div>
           <!-- 上市时间 -->
           <div class="flex items-center rounded-md bg-slate-50 dark:bg-slate-800/70 p-1 min-w-0">
             <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate flex-shrink-0">${tr('product_label_launch_date', 'LaunchDate') + ':'}</p>
-            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">${tr(launchDate || '2025', launchDate || '2025')}</p>
+            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">${launchDate}</p>
           </div>
         </div>
         <!-- 参数网格 (1x2) -->
@@ -819,12 +827,12 @@ function getCategoryI18nKey(category) {
         <div class="grid grid-cols-1 gap-1 mb-1.5 shrink-0">
           <div class="flex items-center rounded-md bg-slate-50 dark:bg-slate-800/70 p-1 min-w-0">
             <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate flex-shrink-0">${tr('product_label_material', 'Material') + ':'}</p>
-            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">${material || '-'}</p>
+            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">${material}</p>
           </div>
           <!-- 使用场景 -->
           <div class="flex items-center rounded-md bg-slate-50 dark:bg-slate-800/70 p-1 min-w-0">
             <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate flex-shrink-0">${tr('product_label_scene', 'Scene') + ':'}</p>
-            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">${scene || '-'}</p>
+            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate flex-1 min-w-0 ml-1">${scene}</p>
           </div>
         </div>
         <!-- 按钮 (单行显示，固定高度) -->
@@ -1219,7 +1227,7 @@ function getCategoryI18nKey(category) {
     }
 
     notification.className = `notification flex items-center gap-3 p-4 rounded-lg shadow-lg mb-3 transform translate-x-full transition-transform duration-300 ${bgClass}`;
-    notification.innerHTML = `<span class="material-symbols-outlined">${icon}</span><span class="text-sm font-medium">${message}</span>`;
+    notification.innerHTML = `<span class="material-symbols-outlined">${icon}</span><span class="text-sm font-medium">${_esc(message)}</span>`;
 
     if (!autoDismiss) {
       const closeBtn = document.createElement('button');
@@ -1375,7 +1383,8 @@ const skeletonScreen = {
   },
 
   setupDarkModeListener() {
-    const observer = new MutationObserver((mutations) => {
+    // 保存 observer 引用以便页面卸载时清理
+    this._darkModeObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'class') {
           this.detectDarkMode();
@@ -1384,7 +1393,7 @@ const skeletonScreen = {
       });
     });
 
-    observer.observe(document.documentElement, {
+    this._darkModeObserver.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class']
     });
@@ -1565,6 +1574,11 @@ function isTestEnvironment() {
   return host === 'localhost' || host === '127.0.0.1' || host.includes('.local') || host.includes('test');
 }
 
+// ─── 定时器引用（用于清理，防止内存泄漏）────────────────────────────────────
+let _conditionLoopInterval = null;
+let _userActivityInterval = null;
+let _inactivityCheckInterval = null;
+
   function setupJumpingAnimation() {
     const jumpButtons = [
       document.getElementById('jump-btn-1'),
@@ -1695,7 +1709,7 @@ function isTestEnvironment() {
       setupVisibilityHandler();
       setTimeout(startAnimationCycle, 3000);
       let lastActivity = Date.now();
-      setInterval(() => {
+      _inactivityCheckInterval = setInterval(() => {
         if (Date.now() - lastActivity > 30000 && animationTimer) {
           clearInterval(animationTimer);
           animationTimer = setInterval(startNextJump, 5000);
@@ -1818,7 +1832,6 @@ function isTestEnvironment() {
 
     setupScrollTracking() {
       let nonHeroTimer = 0;
-      let nonHeroInterval = null;
 
       window.addEventListener('scroll', () => {
         this.state.isActivelyScrolling = true;
@@ -1839,20 +1852,20 @@ function isTestEnvironment() {
         const isPastHero = window.scrollY > heroRect.height;
 
         if (isPastHero) {
-          if (!nonHeroInterval && !this.state.flags.nonHeroDwellScored) {
+          if (!this._nonHeroInterval && !this.state.flags.nonHeroDwellScored) {
             nonHeroTimer = 0;
-            nonHeroInterval = setInterval(() => {
+            this._nonHeroInterval = setInterval(() => {
               nonHeroTimer++;
               if (nonHeroTimer >= 20) {
                 this.addScore(20, 'nonHeroDwellScored');
-                clearInterval(nonHeroInterval);
-                nonHeroInterval = null;
+                clearInterval(this._nonHeroInterval);
+                this._nonHeroInterval = null;
               }
             }, 1000);
           }
-        } else if (nonHeroInterval) {
-          clearInterval(nonHeroInterval);
-          nonHeroInterval = null;
+        } else if (this._nonHeroInterval) {
+          clearInterval(this._nonHeroInterval);
+          this._nonHeroInterval = null;
         }
       }, { passive: true });
     },
@@ -1862,25 +1875,24 @@ function isTestEnvironment() {
       if (!productSection) return;
 
       let productTimer = 0;
-      let productInterval = null;
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             if (this.state.flags.productDwellScored) return;
             productTimer = 0;
-            if (productInterval) clearInterval(productInterval);
-            productInterval = setInterval(() => {
+            if (this._productInterval) clearInterval(this._productInterval);
+            this._productInterval = setInterval(() => {
               productTimer++;
               if (productTimer >= 20) {
                 this.addScore(40, 'productDwellScored');
-                clearInterval(productInterval);
-                productInterval = null;
+                clearInterval(this._productInterval);
+                this._productInterval = null;
               }
             }, 1000);
-          } else if (productInterval) {
-            clearInterval(productInterval);
-            productInterval = null;
+          } else if (this._productInterval) {
+            clearInterval(this._productInterval);
+            this._productInterval = null;
           }
         });
       }, { threshold: 0.35 });
@@ -1899,7 +1911,8 @@ function isTestEnvironment() {
         this.evaluateConditions();
       }, delaySeconds * 1000);
 
-      setInterval(() => this.evaluateConditions(), 1000);
+    // 保存定时器引用以便清理
+    _conditionLoopInterval = setInterval(() => this.evaluateConditions(), 1000);
     },
 
     evaluateConditions() {
@@ -1936,7 +1949,7 @@ function isTestEnvironment() {
         message = tr('popup_trigger_manual_click', 'You clicked the consultation button');
       }
 
-      reasonElement.innerHTML = `<span class="material-symbols-outlined">info</span><span>${message}</span>`;
+      reasonElement.innerHTML = `<span class="material-symbols-outlined">info</span><span>${_esc(message)}</span>`;
     },
 
     showPopup(triggerReason, options = {}) {
@@ -2157,6 +2170,25 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
 
   window.addEventListener('beforeunload', () => {
     if (jumpAnimationSystem && jumpAnimationSystem.stop) jumpAnimationSystem.stop();
+    // 清理所有定时器，防止后台内存泄漏
+    if (_conditionLoopInterval) { clearInterval(_conditionLoopInterval); _conditionLoopInterval = null; }
+    if (_userActivityInterval) { clearInterval(_userActivityInterval); _userActivityInterval = null; }
+    if (_inactivityCheckInterval) { clearInterval(_inactivityCheckInterval); _inactivityCheckInterval = null; }
+    if (smartPopup._nonHeroInterval) { clearInterval(smartPopup._nonHeroInterval); smartPopup._nonHeroInterval = null; }
+    if (smartPopup._productInterval) { clearInterval(smartPopup._productInterval); smartPopup._productInterval = null; }
+  });
+
+  // 页面不可见时暂停周期性定时器，可见时恢复（节省 CPU / 电池）
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      // 页面隐藏 → 清理条件检查循环
+      if (_conditionLoopInterval) { clearInterval(_conditionLoopInterval); _conditionLoopInterval = null; }
+    } else {
+      // 页面恢复可见 → 重启条件检查循环（init 会判断 initialDelay 等条件）
+      if (!_conditionLoopInterval) {
+        _conditionLoopInterval = setInterval(() => smartPopup.evaluateConditions(), 1000);
+      }
+    }
   });
 
   // ─── bindAllEvents ───────────────────────────────────────────────────────────

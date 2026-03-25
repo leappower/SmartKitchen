@@ -13,10 +13,31 @@ export function resolveImage(key) {
   return `${IMAGE_PATH_PREFIX}/${key}.webp`;
 }
 
-/** 生成 <img> 标签 HTML（直接 WebP，无需 <picture> fallback） */
+/**
+ * 转义 HTML 特殊字符，防止 XSS 注入
+ */
+function escapeHtml(unsafe) {
+  if (typeof unsafe !== 'string') {
+    return String(unsafe ?? '');
+  }
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
+ * 生成 <img> 标签 HTML（直接 WebP，无需 <picture> fallback）
+ * 安全：altText、cssClass、extraAttrs 中的 HTML 特殊字符会被转义
+ */
 export function imgTag(key, altText = '', cssClass = '', extraAttrs = '') {
   const src = `${IMAGE_PATH_PREFIX}/${key}.webp`;
-  return `<img src="${src}" alt="${altText}" class="${cssClass}" ${extraAttrs} loading="lazy" decoding="async">`;
+  const safeAlt = escapeHtml(altText);
+  const safeClass = escapeHtml(cssClass);
+  const safeAttrs = extraAttrs ? escapeHtml(extraAttrs) : '';
+  return `<img src="${src}" alt="${safeAlt}" class="${safeClass}" ${safeAttrs} loading="lazy" decoding="async">`;
 }
 
 // ─── 非产品图（路径固定，不来自 manifest）────────────────────────────────────
