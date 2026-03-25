@@ -64,14 +64,14 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgb(255 255 255 / 95%);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(39, 27, 59, 0.08);
+  border-bottom: 1px solid rgb(39 27 59 / 8%);
   transition: all 0.3s ease;
 }
 
 .dark .fixed-header {
-  background: rgba(30, 27, 35, 0.95);
+  background: rgb(30 27 35 / 95%);
 }
 
 /* 导航链接激活状态样式 - 新增 */
