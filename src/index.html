@@ -102,6 +102,12 @@
       visibility: hidden;
     }
 
+    /* 智能弹窗：内联初始隐藏（外部 CSS 还没加载时防闪现）
+       外部 CSS 的 .show { display: flex !important } 会正常覆盖 */
+    #smart-popup-overlay {
+      display: none;
+    }
+
     /* 骨架屏基础动画 */
     @keyframes skeleton-pulse {
 
