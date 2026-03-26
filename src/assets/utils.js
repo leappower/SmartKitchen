@@ -1253,7 +1253,7 @@ function getCategoryI18nKey(category) {
   function startInstagram() { window.open('https://instagram.com/baeckerei.profi', '_blank'); }
   function startTwitter() { window.open('https://twitter.com/baeckerei_profi', '_blank'); }
   function startLinkedIn() { window.open('https://linkedin.com/company/baeckereitechnik-profi', '_blank'); }
-  function startTikTok() { showNotification('Coming Soon', 'success'); }
+  function startTikTok() { window.open('https://www.tiktok.com/@magiccasa178?_r=1&_t=ZS-950TG9hUpo9', '_blank'); }
 
   // ============================================
   // NOTIFICATION SYSTEM
