@@ -29,6 +29,13 @@ class TranslationManager {
   }
 
   getInitialLanguage() {
+    // 0. URL参数 ?lang= 最高优先级（用于 thank-you 等独立页面语言传递）
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLang = urlParams.get('lang');
+    if (urlLang && languageNames[urlLang]) {
+      return urlLang;
+    }
+
     // 1. 优先使用用户手动选择的语言（localStorage）
     const userChoice = localStorage.getItem('userLanguage');
     if (userChoice && languageNames[userChoice]) {

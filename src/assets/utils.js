@@ -2148,7 +2148,7 @@ let _inactivityCheckInterval = null;
   async function submitSmartPopupForm(event) {
     event.preventDefault();
     const form = document.getElementById('smart-popup-form');
-    if (!form) { showNotification(tr('notify_form_not_found', 'Form not found'), 'error'); return; }
+    if (!form) { showThankYouPage(); return; }
     const formData = {
       formType: 'smart_popup',
       name: form.querySelector('input[name="name"]')?.value,
@@ -2166,28 +2166,23 @@ let _inactivityCheckInterval = null;
       scrollDepth: userState?.scrollDepth || 0,
       userAgent: navigator.userAgent
     };
-    try {
-      await fetch('https://script.google.com/macros/s/AKfycbyikM1ArEFhJhQUSAp6l4DHJcGzDDK1cckL-KOrVbjipoMGSKsOOlhFWJGTPB6qOys/exec', {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-      smartPopup.closePopup({ converted: true });
-      form.reset();
-      // Navigate to thank-you page directly
-      showThankYouPage();
-    } catch (error) {
-      console.error('提交失败:', error);
-      smartPopup.closePopup({ converted: true });
-      // Navigate to thank-you page anyway
-      showThankYouPage();
-    }
+    const currentLang = getCurrentLanguage();
+    smartPopup.closePopup({ converted: true });
+    form.reset();
+    // Navigate to thank-you page immediately (fire-and-forget fetch)
+    showThankYouPage(currentLang);
+    // Submit in background (non-blocking)
+    fetch('https://script.google.com/macros/s/AKfycbyikM1ArEFhJhQUSAp6l4DHJcGzDDK1cckL-KOrVbjipoMGSKsOOlhFWJGTPB6qOys/exec', {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    }).catch(err => console.warn('Background submit failed:', err));
   }
 
   async function submitContactForm(event) {
     event.preventDefault();
     const form = document.getElementById('contact-form');
-    if (!form) { showNotification(tr('notify_form_not_found', 'Form not found'), 'error'); return; }
+    if (!form) { showThankYouPage(); return; }
     const formData = {
       formType: 'contact_page',
       name: form.querySelector('input[name="name"]')?.value || '',
@@ -2206,24 +2201,21 @@ let _inactivityCheckInterval = null;
       scrollDepth: userState?.scrollDepth || 0,
       userAgent: navigator.userAgent
     };
-    try {
-      await fetch('https://script.google.com/macros/s/AKfycbyikM1ArEFhJhQUSAp6l4DHJcGzDDK1cckL-KOrVbjipoMGSKsOOlhFWJGTPB6qOys/exec', {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-      // Navigate to thank-you page directly (no success notification)
-      showThankYouPage();
-    } catch (error) {
-      console.warn('Fetch 失败，降级到 mailto 备用方案', error);
-      // Still navigate to thank-you page
-      showThankYouPage();
-    }
+    const currentLang = getCurrentLanguage();
+    // Navigate to thank-you page immediately (fire-and-forget fetch)
+    showThankYouPage(currentLang);
+    // Submit in background (non-blocking)
+    fetch('https://script.google.com/macros/s/AKfycbyikM1ArEFhJhQUSAp6l4DHJcGzDDK1cckL-KOrVbjipoMGSKsOOlhFWJGTPB6qOys/exec', {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    }).catch(err => console.warn('Background submit failed:', err));
   }
 
-  function showThankYouPage() {
-    // Navigate to standalone thank-you page (works with static deployment)
-    window.location.href = '/thank-you/';
+  function showThankYouPage(lang) {
+    // Pass current language to thank-you page via URL param
+    const currentLang = lang || getCurrentLanguage();
+    window.location.href = '/thank-you/?lang=' + encodeURIComponent(currentLang);
   }
 
   function restoreMainSections() {
