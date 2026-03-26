@@ -1180,8 +1180,14 @@ Options:
       console.error('❌ 质量检查失败:', err.message);
       process.exit(1);
     });
+    // 异步流程已启动，主流程在此结束
+    // eslint-disable-next-line no-useless-return
     return;
   }
+
+  // 声明未使用的变量以避免 ESLint 警告（后续可能使用）
+  // eslint-disable-next-line no-unused-vars
+  const batchResults = [];
 
   // --branch: 创建分支
   if (branchMode && branchName) {

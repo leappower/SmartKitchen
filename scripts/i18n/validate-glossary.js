@@ -37,6 +37,25 @@ const terms = glossary.terms;
 // Sort terms by length desc so longer terms match first
 const sortedTerms = Object.keys(terms).sort((a, b) => b.length - a.length);
 
+// Main validation state
+const issues = [];
+// eslint-disable-next-line no-unused-vars
+let totalChecked = 0;
+let totalFixed = 0;
+
+// Find all product JSON files
+const productFiles = fs.readdirSync(LANG_DIR)
+  .filter(f => f.endsWith('-product.json'))
+  .map(f => path.join(LANG_DIR, f));
+
+/**
+ * Extract language code from filename
+ */
+function getLang(filename) {
+  const match = path.basename(filename).match(/^([a-z]+(?:-[a-zA-Z]+)?)-product\.json$/);
+  return match ? match[1] : null;
+}
+
 /**
  * Find all glossary terms in a Chinese source text
  * Returns array of { term, start, end }
@@ -80,22 +99,118 @@ function findTranslationSegment(translation, expected) {
   return { found: false, match: null };
 }
 
-// Find all product JSON files
-const productFiles = fs.readdirSync(LANG_DIR)
-  .filter(f => f.endsWith('-product.json'))
-  .map(f => path.join(LANG_DIR, f));
+/**
+ * Traverse all string values recursively
+ */
+function traverse(obj, currentPath, callback) {
+  if (!obj || typeof obj !== 'object') return;
 
-// Extract language code from filename
-function getLang(filename) {
-  const match = path.basename(filename).match(/^([a-z]+(?:-[a-zA-Z]+)?)-product\.json$/);
-  return match ? match[1] : null;
+  for (const [key, value] of Object.entries(obj)) {
+    const newPath = currentPath ? `${currentPath}.${key}` : key;
+
+    if (typeof value === 'string' && value.trim()) {
+      callback(value, newPath);
+    } else if (typeof value === 'object') {
+      traverse(value, newPath, callback);
+    }
+  }
+}
+
+/**
+ * Check for untranslated Chinese terms remaining in non-Chinese files
+ */
+function checkForUntranslatedTerms(obj, currentPath, lang, filepath, fileIssuesRef) {
+  traverse(obj, currentPath, (value, valPath) => {
+    for (const term of sortedTerms) {
+      if (value.includes(term)) {
+        issues.push({
+          type: 'untranslated',
+          file: path.basename(filepath),
+          lang,
+          path: valPath,
+          term,
+          expected: terms[term][lang],
+          found: term, // still in Chinese
+        });
+        fileIssuesRef.count++;
+      }
+    }
+  });
+}
+
+/**
+ * Build map: zhTerm → { lang → [ { value, path } ] }
+ */
+function buildMap(obj, currentPath, translationMap) {
+  traverse(obj, currentPath, (value, _valPath) => {
+    const foundTerms = findTermsInText(value);
+    for (const { term } of foundTerms) {
+      if (!translationMap[term]) translationMap[term] = {};
+    }
+  });
+}
+
+/**
+ * Find all values that correspond to zh-CN values containing this term
+ * We need to walk both trees in parallel
+ */
+function compareWithZh(zhObj, transObj, currentPath, term, lang, filepath, foundVariants, expectedTranslations) {
+  if (!zhObj || !transObj || typeof zhObj !== 'object' || typeof transObj !== 'object') return;
+
+  for (const key of Object.keys(zhObj)) {
+    const newPath = currentPath ? `${currentPath}.${key}` : key;
+
+    if (typeof zhObj[key] === 'string' && zhObj[key].includes(term)) {
+      const transValue = transObj[key];
+      if (typeof transValue === 'string' && transValue.trim()) {
+        const expected = terms[term][lang];
+
+        // Check if the translation matches the glossary
+        const result = findTranslationSegment(transValue, expected);
+        if (!result.found) {
+          if (!foundVariants[lang]) foundVariants[lang] = new Set();
+          foundVariants[lang].add(transValue);
+          expectedTranslations[lang] = expected;
+
+          issues.push({
+            type: 'inconsistent',
+            file: path.basename(filepath),
+            lang,
+            path: newPath,
+            term,
+            expected,
+            found: transValue,
+            partial: result.partial,
+          });
+        }
+      }
+    } else if (typeof zhObj[key] === 'object' && typeof transObj[key] === 'object') {
+      compareWithZh(zhObj[key], transObj[key], newPath, term, lang, filepath, foundVariants, expectedTranslations);
+    }
+  }
+}
+
+/**
+ * Fix untranslated terms
+ */
+function fixUntranslated(obj, currentPath, lang, fileFixedRef) {
+  if (!obj || typeof obj !== 'object') return;
+  for (const [key, value] of Object.entries(obj)) {
+    const newPath = currentPath ? `${currentPath}.${key}` : key;
+    if (typeof value === 'string') {
+      for (const term of sortedTerms) {
+        if (value.includes(term) && terms[term][lang]) {
+          obj[key] = value.replace(term, terms[term][lang]);
+          fileFixedRef.count++;
+        }
+      }
+    } else if (typeof value === 'object') {
+      fixUntranslated(value, newPath, lang, fileFixedRef);
+    }
+  }
 }
 
 // Main validation
-const issues = [];
-let totalChecked = 0;
-let totalFixed = 0;
-
 console.log('🔍 术语表翻译一致性校验\n');
 console.log(`📋 术语数量: ${sortedTerms.length}`);
 console.log(`📁 扫描目录: ${LANG_DIR}\n`);
@@ -114,65 +229,18 @@ for (const filepath of productFiles) {
   }
 
   const data = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
-  let fileIssues = 0;
-  let fileFixed = 0;
+  const fileIssuesRef = { count: 0 };
 
   // Traverse all string values recursively
-  function traverse(obj, path) {
-    if (!obj || typeof obj !== 'object') return;
-
-    for (const [key, value] of Object.entries(obj)) {
-      const currentPath = path ? `${path}.${key}` : key;
-
-      if (typeof value === 'string' && value.trim()) {
-        // Check if this is a Chinese source key pattern
-        // We look for glossary terms in the value and check against zh-CN product file
-        // But since these are translated files, we need to compare with zh-CN source
-        totalChecked++;
-      } else if (typeof value === 'object') {
-        traverse(value, currentPath);
-      }
-    }
-  }
-
-  traverse(data, '');
-
-  // Better approach: load zh-CN product as source of truth, then compare translations
-  // Actually, let's scan each product entry for Chinese terms in translation values
-  // and check if they should have been translated
+  traverse(data, '', () => {
+    totalChecked++;
+  });
 
   // Re-scan: check for untranslated Chinese terms remaining in non-Chinese files
-  function checkForUntranslatedTerms(obj, path) {
-    if (!obj || typeof obj !== 'object') return;
+  checkForUntranslatedTerms(data, '', lang, filepath, fileIssuesRef);
 
-    for (const [key, value] of Object.entries(obj)) {
-      const currentPath = path ? `${path}.${key}` : key;
-
-      if (typeof value === 'string' && value.trim()) {
-        for (const term of sortedTerms) {
-          if (value.includes(term)) {
-            issues.push({
-              type: 'untranslated',
-              file: path.basename(filepath),
-              lang,
-              path: currentPath,
-              term,
-              expected: terms[term][lang],
-              found: term, // still in Chinese
-            });
-            fileIssues++;
-          }
-        }
-      } else if (typeof value === 'object') {
-        checkForUntranslatedTerms(value, currentPath);
-      }
-    }
-  }
-
-  checkForUntranslatedTerms(data, '');
-
-  if (fileIssues > 0) {
-    console.log(`❌ ${path.basename(filepath)}: ${fileIssues} 个未翻译术语`);
+  if (fileIssuesRef.count > 0) {
+    console.log(`❌ ${path.basename(filepath)}: ${fileIssuesRef.count} 个未翻译术语`);
   }
 }
 
@@ -189,22 +257,7 @@ if (!fs.existsSync(zhFile)) {
   // Build map: zhTerm → { lang → [ { value, path } ] }
   const translationMap = {};
 
-  function buildMap(obj, path) {
-    if (!obj || typeof obj !== 'object') return;
-    for (const [key, value] of Object.entries(obj)) {
-      const currentPath = path ? `${path}.${key}` : key;
-      if (typeof value === 'string' && value.trim()) {
-        const foundTerms = findTermsInText(value);
-        for (const { term } of foundTerms) {
-          if (!translationMap[term]) translationMap[term] = {};
-        }
-      } else if (typeof value === 'object') {
-        buildMap(value, currentPath);
-      }
-    }
-  }
-
-  buildMap(zhData, '');
+  buildMap(zhData, '', translationMap);
 
   // For each language, collect translations of each term
   const langFiles = productFiles.filter(f => {
@@ -221,46 +274,7 @@ if (!fs.existsSync(zhFile)) {
       if (!terms[term][lang]) continue;
 
       const data = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
-
-      // Find all values that correspond to zh-CN values containing this term
-      // We need to walk both trees in parallel
-      function compareWithZh(zhObj, transObj, path) {
-        if (!zhObj || !transObj || typeof zhObj !== 'object' || typeof transObj !== 'object') return;
-
-        for (const key of Object.keys(zhObj)) {
-          const currentPath = path ? `${path}.${key}` : key;
-
-          if (typeof zhObj[key] === 'string' && zhObj[key].includes(term)) {
-            const transValue = transObj[key];
-            if (typeof transValue === 'string' && transValue.trim()) {
-              const expected = terms[term][lang];
-
-              // Check if the translation matches the glossary
-              const result = findTranslationSegment(transValue, expected);
-              if (!result.found) {
-                if (!foundVariants[lang]) foundVariants[lang] = new Set();
-                foundVariants[lang].add(transValue);
-                expectedTranslations[lang] = expected;
-
-                issues.push({
-                  type: 'inconsistent',
-                  file: path.basename(filepath),
-                  lang,
-                  path: currentPath,
-                  term,
-                  expected,
-                  found: transValue,
-                  partial: result.partial,
-                });
-              }
-            }
-          } else if (typeof zhObj[key] === 'object' && typeof transObj[key] === 'object') {
-            compareWithZh(zhObj[key], transObj[key], currentPath);
-          }
-        }
-      }
-
-      compareWithZh(zhData, data, '');
+      compareWithZh(zhData, data, '', term, lang, filepath, foundVariants, expectedTranslations);
     }
   }
 }
@@ -331,33 +345,17 @@ if (issues.length === 0) {
     for (const filepath of langFiles) {
       const lang = getLang(filepath);
       const data = JSON.parse(fs.readFileSync(filepath, 'utf-8'));
+      // eslint-disable-next-line no-unused-vars
       const zhData2 = JSON.parse(fs.readFileSync(zhFile, 'utf-8'));
-      let fileFixed = 0;
+      const fileFixedRef = { count: 0 };
 
       // Fix untranslated terms
-      function fixUntranslated(obj, path) {
-        if (!obj || typeof obj !== 'object') return;
-        for (const [key, value] of Object.entries(obj)) {
-          const currentPath = path ? `${path}.${key}` : key;
-          if (typeof value === 'string') {
-            for (const term of sortedTerms) {
-              if (value.includes(term) && terms[term][lang]) {
-                obj[key] = value.replace(term, terms[term][lang]);
-                fileFixed++;
-              }
-            }
-          } else if (typeof value === 'object') {
-            fixUntranslated(value, currentPath);
-          }
-        }
-      }
+      fixUntranslated(data, '', lang, fileFixedRef);
 
-      fixUntranslated(data, '');
-
-      if (fileFixed > 0) {
+      if (fileFixedRef.count > 0) {
         fs.writeFileSync(filepath, JSON.stringify(data, null, 2) + '\n', 'utf-8');
-        console.log(`  ✅ ${path.basename(filepath)}: 修复 ${fileFixed} 处`);
-        totalFixed += fileFixed;
+        console.log(`  ✅ ${path.basename(filepath)}: 修复 ${fileFixedRef.count} 处`);
+        totalFixed += fileFixedRef.count;
       }
     }
 

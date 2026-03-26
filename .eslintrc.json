@@ -22,6 +22,10 @@
     {
       "files": ["tests/**/*.js", "tests/*.js", "jest.setup.js"],
       "env": { "jest": true }
+    },
+    {
+      "files": ["scripts/**/*.js"],
+      "parserOptions": { "sourceType": "script" }
     }
   ]
 }

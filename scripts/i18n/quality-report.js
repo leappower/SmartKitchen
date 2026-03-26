@@ -40,7 +40,7 @@ const ZH_LANGS = ['zh-CN', 'zh-TW'];
 // 检测函数
 // ─────────────────────────────────────────────
 
-function checkEmptyValue(key, value, lang) {
+function checkEmptyValue(key, value, _lang) {
   if (value === '' || value === null || value === undefined) {
     return { key, issue: 'emptyValues', detail: value === null ? 'null' : value === undefined ? 'undefined' : 'empty string' };
   }
