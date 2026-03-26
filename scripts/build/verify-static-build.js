@@ -43,7 +43,7 @@ function checkDirectory(dirPath, description) {
 }
 
 function checkLanguageFiles() {
-  const langDir = path.resolve(__dirname, '..', 'dist', 'assets', 'lang');
+  const langDir = path.resolve(__dirname, '../..', 'dist', 'assets', 'lang');
   
   if (!fs.existsSync(langDir)) {
     log('\n✗ Language directory not found: dist/assets/lang/', 'red');
@@ -88,7 +88,7 @@ function checkLanguageFiles() {
 }
 
 function checkServiceWorker() {
-  const swPath = path.resolve(__dirname, '..', 'dist', 'sw.js');
+  const swPath = path.resolve(__dirname, '../..', 'dist', 'sw.js');
   
   if (!fs.existsSync(swPath)) {
     log('\n✗ Service Worker not found: dist/sw.js', 'red');
@@ -124,7 +124,7 @@ function checkServiceWorker() {
 }
 
 function checkHTML() {
-  const htmlPath = path.resolve(__dirname, '..', 'dist', 'index.html');
+  const htmlPath = path.resolve(__dirname, '../..', 'dist', 'index.html');
   
   if (!fs.existsSync(htmlPath)) {
     log('\n✗ HTML file not found: dist/index.html', 'red');
@@ -157,7 +157,7 @@ function checkHTML() {
 }
 
 function checkBundleSize() {
-  const distPath = path.resolve(__dirname, '..', 'dist');
+  const distPath = path.resolve(__dirname, '../..', 'dist');
   
   // Support both bundle.js (dev) and bundle.<hash>.js (production)
   const distFiles = fs.existsSync(distPath) ? fs.readdirSync(distPath) : [];
@@ -190,15 +190,15 @@ function main() {
   log('='.repeat(60) + '\n', 'blue');
   
   // Dynamically locate bundle file (supports hash suffix in production)
-  const distPath = path.resolve(__dirname, '..', 'dist');
+  const distPath = path.resolve(__dirname, '../..', 'dist');
   const distFiles = fs.existsSync(distPath) ? fs.readdirSync(distPath) : [];
   const bundleFile = distFiles.find(f => /^bundle(\.[a-f0-9]+)?\.js$/.test(f)) || 'bundle.js';
   
   const results = {
     coreFiles: [
-      checkFile('dist/index.html', 'HTML file'),
+      checkFile('../../dist/index.html', 'HTML file'),
       checkFile(`dist/${bundleFile}`, 'JavaScript bundle'),
-      checkDirectory('dist/assets', 'Assets directory')
+      checkDirectory('../../dist/assets', 'Assets directory')
     ],
     languageFiles: checkLanguageFiles(),
     serviceWorker: checkServiceWorker(),
