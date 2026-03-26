@@ -2214,9 +2214,7 @@ let _inactivityCheckInterval = null;
 
   function showThankYouPage(lang) {
     const resolvedLang = lang || getCurrentLanguage();
-    console.log('[showThankYouPage] lang param:', lang, 'resolved:', resolvedLang, 'currentLanguage:', window.translationManager?.currentLanguage);
     sessionStorage.setItem('redirectLang', resolvedLang);
-    console.log('[showThankYouPage] sessionStorage set redirectLang:', resolvedLang);
     window.location.href = '/thank-you/';
   }
 

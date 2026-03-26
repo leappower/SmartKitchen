@@ -272,7 +272,6 @@
 (function() {
   console.log('[THANK-YOU PRELOADER] sessionStorage.redirectLang:', sessionStorage.getItem('redirectLang'));
   console.log('[THANK-YOU PRELOADER] localStorage.userLanguage:', localStorage.getItem('userLanguage'));
-  console.log('[THANK-YOU PRELOADER] navigator.language:', navigator.language);
   
   var sessionLang = sessionStorage.getItem('redirectLang');
   if (sessionLang) sessionStorage.removeItem('redirectLang');
@@ -352,19 +351,36 @@
 (function() {
   var skeleton = document.getElementById('thankyou-skeleton');
   var content = document.getElementById('thankyou-content');
-  if (window.translationManager) {
-    window.translationManager.on('translationsApplied', function() {
-      if (skeleton) skeleton.style.display = 'none';
-      if (content) content.style.display = '';
-    });
+
+  function reveal() {
+    console.log('[THANK-YOU] revealing content, hiding skeleton');
+    if (skeleton) skeleton.style.display = 'none';
+    if (content) content.style.display = '';
+  }
+
+  // translationManager may not exist yet (bundle.js is defer)
+  // Poll until it appears, then register the event
+  function waitForManager() {
+    if (window.translationManager) {
+      console.log('[THANK-YOU] translationManager found, registering translationsApplied');
+      // If translations already loaded (cached), reveal immediately
+      if (window.translationManager.translationsCache.has('ui-' + window.translationManager.currentLanguage)) {
+        reveal();
+      } else {
+        window.translationManager.on('translationsApplied', function() {
+          reveal();
+        });
+      }
+    } else {
+      console.log('[THANK-YOU] translationManager not ready, retrying...');
+      setTimeout(waitForManager, 50);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForManager);
   } else {
-    // Fallback: show content after DOMContentLoaded if no translationManager
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(function() {
-        if (skeleton) skeleton.style.display = 'none';
-        if (content) content.style.display = '';
-      }, 300);
-    });
+    waitForManager();
   }
 })();
 </script>
