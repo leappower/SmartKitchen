@@ -40,6 +40,7 @@
     "sync:feishu": "node scripts/product/ensure-product-data-table.js",
     "translate:products": "node scripts/i18n/product-translate-adapter.js",
     "translate:products:incremental": "node scripts/i18n/product-translate-adapter.js --incremental",
+    "translate:report": "node scripts/i18n/quality-report.js",
     "i18n:extract": "node scripts/i18n/product-i18n-adapter.js --generate",
     "product:sync": "node scripts/i18n/product-sync-i18n.js",
     "merge:i18n": "node scripts/i18n/merge-translations.js",
