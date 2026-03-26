@@ -73,6 +73,21 @@ module.exports = (_, argv = {}) => {
           },
         } : {}),
       }),
+      // Standalone thank-you page for static deployment (domain/thank-you/)
+      new HtmlWebpackPlugin({
+        template: './src/thank-you.html',
+        filename: 'thank-you/index.html',
+        ...(isProduction ? {
+          minify: {
+            collapseWhitespace: true,
+            removeComments: true,
+            removeRedundantAttributes: true,
+            removeScriptTypeAttributes: true,
+            removeStyleLinkTypeAttributes: true,
+            useShortDoctype: true,
+          },
+        } : {}),
+      }),
       ...(isProduction
         ? [
           new MiniCssExtractPlugin({
