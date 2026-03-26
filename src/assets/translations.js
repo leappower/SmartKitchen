@@ -29,12 +29,17 @@ class TranslationManager {
   }
 
   getInitialLanguage() {
-    // Always prioritize user's explicit choice
+    // 1. 优先使用用户手动选择的语言（localStorage）
     const userChoice = localStorage.getItem('userLanguage');
     if (userChoice && languageNames[userChoice]) {
       return userChoice;
     }
-    // Default to Chinese (Simplified)
+
+    // 2. 检测浏览器语言
+    const detected = detectBrowserLanguage();
+    if (detected) return detected;
+
+    // 3. 默认中文
     return 'zh-CN';
   }
 
