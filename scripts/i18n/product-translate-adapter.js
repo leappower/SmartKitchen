@@ -34,6 +34,7 @@
 const fs     = require('fs');
 const path   = require('path');
 const crypto = require('crypto');
+const { execSync } = require('child_process');
 const { getSupportedCodes } = require(path.join(__dirname, '../../src/lang-registry'));
 const { prepareForTranslation, postprocessText } = require('./product-translation-handler');
 const {
@@ -79,6 +80,244 @@ const FIELD_SOURCE_ALIASES = {
   subcategory:      ['subCategory'],
   temperaturerange: ['temperatureRange'],
 };
+
+// ─────────────────────────────────────────────
+// 翻译质量校验（复用 quality-report.js 检查逻辑，适配 per-lang product 文件）
+// ─────────────────────────────────────────────
+
+const ZH_LANGS = ['zh-CN', 'zh-TW'];
+
+/** 扫描单语言 product 翻译文件的质量问题 */
+function scanProductQuality(lang, translations, sourceData) {
+  if (!sourceData || !translations[lang]) return [];
+  const issues = [];
+  for (const key of Object.keys(sourceData)) {
+    const source    = sourceData[key];
+    const translated = translations[lang][key];
+
+    // emptyValues
+    if (translated === '' || translated === null || translated === undefined) {
+      issues.push({ key, issue: 'emptyValues', detail: String(translated || '') });
+      continue;
+    }
+    if (typeof translated !== 'string') continue;
+
+    // sameAsSource（长文本 ≥ 5 字符）
+    if (source && translated.trim() === source.trim() && translated.trim().length > 5) {
+      issues.push({ key, issue: 'sameAsSource', detail: `len=${translated.trim().length}` });
+    }
+
+    // garbledText
+    const garbled = (translated.match(/\ufffd/g) || []).length;
+    if (garbled >= 3) {
+      issues.push({ key, issue: 'garbledText', detail: `${garbled} replacement chars` });
+    }
+
+    // chineseInNonZh
+    if (!ZH_LANGS.includes(lang)) {
+      const chineseChars = (translated.match(/[\u4e00-\u9fff]/g) || []).length;
+      if (chineseChars >= 3) {
+        issues.push({ key, issue: 'chineseInNonZh', detail: `${chineseChars} Chinese chars` });
+      }
+    }
+
+    // placeholderLeak
+    const brandMatches = (translated.match(/__BRAND_\d+__/g) || []).length;
+    const numMatches   = (translated.match(/__NUM_\d+__/g) || []).length;
+    if (brandMatches > 0 || numMatches > 0) {
+      issues.push({ key, issue: 'placeholderLeak', detail: `BRAND=${brandMatches}, NUM=${numMatches}` });
+    }
+  }
+  return issues;
+}
+
+/**
+ * 运行质量校验，返回 { emptyKeys, sameAsSourceKeys, otherIssues, langIssues }
+ * emptyKeys: Map<lang, Set<key>> — 需要补翻
+ * sameAsSourceKeys: Map<lang, Set<key>> — 长文本与原文相同（不自动重翻）
+ */
+function runQualityCheck(translations, sourceData) {
+  const emptyKeys = new Map();
+  const sameAsSourceKeys = new Map();
+  const otherIssues = [];
+  const langIssues = {};
+
+  for (const lang of Object.keys(translations)) {
+    if (lang === 'zh-CN') continue;
+    const issues = scanProductQuality(lang, translations, sourceData);
+    langIssues[lang] = issues.length;
+
+    for (const issue of issues) {
+      if (issue.issue === 'emptyValues') {
+        if (!emptyKeys.has(lang)) emptyKeys.set(lang, new Set());
+        emptyKeys.get(lang).add(issue.key);
+      } else if (issue.issue === 'sameAsSource') {
+        if (!sameAsSourceKeys.has(lang)) sameAsSourceKeys.set(lang, new Set());
+        sameAsSourceKeys.get(lang).add(issue.key);
+      } else {
+        otherIssues.push({ ...issue, lang });
+      }
+    }
+  }
+  return { emptyKeys, sameAsSourceKeys, otherIssues, langIssues };
+}
+
+/**
+ * 自动补翻 empty values（仅 emptyValues，一次机会）
+ */
+async function autoFixEmptyValues(emptyKeys, productSeries, translations, sourceData) {
+  const totalEmpty = Array.from(emptyKeys.values()).reduce((s, ks) => s + ks.size, 0);
+  if (totalEmpty === 0) return { fixed: 0, failed: 0, failedLangs: [] };
+
+  console.log(`\n🔧 自动补翻 ${totalEmpty} 个空值...`);
+  let fixed = 0, failed = 0;
+  const failedLangs = [];
+
+  // 按 key 找 source
+  const keyToSource = {};
+  for (const series of productSeries) {
+    for (const product of series.products || []) {
+      for (const field of I18N_FIELDS) {
+        const source = getProductFieldSource(series, product, field);
+        if (!source) continue;
+        const key = generateI18nKey(series.category, product.subCategory, product.model, field);
+        keyToSource[key] = source;
+      }
+    }
+  }
+
+  for (const [lang, keys] of emptyKeys) {
+    if (lang === 'zh-CN') continue;
+    const langFixed = 0;
+    const langFailed = 0;
+    const textsToTranslate = [];
+    const keyTextPairs = [];
+
+    for (const key of keys) {
+      const source = keyToSource[key] || sourceData[key];
+      if (!source) continue;
+      textsToTranslate.push(source);
+      keyTextPairs.push({ key, source });
+    }
+
+    if (textsToTranslate.length === 0) continue;
+
+    try {
+      const results = await translateTexts(textsToTranslate, LANGUAGE_MAP[lang] || lang);
+      for (const { key, source } of keyTextPairs) {
+        const translated = results[source] || source;
+        if (shouldAcceptTranslatedText(lang, source, translated)) {
+          if (!translations[lang]) translations[lang] = {};
+          translations[lang][key] = translated;
+          fixed++;
+        } else {
+          failed++;
+        }
+      }
+    } catch (err) {
+      console.warn(`⚠️  [${lang}] 补翻失败: ${err.message}`);
+      failed += keys.size;
+      failedLangs.push(lang);
+    }
+
+    console.log(`  ✅ [${lang}] 补翻完成: ${langFixed} 成功, ${langFailed} 失败`);
+  }
+
+  console.log(`🔧 补翻完成: ${fixed} 成功, ${failed} 失败\n`);
+  return { fixed, failed, failedLangs };
+}
+
+/** 打印质量摘要 */
+function printQualitySummary(qcResult, fixResult) {
+  const { emptyKeys, sameAsSourceKeys, otherIssues, langIssues } = qcResult;
+  const totalEmpty = Array.from(emptyKeys.values()).reduce((s, ks) => s + ks.size, 0);
+  const totalSame = Array.from(sameAsSourceKeys.values()).reduce((s, ks) => s + ks.size, 0);
+
+  console.log('\n═══════════════════════════════════════════════════════════════');
+  console.log('  🔍 翻译质量摘要');
+  console.log('═══════════════════════════════════════════════════════════════');
+
+  const issueLabels = {
+    emptyValues: '空值/空字符串',
+    sameAsSource: '与原文相同',
+    garbledText: '乱码',
+    chineseInNonZh: '非中文含中文',
+    placeholderLeak: '占位符泄漏',
+  };
+
+  const typeCounts = {};
+  for (const oi of otherIssues) {
+    typeCounts[oi.issue] = (typeCounts[oi.issue] || 0) + 1;
+  }
+  typeCounts['emptyValues'] = totalEmpty;
+  typeCounts['sameAsSource'] = totalSame;
+
+  console.log('  问题统计:');
+  for (const [type, count] of Object.entries(typeCounts).sort((a, b) => b[1] - a[1])) {
+    console.log(`    ${issueLabels[type] || type}: ${count}`);
+  }
+
+  if (fixResult && fixResult.fixed > 0) {
+    console.log(`\n  🔧 自动补翻: ${fixResult.fixed} 个空值已修复`);
+  }
+  if (fixResult && fixResult.failed > 0) {
+    const langs = fixResult.failedLangs.length > 0
+      ? ` (${fixResult.failedLangs.join(', ')})` : '';
+    console.log(`  ⚠️  补翻失败: ${fixResult.failed} 个${langs}`);
+  }
+
+  if (totalSame > 0) {
+    console.log(`\n  📝 ${totalSame} 个长文本与原文相同（记录日志，不自动重翻）`);
+  }
+
+  console.log('═══════════════════════════════════════════════════════════════\n');
+}
+
+// ─────────────────────────────────────────────
+// Git 分支管理
+// ─────────────────────────────────────────────
+
+function gitBranchCreate(branchName) {
+  try {
+    execSync(`git checkout -b ${branchName}`, { stdio: 'pipe' });
+    console.log(`🌿 已创建并切换到分支: ${branchName}`);
+    return true;
+  } catch (err) {
+    // 分支可能已存在
+    try {
+      execSync(`git checkout ${branchName}`, { stdio: 'pipe' });
+      console.log(`🌿 已切换到已有分支: ${branchName}`);
+      return true;
+    } catch {
+      console.error(`❌ 无法创建/切换分支: ${branchName} — ${err.message}`);
+      return false;
+    }
+  }
+}
+
+function gitCommitAndPush(push = true) {
+  try {
+    execSync('git add -A', { stdio: 'pipe' });
+    execSync('git diff --cached --quiet', { stdio: 'pipe' });
+    console.log('📝 无变更需要提交');
+    return null;
+  } catch {
+    // 有变更，继续提交
+  }
+  try {
+    const hash = execSync('git commit -m "chore(i18n): auto product translation update"', { stdio: 'pipe' }).toString().trim();
+    const shortHash = execSync('git rev-parse --short HEAD', { stdio: 'pipe' }).toString().trim();
+    console.log(`📝 已提交: ${shortHash}`);
+    if (push) {
+      execSync('git push', { stdio: 'pipe' });
+      console.log('🚀 已推送到远程');
+    }
+    return shortHash;
+  } catch (err) {
+    console.error(`❌ Git 操作失败: ${err.message}`);
+    return null;
+  }
+}
 
 // ─────────────────────────────────────────────
 // Key / 字段工具
@@ -501,15 +740,52 @@ function processChineseLang(productSeries, translations, stats, pendingKeys = nu
 }
 
 /** 打印最终统计 */
-function printStats(stats, translations) {
+function printStats(stats, translations, options = {}) {
+  const { totalMs, fixResult, failedLangs } = options;
+
+  let totalAdded = 0, totalSkipped = 0, successLangs = 0;
   for (const lang of SUPPORTED_LANGS) {
-    if (!translations[lang]) continue;
-    const ls = stats[lang] || { added: 0, skipped: 0, samples: [] };
-    console.log(`  • ${lang}: newly added ${ls.added} keys`);
-    if (ls.samples && ls.samples.length > 0) {
-      console.log('    Examples:');
-      for (const s of ls.samples) {
-        if (s && s.key && s.target) console.log(`      ${s.key} -> ${s.target}`);
+    const ls = stats[lang] || { added: 0, skipped: 0 };
+    totalAdded += ls.added;
+    totalSkipped += ls.skipped;
+    if (translations[lang]) successLangs++;
+  }
+
+  console.log('\n📊 翻译完成统计');
+  console.log(`   语言数: ${SUPPORTED_LANGS.length}`);
+
+  if (failedLangs && failedLangs.length > 0) {
+    console.log(`   翻译成功: ${successLangs - failedLangs.length}`);
+    console.log(`   翻译失败: ${failedLangs.length} (${failedLangs.join(', ')})`);
+  } else {
+    console.log(`   翻译成功: ${successLangs}`);
+  }
+
+  console.log(`   跳过(已存在): ${totalSkipped}`);
+  console.log(`   新增翻译: ${totalAdded}`);
+
+  if (fixResult && fixResult.fixed > 0) {
+    console.log(`   补翻(自动校验): ${fixResult.fixed}`);
+  }
+
+  if (totalMs) {
+    const mins = Math.floor(totalMs / 60000);
+    const secs = Math.floor((totalMs % 60000) / 1000);
+    console.log(`   总耗时: ${mins > 0 ? mins + 'm ' : ''}${secs}s`);
+  }
+
+  // 详细 per-lang（可选，VERBOSE 时）
+  if (VERBOSE_LOGGING) {
+    console.log('');
+    for (const lang of SUPPORTED_LANGS) {
+      if (!translations[lang]) continue;
+      const ls = stats[lang] || { added: 0, skipped: 0, samples: [] };
+      console.log(`  • ${lang}: newly added ${ls.added} keys`);
+      if (ls.samples && ls.samples.length > 0) {
+        console.log('    Examples:');
+        for (const s of ls.samples) {
+          if (s && s.key && s.target) console.log(`      ${s.key} -> ${s.target}`);
+        }
       }
     }
   }
@@ -526,7 +802,8 @@ function printStats(stats, translations) {
  * 全量翻译
  * 适用场景：初始化、清理翻译文件、语言规模大幅变化时重建
  */
-async function translateProducts() {
+async function translateProducts(branchMode = false) {
+  const startTime = Date.now();
   console.log('\n🔄 Starting FULL product translation (Hunyuan-MT-7B + scnet fallback)...\n');
 
   const productSeries = extractChineseProductData();
@@ -586,10 +863,26 @@ async function translateProducts() {
   console.log('\n💾 Saving product translations to lang/*.json...\n');
   try {
     saveTranslationFiles(translations);
-    printStats(stats, translations);
+    printStats(stats, translations, { totalMs: Date.now() - startTime });
   } catch (err) {
     console.error(`❌ Failed saving translations: ${err.message}`);
   }
+
+  // 质量校验 + 自动补翻
+  const sourceData = translations['zh-CN'] || {};
+  const qcResult = runQualityCheck(translations, sourceData);
+  const fixResult = qcResult.emptyKeys.size > 0
+    ? await autoFixEmptyValues(qcResult.emptyKeys, productSeries, translations, sourceData)
+    : { fixed: 0, failed: 0, failedLangs: [] };
+  if (fixResult.fixed > 0) {
+    saveTranslationFiles(translations);
+    printStats(stats, translations, { totalMs: Date.now() - startTime, fixResult });
+  }
+  printQualitySummary(qcResult, fixResult);
+
+  // Git commit & push
+  const pushEnabled = !branchMode;
+  gitCommitAndPush(pushEnabled);
 
   console.log('\n✨ Done! Full translation complete.\n');
 }
@@ -611,7 +904,8 @@ async function translateProducts() {
  *  4. 只对这些 key 调用翻译 API
  *  5. 写入翻译文件，更新快照
  */
-async function translateProductsIncremental() {
+async function translateProductsIncremental(branchMode = false) {
+  const startTime = Date.now();
   console.log('\n⚡ Starting INCREMENTAL product translation (Hunyuan-MT-7B + scnet fallback)...\n');
 
   const productSeries = extractChineseProductData();
@@ -695,10 +989,26 @@ async function translateProductsIncremental() {
   console.log('\n💾 Saving product translations to lang/*.json...\n');
   try {
     saveTranslationFiles(translations);
-    printStats(stats, translations);
+    printStats(stats, translations, { totalMs: Date.now() - startTime });
   } catch (err) {
     console.error(`❌ Failed saving translations: ${err.message}`);
   }
+
+  // 质量校验 + 自动补翻
+  const sourceData = translations['zh-CN'] || {};
+  const qcResult = runQualityCheck(translations, sourceData);
+  const fixResult = qcResult.emptyKeys.size > 0
+    ? await autoFixEmptyValues(qcResult.emptyKeys, productSeries, translations, sourceData)
+    : { fixed: 0, failed: 0, failedLangs: [] };
+  if (fixResult.fixed > 0) {
+    saveTranslationFiles(translations);
+    printStats(stats, translations, { totalMs: Date.now() - startTime, fixResult });
+  }
+  printQualitySummary(qcResult, fixResult);
+
+  // Git commit & push
+  const pushEnabled = !branchMode;
+  gitCommitAndPush(pushEnabled);
 
   console.log('\n✨ Done! Incremental translation complete.\n');
 }
@@ -794,6 +1104,15 @@ function runMockTranslationFlow() {
 if (require.main === module) {
   const args = process.argv.slice(2);
 
+  // 解析 --branch <name>
+  let branchMode = false;
+  const branchIdx = args.indexOf('--branch');
+  let branchName = null;
+  if (branchIdx !== -1 && args[branchIdx + 1]) {
+    branchName = args[branchIdx + 1];
+    branchMode = true;
+  }
+
   if (args.includes('--help') || args.includes('-h')) {
     console.log(`
 Usage: node scripts/product-translate-adapter.js [options]
@@ -801,6 +1120,9 @@ Usage: node scripts/product-translate-adapter.js [options]
 Options:
   --help, -h            显示帮助
   --incremental         增量翻译（只处理新增/变更的产品 key）
+  --branch <name>       在指定分支上执行翻译（创建分支，commit 但不 push）
+  --check               只运行质量检查，不翻译
+  --fix                 翻译 + 自动校验 + 补翻（等同于默认行为）
   --demo                Demo 模式（展示结构，不调 API）
   --mock                Mock 流程（无网络、无文件写入）
 
@@ -813,6 +1135,10 @@ Options:
               npm run translate:products
   增量模式  —— 对比 .translation-snapshot.json，只翻译新增/变更的 key
               npm run translate:products:incremental
+  质量检查  —— 只运行质量检查，不翻译
+              npm run translate:check
+  分支隔离  —— 在指定分支上翻译，避免并行冲突
+              node scripts/i18n/product-translate-adapter.js --branch fix/i18n-xxx
     `);
     process.exit(0);
   }
@@ -842,13 +1168,35 @@ Options:
     process.exit(0);
   }
 
+  // --check: 只运行质量检查
+  if (args.includes('--check')) {
+    (async () => {
+      console.log('🔍 只运行质量检查（不翻译）...\n');
+      const translations = loadTranslations();
+      const sourceData = translations['zh-CN'] || {};
+      const qcResult = runQualityCheck(translations, sourceData);
+      printQualitySummary(qcResult, null);
+    })().catch(err => {
+      console.error('❌ 质量检查失败:', err.message);
+      process.exit(1);
+    });
+    return;
+  }
+
+  // --branch: 创建分支
+  if (branchMode && branchName) {
+    if (!gitBranchCreate(branchName)) {
+      process.exit(1);
+    }
+  }
+
   if (args.includes('--incremental')) {
-    translateProductsIncremental().catch(err => {
+    translateProductsIncremental(branchMode).catch(err => {
       console.error('❌ Fatal error:', err.message);
       process.exit(1);
     });
   } else {
-    translateProducts().catch(err => {
+    translateProducts(branchMode).catch(err => {
       console.error('❌ Fatal error:', err.message);
       process.exit(1);
     });
