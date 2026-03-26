@@ -46,7 +46,11 @@ class TranslationManager {
     const browserLang = navigator.language || navigator.userLanguage || 'en';
     const quickMap = { 'zh': 'zh-CN', 'zh-TW': 'zh-TW', 'zh-HK': 'zh-TW', 'en': 'en', 'de': 'de', 'fr': 'fr', 'it': 'it', 'pt': 'pt', 'pt-BR': 'pt', 'ja': 'ja', 'ko': 'ko', 'nl': 'nl', 'pl': 'pl', 'ru': 'ru', 'tr': 'tr', 'th': 'th', 'vi': 'vi', 'ar': 'ar', 'he': 'he', 'id': 'id', 'ms': 'ms', 'fil': 'fil' };
     const detected = quickMap[browserLang] || quickMap[browserLang.split('-')[0]];
-    if (detected) return detected;
+    if (detected) {
+      // Persist browser-detected language so thank-you page picks it up
+      localStorage.setItem('userLanguage', detected);
+      return detected;
+    }
 
     // 3. 默认中文
     return 'zh-CN';
