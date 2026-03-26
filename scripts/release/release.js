@@ -264,7 +264,7 @@ if (opts.skipFeishu || opts.skipBuild) {
 } else {
   try {
     log('拉取飞书产品数据表...');
-    runLive('node scripts/ensure-product-data-table.js');
+    runLive('node scripts/product/ensure-product-data-table.js');
     ok('飞书数据同步完成');
 
     log('提取 i18n key...');
@@ -320,7 +320,7 @@ if (opts.skipDownload || opts.skipBuild) {
 } else {
   try {
     log('检查并下载新增外部图片（已本地化的图片自动跳过）...');
-    runLive('node scripts/optimize-images.js --download-remote');
+    runLive('node scripts/image/optimize-images.js --download-remote');
     ok('图片下载完成（增量）');
   } catch (e) {
     fail('图片下载失败，请检查网络或手动处理（或使用 --skip-download 跳过）', e);
