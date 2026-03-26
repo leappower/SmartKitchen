@@ -4,11 +4,11 @@
 // Cache name constants — version suffixes are replaced by scripts/release.js during release.
 // Initial value v0-0-0 is replaced with the actual version (e.g. v1-2-3) on each release,
 // causing the browser to detect a byte-level change in sw.js and trigger cache cleanup.
-const CACHE_NAME = 'language-cache-v0-0-5';
-const LANGUAGE_FILES_CACHE = 'language-files-v0-0-5';
+const CACHE_NAME = 'language-cache-v0-0-7';
+const LANGUAGE_FILES_CACHE = 'language-files-v0-0-7';
 
 // ─── 图片缓存配置 ──────────────────────────────────────────────────────────────
-const IMAGE_CACHE = 'image-cache-v0-0-5';
+const IMAGE_CACHE = 'image-cache-v0-0-7';
 // 本地图片（/images/*.png、*.webp）使用 Cache First，命中直接返回，无则网络请求后写缓存
 // 外链图片（百度图床、证书图等）使用 Stale-While-Revalidate：先返回缓存，后台异步更新
 const LOCAL_IMAGE_PATTERN = /^\/images\/.*\.(png|webp|jpg|jpeg|gif|svg)$/i;
