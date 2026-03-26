@@ -2213,9 +2213,52 @@ let _inactivityCheckInterval = null;
         body: JSON.stringify(formData)
       });
       showNotification(tr('notify_submit_success', 'Submitted successfully!'), 'success');
+      // Navigate to thank-you page
+      setTimeout(() => {
+        showThankYouPage();
+      }, 800);
     } catch (error) {
       console.warn('Fetch 失败，降级到 mailto 备用方案', error);
       submitViaMailto(formData, 'contact_page');
+    }
+  }
+
+  function showThankYouPage() {
+    // Hide all main sections except header/footer/floating elements
+    document.querySelectorAll('main section, main > .container, main > div').forEach(el => {
+      if (el.id === 'thank-you') return;
+      el.classList.add('hidden');
+    });
+    // Show thank-you
+    const thankYou = document.getElementById('thank-you');
+    if (thankYou) {
+      thankYou.classList.remove('hidden');
+      thankYou.classList.add('animate-fadeIn');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // Intercept back-to-home click to restore sections
+    const backHome = document.getElementById('thankyou-back-home');
+    if (backHome) {
+      backHome.addEventListener('click', (e) => {
+        restoreMainSections();
+      });
+    }
+    // Intercept browse-products click to restore sections
+    const browseProducts = document.getElementById('thankyou-browse-products');
+    if (browseProducts) {
+      browseProducts.addEventListener('click', (e) => {
+        restoreMainSections();
+      });
+    }
+  }
+
+  function restoreMainSections() {
+    document.querySelectorAll('main section, main > .container, main > div').forEach(el => {
+      el.classList.remove('hidden');
+    });
+    const thankYou = document.getElementById('thank-you');
+    if (thankYou) {
+      thankYou.classList.add('hidden');
     }
   }
 
@@ -2679,6 +2722,8 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
     closeSmartPopup,
     submitSmartPopupForm,
     submitContactForm,
+    showThankYouPage,
+    restoreMainSections,
     submitViaMailto
   });
 })(window);
