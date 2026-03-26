@@ -58,7 +58,9 @@
     "release:pack-only": "node scripts/release.js --skip-feishu --skip-translate",
     "release:full-translate": "node scripts/release.js --full-translate",
     "release:skip-download": "node scripts/release.js --skip-download",
-    "prepare": "git config core.hooksPath .githooks"
+    "prepare": "git config core.hooksPath .githooks",
+    "translate:glossary-check": "node scripts/i18n/validate-glossary.js",
+    "translate:glossary-fix": "node scripts/i18n/validate-glossary.js --fix"
   },
   "dependencies": {
     "compression": "^1.7.4",
