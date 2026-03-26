@@ -35,8 +35,10 @@ class TranslationManager {
       return userChoice;
     }
 
-    // 2. 检测浏览器语言
-    const detected = detectBrowserLanguage();
+    // 2. 检测浏览器语言（内联，避免构造函数中调用实例方法）
+    const browserLang = navigator.language || navigator.userLanguage || 'en';
+    const quickMap = { 'zh': 'zh-CN', 'zh-TW': 'zh-TW', 'zh-HK': 'zh-TW', 'en': 'en', 'de': 'de', 'fr': 'fr', 'it': 'it', 'pt': 'pt', 'pt-BR': 'pt', 'ja': 'ja', 'ko': 'ko', 'nl': 'nl', 'pl': 'pl', 'ru': 'ru', 'tr': 'tr', 'th': 'th', 'vi': 'vi', 'ar': 'ar', 'he': 'he', 'id': 'id', 'ms': 'ms', 'fil': 'fil' };
+    const detected = quickMap[browserLang] || quickMap[browserLang.split('-')[0]];
     if (detected) return detected;
 
     // 3. 默认中文
