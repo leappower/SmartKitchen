@@ -241,7 +241,23 @@
         </a>
       </header>
     <section id="thank-you" class=" px-4 py-20 lg:py-32 bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center">
-      <div class="max-w-2xl mx-auto text-center">
+
+      <!-- Skeleton (visible until translations load) -->
+      <div id="thankyou-skeleton" class="max-w-2xl mx-auto text-center">
+        <div class="mb-8 flex justify-center">
+          <div class="w-24 h-24 rounded-full bg-slate-200 dark:bg-slate-700 animate-pulse"></div>
+        </div>
+        <div class="h-10 w-3/4 mx-auto mb-4 rounded-lg bg-slate-200 dark:bg-slate-700 animate-pulse"></div>
+        <div class="h-6 w-full mb-2 rounded-lg bg-slate-200 dark:bg-slate-700 animate-pulse"></div>
+        <div class="h-5 w-2/3 mb-10 rounded-lg bg-slate-200 dark:bg-slate-700 animate-pulse"></div>
+        <div class="flex gap-4 justify-center">
+          <div class="h-12 w-40 rounded-lg bg-slate-200 dark:bg-slate-700 animate-pulse"></div>
+          <div class="h-12 w-40 rounded-lg bg-slate-200 dark:bg-slate-700 animate-pulse"></div>
+        </div>
+      </div>
+
+      <!-- Real content (hidden until translations load) -->
+      <div id="thankyou-content" class="max-w-2xl mx-auto text-center animate-fadeIn" style="display:none;">
         <div class="mb-8 flex justify-center">
           <div class="w-24 h-24 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
             <svg class="w-12 h-12 text-green-500 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
@@ -352,5 +368,26 @@
       </div>
     </footer>
 </main>
+<script>
+// Thank-you page: hide skeleton, show content after translations load
+(function() {
+  var skeleton = document.getElementById('thankyou-skeleton');
+  var content = document.getElementById('thankyou-content');
+  if (window.translationManager) {
+    window.translationManager.on('translationsApplied', function() {
+      if (skeleton) skeleton.style.display = 'none';
+      if (content) content.style.display = '';
+    });
+  } else {
+    // Fallback: show content after DOMContentLoaded if no translationManager
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        if (skeleton) skeleton.style.display = 'none';
+        if (content) content.style.display = '';
+      }, 300);
+    });
+  }
+})();
+</script>
 </body>
 </html>
