@@ -1,10 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const { getSortedCodes } = require(path.join(__dirname, '../src/lang-registry'));
+const { getSortedCodes } = require(path.join(__dirname, '../../src/lang-registry'));
 
-const translationsDir = path.resolve(__dirname, '../src/assets/lang');
+const translationsDir = path.resolve(__dirname, '../../src/assets/lang');
 // 输出合并后的 UI 翻译（供调试/审查用，build pipeline 不依赖此文件）
-const outputPath = path.resolve(__dirname, '../src/assets/ui-i18n-merged.json');
+const outputPath = path.resolve(__dirname, '../../src/assets/ui-i18n-merged.json');
 
 // 语言合并顺序 — 由 src/lang-registry.js 统一管理（按 sortOrder 升序）
 const languageOrder = getSortedCodes();

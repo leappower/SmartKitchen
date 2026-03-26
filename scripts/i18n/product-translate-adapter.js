@@ -34,7 +34,7 @@
 const fs     = require('fs');
 const path   = require('path');
 const crypto = require('crypto');
-const { getSupportedCodes } = require(path.join(__dirname, '../src/lang-registry'));
+const { getSupportedCodes } = require(path.join(__dirname, '../../src/lang-registry'));
 const { prepareForTranslation, postprocessText } = require('./product-translation-handler');
 const {
   translateHunyuan,

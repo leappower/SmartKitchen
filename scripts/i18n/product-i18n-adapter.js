@@ -15,7 +15,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { getSupportedCodes, getAllCodes } = require(path.join(__dirname, '../src/lang-registry'));
+const { getSupportedCodes, getAllCodes } = require(path.join(__dirname, '../../src/lang-registry'));
 
 const TRANSLATIONS_DIR = path.join(process.cwd(), 'src/assets/lang');
 const PRODUCT_TABLE_PATH = path.join(process.cwd(), 'src/assets/product-data-table.js');

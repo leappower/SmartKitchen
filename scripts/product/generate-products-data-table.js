@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 const PRODUCT_LIST_PATH = path.join(process.cwd(), 'src/assets/product-list.js');
 const PRODUCT_TABLE_PATH = path.join(process.cwd(), 'src/assets/product-data-table.js');
-const FEISHU_CONFIG_PATH = path.join(process.cwd(), 'scripts/feishu-config.json');
+const FEISHU_CONFIG_PATH = path.join(process.cwd(), 'scripts/product/feishu-config.json');
 const APPEND_START = '// FEISHU_SYNC_APPEND_START';
 const APPEND_END = '// FEISHU_SYNC_APPEND_END';
 

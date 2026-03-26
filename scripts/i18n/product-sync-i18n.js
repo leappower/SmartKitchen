@@ -15,7 +15,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { getSupportedCodes } = require(path.join(__dirname, '../src/lang-registry'));
+const { getSupportedCodes } = require(path.join(__dirname, '../../src/lang-registry'));
 const PRODUCT_I18N_PATH = path.join(process.cwd(), 'scripts/product-strings.json');
 const TRANSLATIONS_DIR = path.join(process.cwd(), 'src/assets/lang');
 
