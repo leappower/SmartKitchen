@@ -219,9 +219,7 @@
     }
   
     /* Critical: thank-you skeleton (rendered before Tailwind CSS loads) */
-    #thankyou-skeleton { display: block !important; }
-    #thankyou-content { display: none !important; }
-    @keyframes skeleton-pulse {
+        @keyframes skeleton-pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
     }
@@ -327,87 +325,6 @@
         </div>
       </div>
     </section>
-    <footer id="main-footer" class="bg-primary text-slate-200 py-12 lg:py-16">
-      <div id="footer-container" class="mx-auto max-w-7xl px-4">
-        <div id="footer-grid"
-          class="footer-main-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
-          <!-- Company Info -->
-          <div id="footer-grid-footer-company-info-block" class="footer-company-info">
-            <div id="footer-grid-footer-company-info-block-div-1"
-              class="flex flex-col items-center gap-0 mb-1 text-center">
-              <img id="footer-logo-img" src="images/logo_html_2.webp" alt="LOGO"
-                class="h-20 inline-block align-middle" />
-              <h3 id="footer-grid-footer-company-info-block-div-1-company-name-title" class="text-white font-bold whitespace-nowrap"
-                data-i18n="company_name">佛山市跃迁力科技有限公司</h3>
-            </div>
-            <p id="footer-grid-footer-company-info-block-footer-about-text" class="text-slate-300 text-sm mb-4"
-              data-i18n="footer_about">Ihr zuverlässiger Partner für professionelle
-              Gärschränke seit 2004.</p>
-          </div>
-
-          <!-- Products -->
-          <div id="footer-grid-footer-products-block" class="footer-products">
-            <h4 id="footer-grid-footer-products-block-footer-products-title-title" class="text-white font-bold mb-4"
-              data-i18n="footer_products_title">Products</h4>
-            <ul id="footer-grid-footer-products-block-ul-1" class="space-y-2 text-sm">
-              <li id="footer-grid-footer-products-block-ul-1-li-1"><a
-                  id="footer-grid-footer-products-block-ul-1-li-1-footer-product-1-link" href="#advantages"
-                  class="hover:text-white transition-colors" data-i18n="nav_vorteile">优势</a></li>
-              <li id="footer-grid-footer-products-block-ul-1-li-2"><a
-                  id="footer-grid-footer-products-block-ul-1-li-2-footer-product-2-link" href="/"
-                  class="hover:text-white transition-colors" data-i18n="nav_produkte">产品</a></li>
-              <li id="footer-grid-footer-products-block-ul-1-li-3"><a
-                  id="footer-grid-footer-products-block-ul-1-li-3-footer-product-3-link" href="#certificates"
-                  class="hover:text-white transition-colors" data-i18n="nav_vertrauen">信任</a></li>
-              <li id="footer-grid-footer-products-block-ul-1-li-4"><a
-                  id="footer-grid-footer-products-block-ul-1-li-4-footer-product-4-link" href="#contact"
-                  class="hover:text-white transition-colors" data-i18n="nav_contact">联系</a></li>
-            </ul>
-          </div>
-
-          <!-- Support -->
-          <div id="footer-grid-footer-support-block" class="footer-support">
-            <h4 id="footer-grid-footer-support-block-footer-support-title-title" class="text-white font-bold mb-4"
-              data-i18n="footer_support_title">Support</h4>
-            <ul id="footer-grid-footer-support-block-ul-1" class="space-y-2 text-sm">
-              <li id="footer-grid-footer-support-block-ul-1-li-1"><a
-                  id="footer-grid-footer-support-block-ul-1-li-1-footer-support-1-link" href="#contact"
-                  class="hover:text-white transition-colors" data-i18n="footer_support_1">Technischer
-                  Support</a></li>
-              <li id="footer-grid-footer-support-block-ul-1-li-2"><a
-                  id="footer-grid-footer-support-block-ul-1-li-2-footer-support-2-link" href="#"
-                  class="hover:text-white transition-colors" data-i18n="footer_support_2">Wartung &
-                  Service</a></li>
-              <li id="footer-grid-footer-support-block-ul-1-li-3"><a
-                  id="footer-grid-footer-support-block-ul-1-li-3-footer-support-4-link" href="#"
-                  class="hover:text-white transition-colors" data-i18n="footer_support_4">FAQ</a></li>
-            </ul>
-          </div>
-
-          <!-- Legal -->
-          <div id="footer-grid-footer-legal-block" class="footer-legal-links">
-            <h4 id="footer-grid-footer-legal-block-footer-legal-title" class="text-white font-bold mb-4"
-              data-i18n="footer_legal_title">Legal</h4>
-            <ul id="footer-grid-footer-legal-block-ul-1" class="space-y-2 text-sm">
-              <li id="footer-grid-footer-legal-block-ul-1-li-1"><a
-                  id="footer-grid-footer-legal-block-ul-1-li-1-footer-legal-user-link" href="#"
-                  class="hover:text-white transition-colors legal-modal-trigger" data-i18n="footer_legal_user_agreement"
-                  data-legal-type="userAgreement">User Agreement</a></li>
-              <li id="footer-grid-footer-legal-block-ul-1-li-2"><a
-                  id="footer-grid-footer-legal-block-ul-1-li-2-footer-legal-privacy-link" href="#"
-                  class="hover:text-white transition-colors legal-modal-trigger" data-i18n="footer_legal_privacy_policy"
-                  data-legal-type="privacy">Privacy Policy</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div id="footer-bottom" class="border-t border-white/20 pt-8">
-                <span data-i18n="company_name">Foshan YuKoLi Technology Co., Ltd.</span> <span
-                id="footer-bottom-div-1-2024-text-footer-rights-text" data-i18n="footer_rights">All Rights Reserved.</span></p>
-          </div>
-        </div>
-      </div>
-    </footer>
 </main>
 <script>
 // Thank-you page: hide skeleton, show content after translations load
