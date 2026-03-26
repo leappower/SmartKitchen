@@ -29,11 +29,11 @@ class TranslationManager {
   }
 
   getInitialLanguage() {
-    // 0. URL参数 ?lang= 最高优先级（用于 thank-you 等独立页面语言传递）
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlLang = urlParams.get('lang');
-    if (urlLang && languageNames[urlLang]) {
-      return urlLang;
+    // 0. sessionStorage 传递的语言（用于 thank-you 等跨页面跳转）
+    const sessionLang = sessionStorage.getItem('redirectLang');
+    if (sessionLang && languageNames[sessionLang]) {
+      sessionStorage.removeItem('redirectLang'); // 一次性读取
+      return sessionLang;
     }
 
     // 1. 优先使用用户手动选择的语言（localStorage）

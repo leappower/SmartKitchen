@@ -2213,9 +2213,9 @@ let _inactivityCheckInterval = null;
   }
 
   function showThankYouPage(lang) {
-    // Pass current language to thank-you page via URL param
-    const currentLang = lang || getCurrentLanguage();
-    window.location.href = '/thank-you/?lang=' + encodeURIComponent(currentLang);
+    // Store language in sessionStorage for thank-you page to pick up
+    sessionStorage.setItem('redirectLang', lang || getCurrentLanguage());
+    window.location.href = '/thank-you/';
   }
 
   function restoreMainSections() {
