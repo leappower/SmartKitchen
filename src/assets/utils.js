@@ -2236,6 +2236,8 @@ let _inactivityCheckInterval = null;
       thankYou.classList.add('animate-fadeIn');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    // Update browser URL to /thank-you
+    history.pushState({ thankYou: true }, '', '/thank-you');
     // Intercept back-to-home click to restore sections
     const backHome = document.getElementById('thankyou-back-home');
     if (backHome) {
@@ -2260,6 +2262,8 @@ let _inactivityCheckInterval = null;
     if (thankYou) {
       thankYou.classList.add('hidden');
     }
+    // Restore browser URL
+    history.pushState({}, '', '/');
   }
 
   function submitViaMailto(formData, formType) {
@@ -2669,6 +2673,33 @@ ${tr('mailto_label_user_agent', 'User Agent')}: ${navigator.userAgent}
       }
     }
   });
+
+  // Handle browser back/forward for thank-you page
+  window.addEventListener('popstate', (e) => {
+    const isThankYou = window.location.pathname === '/thank-you';
+    if (isThankYou) {
+      document.querySelectorAll('main section, main > .container, main > div').forEach(el => {
+        if (el.id === 'thank-you') return;
+        el.classList.add('hidden');
+      });
+      const thankYou = document.getElementById('thank-you');
+      if (thankYou) {
+        thankYou.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else {
+      document.querySelectorAll('main section, main > .container, main > div').forEach(el => {
+        el.classList.remove('hidden');
+      });
+      const thankYou = document.getElementById('thank-you');
+      if (thankYou) thankYou.classList.add('hidden');
+    }
+  });
+
+  // On page load, show thank-you if URL matches
+  if (window.location.pathname === '/thank-you' && document.getElementById('thank-you')) {
+    showThankYouPage();
+  }
 
   // Run after DOM is ready
   if (document.readyState === 'loading') {

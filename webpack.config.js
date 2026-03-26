@@ -171,6 +171,7 @@ module.exports = (_, argv = {}) => {
       ],
       compress: true,
       port: 3000,
+      historyApiFallback: true,
       headers: {
         'Service-Worker-Allowed': '/',
       },
