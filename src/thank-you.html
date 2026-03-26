@@ -217,7 +217,48 @@
         min-height: auto;
       }
     }
-  </style>
+  
+    /* Critical: thank-you skeleton (rendered before Tailwind CSS loads) */
+    #thankyou-skeleton { display: block !important; }
+    #thankyou-content { display: none !important; }
+    @keyframes skeleton-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    #thankyou-skeleton .animate-pulse { animation: skeleton-pulse 1.5s ease-in-out infinite; }
+    #thankyou-skeleton .w-24.h-24.rounded-full { width: 6rem; height: 6rem; border-radius: 9999px; }
+    #thankyou-skeleton .mb-8 { margin-bottom: 2rem; }
+    #thankyou-skeleton .flex { display: flex; }
+    #thankyou-skeleton .justify-center { justify-content: center; }
+    #thankyou-skeleton .mx-auto { margin-left: auto; margin-right: auto; }
+    #thankyou-skeleton .text-center { text-align: center; }
+    #thankyou-skeleton .h-10 { height: 2.5rem; }
+    #thankyou-skeleton .w-3\/4 { width: 75%; }
+    #thankyou-skeleton .h-6 { height: 1.5rem; }
+    #thankyou-skeleton .w-full { width: 100%; }
+    #thankyou-skeleton .h-5 { height: 1.25rem; }
+    #thankyou-skeleton .w-2\/3 { width: 66.666%; }
+    #thankyou-skeleton .mb-4 { margin-bottom: 1rem; }
+    #thankyou-skeleton .mb-2 { margin-bottom: 0.5rem; }
+    #thankyou-skeleton .mb-10 { margin-bottom: 2.5rem; }
+    #thankyou-skeleton .gap-4 { gap: 1rem; }
+    #thankyou-skeleton .h-12 { height: 3rem; }
+    #thankyou-skeleton .w-40 { width: 10rem; }
+    #thankyou-skeleton .rounded-lg { border-radius: 0.5rem; }
+    #thankyou-skeleton .bg-slate-200 { background-color: #e2e8f0; }
+    #thankyou-skeleton .rounded-full { border-radius: 9999px; }
+    /* Thank-you section centering */
+    #thank-you { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 5rem 1rem; }
+    #thankyou-skeleton, #thankyou-content { max-width: 42rem; margin-left: auto; margin-right: auto; text-align: center; }
+    /* Fade-in for content */
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
+    /* Header */
+    #main-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; position: sticky; top: 0; z-index: 50; background: #fff; }
+    #main-header a { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit; }
+    #main-header img { height: 2.5rem; }
+    #main-header h2 { font-size: 1.125rem; font-weight: 700; white-space: nowrap; }
+</style>
 
   <!-- Critical CSS for above-the-fold content -->
   <!-- CSS will be injected by webpack's style-loader -->
