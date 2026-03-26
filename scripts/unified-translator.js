@@ -1158,21 +1158,69 @@ async function translateWithRetry(text, targetLang, retryCount = 0) {
   }
 
   // 估算请求体大小，决定是否需要拆分
-  const estimatedBytes = Buffer.byteLength(text, 'utf8');
+  const estimatedBytes = Buffer.byteLength(text, 'utf-8');
   if (estimatedBytes > 30000) {
     // 超大文本：走分块翻译
     return translateInChunks(text, targetLang);
   }
 
+  let result;
   try {
-    return await translateOnce(text, targetLang, retryCount);
+    result = await translateOnce(text, targetLang, retryCount);
   } catch (err) {
     // translateOnce 内已耗尽重试，此处直接返回原文
     console.error(
       `  [Fallback] 翻译彻底失败，返回原文: ${text.substring(0, 50)}...`
     );
-    return text;
+    result = text;
   }
+
+  // ── P0: 翻译质量校验 ──
+  result = validateTranslation(text, result, targetLang);
+
+  return result;
+}
+
+/**
+ * 翻译质量校验
+ * 检测：空值、与原文相同（没翻译）、乱码、异常长度
+ * 不合格则返回原文
+ */
+function validateTranslation(source, translated, targetLang) {
+  if (!translated || typeof translated !== 'string') return source;
+  translated = translated.trim();
+
+  // 1. 空值检测
+  if (translated === '') {
+    console.warn(`  [Quality] ⚠️ 翻译结果为空 (${targetLang})，返回原文`);
+    return source;
+  }
+
+  // 2. 与原文完全相同（可能没翻译）
+  if (translated === source.trim() && source.trim().length > 3) {
+    // 英文源翻译到其他语言时，短文本（如品牌名）相同是正常的
+    const words = source.trim().split(/\s+/);
+    if (words.length > 3) {
+      console.warn(`  [Quality] ⚠️ 翻译结果与原文完全相同 (${targetLang})，返回原文`);
+      return source;
+    }
+  }
+
+  // 3. 乱码检测（含连续 3+ 个替换字符，通常是编码问题）
+  if (/\ufffd{3,}/.test(translated)) {
+    console.warn(`  [Quality] ⚠️ 检测到乱码 (${targetLang})，返回原文`);
+    return source;
+  }
+
+  // 4. 异常长度检测（翻译结果与源长度差异过大）
+  const srcLen = source.trim().length;
+  const tgtLen = translated.length;
+  if (srcLen > 20 && (tgtLen < srcLen * 0.2 || tgtLen > srcLen * 5)) {
+    console.warn(`  [Quality] ⚠️ 翻译长度异常 (${targetLang}): 源=${srcLen}, 译=${tgtLen}，返回原文`);
+    return source;
+  }
+
+  return translated;
 }
 
 /**
