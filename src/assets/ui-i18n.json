@@ -350,7 +350,12 @@
     "testimonial_8_text": "温控精度是我最看重的。这台烤箱的温度偏差不超过 1°C，每一炉面包的颜色和口感都高度一致，浪费率从 12% 降到了 2%。",
     "testimonial_9_name": "陈德明",
     "testimonial_9_position": "主厨，Monsoon Steakhouse 牛排馆，河内",
-    "testimonial_9_text": "扒炉的加热非常均匀，牛排的焦化层从头到尾一致，出餐速度比之前快了 40%。客人好评最多的就是牛排的火候控制。"
+    "testimonial_9_text": "扒炉的加热非常均匀，牛排的焦化层从头到尾一致，出餐速度比之前快了 40%。客人好评最多的就是牛排的火候控制。",
+    "thankyou_btn_home": "返回首页",
+    "thankyou_btn_products": "浏览产品",
+    "thankyou_message": "我们已收到您的询盘信息，团队将在 24 小时内与您联系。",
+    "thankyou_subtitle": "同时，欢迎随时浏览我们的产品系列或直接致电咨询。",
+    "thankyou_title": "感谢您的咨询！"
   },
   "zh-TW": {
     "all": "全部",
@@ -703,7 +708,12 @@
     "testimonial_8_text": "对我来说，温度的精确度是最重要的。这款烤箱的实际温度与设定温度之间的偏差始终在 1°C 以内；因此，每批面包的颜色和质地都保持一致。此外，面包的浪费率也从 12% 降到了 2%。",
     "testimonial_9_name": "陈德明（Tran Duc Minh）",
     "testimonial_9_position": "河内 Monsoon Steakhouse 餐厅的主厨",
-    "testimonial_9_text": "这个烤盘的热量分布非常均匀，无论是哪一块牛排，都能从边缘到中心都被完美地煎至金黄色。上菜速度也提高了 40%。顾客们一致对我们的烹饪技术表示高度赞赏。"
+    "testimonial_9_text": "这个烤盘的热量分布非常均匀，无论是哪一块牛排，都能从边缘到中心都被完美地煎至金黄色。上菜速度也提高了 40%。顾客们一致对我们的烹饪技术表示高度赞赏。",
+    "thankyou_btn_home": "返回首页",
+    "thankyou_btn_products": "浏览产品",
+    "thankyou_message": "我们已收到您的询盘信息，团队将在 24 小时内与您联系。",
+    "thankyou_subtitle": "同时，欢迎随时浏览我们的产品系列或直接致电咨询。",
+    "thankyou_title": "感谢您的咨询！"
   },
   "en": {
     "all": "All",
@@ -1056,7 +1066,12 @@
     "testimonial_8_text": "Temperature precision is what matters most to me. This oven stays within 1°C of the set temperature. Every batch of bread has consistent color and texture. Waste dropped from 12% to 2%.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Head Chef, Monsoon Steakhouse, Hanoi",
-    "testimonial_9_text": "The griddle heats incredibly evenly — perfect sear from edge to edge on every steak. Serving speed is 40% faster. Customers consistently compliment the precision of our cooking."
+    "testimonial_9_text": "The griddle heats incredibly evenly — perfect sear from edge to edge on every steak. Serving speed is 40% faster. Customers consistently compliment the precision of our cooking.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "ar": {
     "all": "الكل",
@@ -1403,7 +1418,12 @@
     "testimonial_8_text": "الدقة في درجة الحرارة هي الأهم بالنسبة لي؛ فهذا الفرن يحافظ على درجة الحرارة المحددة بخطأ لا يتجاوز 1 درجة مئوية. كل دفعة من الخبز تتمتع بلون وقوام متسقين، كما انخفض معدل الهدر من 12% إلى 2%.",
     "testimonial_9_name": "تران دوك مينه",
     "testimonial_9_position": "الشيف الرئيسي، مطعم Monsoon Steakhouse، هانوي",
-    "testimonial_9_text": "تسخن الصينية بشكل متساوٍ للغاية، مما يضمن طهي كل شريحة لحم بشكل مثالي من الحافة إلى الحافة. سرعة التقديم أسرع بنسبة 40٪، ويثني العملاء دائمًا على دقة طريقة الطهي لدينا."
+    "testimonial_9_text": "تسخن الصينية بشكل متساوٍ للغاية، مما يضمن طهي كل شريحة لحم بشكل مثالي من الحافة إلى الحافة. سرعة التقديم أسرع بنسبة 40٪، ويثني العملاء دائمًا على دقة طريقة الطهي لدينا.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "de": {
     "all": "Alle",
@@ -1750,7 +1770,12 @@
     "testimonial_8_text": "Die Temperaturgenauigkeit ist für mich das Wichtigste. Dieser Ofen hält sich innerhalb von 1°C der eingestellten Temperatur. Jede Brot Charge weist eine einheitliche Farbe und Textur auf. Die Abfallmenge ist von 12% auf 2% gesunken.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Chefkoch, Monsoon Steakhouse, Hanoi",
-    "testimonial_9_text": "Die Grillplatte erwärmt sich unglaublich gleichmäßig – dadurch wird jeder Steak von Rand zu Rand perfekt angebraten. Die Servizgeschwindigkeit ist um 40 Prozent höher. Die Kunden loben stets die Präzision unserer Zubereitung."
+    "testimonial_9_text": "Die Grillplatte erwärmt sich unglaublich gleichmäßig – dadurch wird jeder Steak von Rand zu Rand perfekt angebraten. Die Servizgeschwindigkeit ist um 40 Prozent höher. Die Kunden loben stets die Präzision unserer Zubereitung.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "es": {
     "all": "Todo",
@@ -2097,7 +2122,12 @@
     "testimonial_8_text": "Para mí, la precisión de la temperatura es lo más importante. Este horno mantiene la temperatura establecida con una desviación de solo 1°C. Cada lote de pan presenta un color y una textura uniformes. El desperdicio de materiales ha disminuido del 12% al 2%.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Jefe de Cocina, Monsoon Steakhouse, Hanói",
-    "testimonial_9_text": "La plancha se calienta de manera increíblemente uniforme, lo que permite que cada bistec se cocine a la perfección, desde el borde hasta el centro. La velocidad de servicio es un 40% más rápida. Los clientes elogian constantemente la precisión de nuestro proceso de cocción."
+    "testimonial_9_text": "La plancha se calienta de manera increíblemente uniforme, lo que permite que cada bistec se cocine a la perfección, desde el borde hasta el centro. La velocidad de servicio es un 40% más rápida. Los clientes elogian constantemente la precisión de nuestro proceso de cocción.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "fil": {
     "all": "Lahat",
@@ -2444,7 +2474,12 @@
     "testimonial_8_text": "Ang precision ng temperatura ang pinaka-importante sa akin. Ang oven na ito ay mananatili sa loob ng 1°C ng itinakdang temperatura. Lahat ng batch ng tinapay ay may parehong kulay at texture.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Head Chef, Monsoon Steakhouse, Hanoi",
-    "testimonial_9_text": "Ang griddle ay kumakalat nang pantay — perpektong sear sa bawat steak. 40% na mas mabilis ang paglilingkod. Palagi nagpupuri ang mga customer sa precision ng aming pagluluto."
+    "testimonial_9_text": "Ang griddle ay kumakalat nang pantay — perpektong sear sa bawat steak. 40% na mas mabilis ang paglilingkod. Palagi nagpupuri ang mga customer sa precision ng aming pagluluto.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "fr": {
     "all": "Tout",
@@ -2791,7 +2826,12 @@
     "testimonial_8_text": "La précision de la température est ce qui m’est le plus important. Ce four maintient la température réglée avec une précision de 1°C. Chaque lot de pain présente une couleur et une texture uniformes. Les déchets produits lors de la fabrication du pain ont été réduits de 12 % à 2 %.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Chef de cuisine principal, Monsoon Steakhouse, Hanoï",
-    "testimonial_9_text": "La plaque de cuisson chauffe de manière incroyablement uniforme, permettant de griller chaque steak de manière parfaite, du bord à l’autre. La vitesse de service a été augmentée de 40 %. Les clients complimentent constamment la précision de notre préparation culinaire."
+    "testimonial_9_text": "La plaque de cuisson chauffe de manière incroyablement uniforme, permettant de griller chaque steak de manière parfaite, du bord à l’autre. La vitesse de service a été augmentée de 40 %. Les clients complimentent constamment la précision de notre préparation culinaire.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "he": {
     "all": "הכל",
@@ -3138,7 +3178,12 @@
     "testimonial_8_text": "לדעתי, הדיוק בטמפרטורה הוא החשוב ביותר. תנור זה שומר על טמפרטורה קבועה, בהפרש של עד 1°C מהטמפרטורה שנקבעה מראש. כל מחלקה של לחם מציגה צבע ומרקם עקביים. רמת הפסד במוצרים ירדה מ-12% ל-2%.",
     "testimonial_9_name": "טראן דוק מינה",
     "testimonial_9_position": "שף ראשי, מסעדת Monsoon Steakhouse, הנוי",
-    "testimonial_9_text": "המחבט מחמם באופן מאוד אחיד; כל פילה מקבלת קרום זהבי מושלם מכל הצדדים. מהירות השירות גדולה ב-40%. הלקוחות משבחים באופן עקבי את הדיוק שבבישול שלנו."
+    "testimonial_9_text": "המחבט מחמם באופן מאוד אחיד; כל פילה מקבלת קרום זהבי מושלם מכל הצדדים. מהירות השירות גדולה ב-40%. הלקוחות משבחים באופן עקבי את הדיוק שבבישול שלנו.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "id": {
     "all": "Semua",
@@ -3485,7 +3530,12 @@
     "testimonial_8_text": "Presisi suhu adalah yang paling penting bagi saya. Oven ini tetap dalam kisaran 1°C dari suhu yang ditentukan. Setiap roti memiliki warna dan tekstur yang konsisten.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Kepala Koki, Monsoon Steakhouse, Hanoi",
-    "testimonial_9_text": "Pemanggang panas merata — sempurna dari tepi ke tepi pada setiap steak. Kecepatan penyajian 40% lebih cepat. Pelanggan selalu memuji presisi masakan kami."
+    "testimonial_9_text": "Pemanggang panas merata — sempurna dari tepi ke tepi pada setiap steak. Kecepatan penyajian 40% lebih cepat. Pelanggan selalu memuji presisi masakan kami.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "it": {
     "all": "Tutti",
@@ -3832,7 +3882,12 @@
     "testimonial_8_text": "Per me la precisione della temperatura è la cosa più importante: questo forno mantiene la temperatura impostata con un errore di soli 1°C. Ogni lotto di pane presenta un colore e una consistenza uniformi. Inoltre, il livello di spreco è diminuito dal 12% al 2%.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Capo Cuoco, Monsoon Steakhouse, Hanoi",
-    "testimonial_9_text": "La griglia riscalda in modo estremamente uniforme, garantendo una cottura perfetta su ogni bistecca, dall’uno all’altro dei suoi bordi. La velocità di servizio è aumentata del 40%. I clienti elogiano costantemente la precisione del nostro metodo di cottura."
+    "testimonial_9_text": "La griglia riscalda in modo estremamente uniforme, garantendo una cottura perfetta su ogni bistecca, dall’uno all’altro dei suoi bordi. La velocità di servizio è aumentata del 40%. I clienti elogiano costantemente la precisione del nostro metodo di cottura.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "ja": {
     "all": "すべて",
@@ -4179,7 +4234,12 @@
     "testimonial_8_text": "私にとって最も重要なのは温度の精度です。このオーブンは設定温度から1℃以内に常に保たれています。そのため、焼き上がったパンの色や食感が毎回均一です。また、廃棄物の量も12％から2％に減少しました。",
     "testimonial_9_name": "トラン・ドゥック・ミン",
     "testimonial_9_position": "モンスーン・ステーキハウス（ハノイ）のヘッドシェフ",
-    "testimonial_9_text": "このグリドルは非常に均等に熱を伝えるため、どのステーキも端から端まで完璧に焼き上がります。提供速度も40％速くなりました。お客様からは常に私たちの調理技術の精度について高い評価をいただいています。"
+    "testimonial_9_text": "このグリドルは非常に均等に熱を伝えるため、どのステーキも端から端まで完璧に焼き上がります。提供速度も40％速くなりました。お客様からは常に私たちの調理技術の精度について高い評価をいただいています。",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "ko": {
     "all": "전체",
@@ -4526,7 +4586,12 @@
     "testimonial_8_text": "온도의 정확도가 저에게 가장 중요합니다. 이 오븐은 설정된 온도와 1°C 이내의 차이로 작동합니다. 그래서 만들어지는 빵마다 색상과 질감이 일관됩니다. 폐기물의 양도 12%에서 2%로 줄었습니다.",
     "testimonial_9_name": "트란 두크 민(Tran Duc Minh)",
     "testimonial_9_position": "모순 스테이크하우스(Monsoon Steakhouse), 하노이의 수석 셰프(Head Chef)",
-    "testimonial_9_text": "그릴은 매우 균일하게 가열되어 모든 스테이크의 가장자리부터 중앙까지 완벽하게 익혀줍니다. 서빙 속도도 40% 더 빨라졌습니다. 고객들은 우리의 요리 기술의 정밀성에 대해 일관되게 칭찬합니다."
+    "testimonial_9_text": "그릴은 매우 균일하게 가열되어 모든 스테이크의 가장자리부터 중앙까지 완벽하게 익혀줍니다. 서빙 속도도 40% 더 빨라졌습니다. 고객들은 우리의 요리 기술의 정밀성에 대해 일관되게 칭찬합니다.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "ms": {
     "all": "Semua",
@@ -4873,7 +4938,12 @@
     "testimonial_8_text": "Ketepatan suhu adalah yang paling penting bagi saya. Ketuhar ini mengekalkan suhu dalam julat 1°C. Setiap batch roti mempunyai warna dan tekstur yang konsisten.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Ketua Chef, Monsoon Steakhouse, Hanoi",
-    "testimonial_9_text": "Pemanggang memanas secara sekata — gorengan sempurna dari tepi ke tepi pada setiap steak. Kelajuan penyajian 40% lebih pantas. Pelanggan sentiasa memuji ketepatan masakan kami."
+    "testimonial_9_text": "Pemanggang memanas secara sekata — gorengan sempurna dari tepi ke tepi pada setiap steak. Kelajuan penyajian 40% lebih pantas. Pelanggan sentiasa memuji ketepatan masakan kami.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "nl": {
     "all": "Alles",
@@ -5220,7 +5290,12 @@
     "testimonial_8_text": "De nauwkeurigheid van de temperatuur is voor mij het belangrijkste. De oven houdt de ingestelde temperatuur precies aan (met een afwijking van maximaal 1°C). Elke batch brood heeft een gelijke kleur en textuur. De hoeveelheid afval is verminderd van 12% naar 2%.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Hoofdkok van Monsoon Steakhouse, Hanoi",
-    "testimonial_9_text": "De grill wordt ongelooflijk gelijkmatig opgewarmd, waardoor elke steak aan alle kanten perfect kan worden gebakken. De serveertijd is 40% sneller. Klanten prijzen regelmatig de precisie van onze kookmethode."
+    "testimonial_9_text": "De grill wordt ongelooflijk gelijkmatig opgewarmd, waardoor elke steak aan alle kanten perfect kan worden gebakken. De serveertijd is 40% sneller. Klanten prijzen regelmatig de precisie van onze kookmethode.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "pl": {
     "all": "Wszystko",
@@ -5567,7 +5642,12 @@
     "testimonial_8_text": "Dla mnie najważniejsza jest dokładność temperatury – piekarnik utrzymuje temperaturę w odległości maksymalnie 1°C od ustawionej wartości. Każdy partia chleba ma doskonałą barwę i teksturę. Ilość odpadów spadła z 12% do 2%.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Szef kuchni w restauracji Monsoon Steakhouse w Hanoi",
-    "testimonial_9_text": "Płyta do smażenia nagrzewa się niezwykle równomiernie, dzięki czemu każdy stek jest doskonale przygotowany – zarówno na krawędziach, jak i w środku. Prędkość serwowania jest o 40% większa. Klienci nieustannie chwaleją precyzję naszego przygotowywania posiłków."
+    "testimonial_9_text": "Płyta do smażenia nagrzewa się niezwykle równomiernie, dzięki czemu każdy stek jest doskonale przygotowany – zarówno na krawędziach, jak i w środku. Prędkość serwowania jest o 40% większa. Klienci nieustannie chwaleją precyzję naszego przygotowywania posiłków.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "pt": {
     "all": "Tudo",
@@ -5914,7 +5994,12 @@
     "testimonial_8_text": "A precisão da temperatura é o que mais importa para mim. Este forno mantém a temperatura ajustada com uma variação de no máximo 1°C. Cada lote de pão tem uma cor e textura consistentes. O desperdício de matéria-prima caiu de 12% para 2%.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Chefe de Cozinha, Monsoon Steakhouse, Hanói",
-    "testimonial_9_text": "A chapa aquece de forma incrivelmente uniforme, garantindo uma crosta perfeita em todos os bifes, de uma ponta à outra. A velocidade de servimento é 40% maior. Os clientes elogiam consistentemente a precisão do nosso processo de cozimento."
+    "testimonial_9_text": "A chapa aquece de forma incrivelmente uniforme, garantindo uma crosta perfeita em todos os bifes, de uma ponta à outra. A velocidade de servimento é 40% maior. Os clientes elogiam consistentemente a precisão do nosso processo de cozimento.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "ru": {
     "all": "Все",
@@ -6261,7 +6346,12 @@
     "testimonial_8_text": "Для меня самое важное – точность регулировки температуры. Температура в этой духовке отклоняется от установленного значения не более чем на 1°C. Каждый выпуск хлеба имеет одинаковый цвет и текстуру. Уровень отходов снизился с 12% до 2%.",
     "testimonial_9_name": "Тран Дук Минь",
     "testimonial_9_position": "Главный повар ресторана Monsoon Steakhouse, Ханой",
-    "testimonial_9_text": "Решетка нагревается чрезвычайно равномерно, благодаря чему каждый стейк получается идеально обжаренным с обеих сторон. Время подачи блюд увеличивается на 40%. Гости постоянно хвалят высокий уровень точности приготовления блюд в нашем ресторане."
+    "testimonial_9_text": "Решетка нагревается чрезвычайно равномерно, благодаря чему каждый стейк получается идеально обжаренным с обеих сторон. Время подачи блюд увеличивается на 40%. Гости постоянно хвалят высокий уровень точности приготовления блюд в нашем ресторане.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "th": {
     "all": "ทั้งหมด",
@@ -6608,7 +6698,12 @@
     "testimonial_8_text": "ความแม่นยำของอุณหภูมิสำคัญที่สุดสำหรับฉัน เตาอบนี้รักษาอุณหภูมิให้อยู่ในช่วง ±1°C ทุกม้นขนมปังมีสีและเนื้อสัมผัสสม่ำเสมอ",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "เชฟหัว, Monsoon Steakhouse, ฮานอย",
-    "testimonial_9_text": "กริลเทียวความร้อนสม่ำเสมอมาก — ผิวสุกทองสวยจากขอบนึงไปอีกขอบนึง ความเร็วในการเสิร์ฟเร็วขึ้น 40% ลูกค้าชอบใจความแม่นยำของเราเสมอ"
+    "testimonial_9_text": "กริลเทียวความร้อนสม่ำเสมอมาก — ผิวสุกทองสวยจากขอบนึงไปอีกขอบนึง ความเร็วในการเสิร์ฟเร็วขึ้น 40% ลูกค้าชอบใจความแม่นยำของเราเสมอ",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "tr": {
     "all": "Hepsi",
@@ -6955,7 +7050,12 @@
     "testimonial_8_text": "Benim için en önemli şey sıcaklık hassasiyetidir. Bu fırın, ayarlanan sıcaklıktan sadece 1°C sapma gösteriyor. Her ekmek partisinin rengi ve dokusu tutarlı. Atık oranı %12’den %2’ye düştü.",
     "testimonial_9_name": "Tran Duc Minh",
     "testimonial_9_position": "Monsoon Steakhouse, Hanoi’nin Baş Aşçısı",
-    "testimonial_9_text": "Tavay inanılmaz derecede eşit şekilde ısınır; bu sayede her bifteğin her köşesi mükemmel bir şekilde kızarır. Servis hızı %40 oranında artmıştır. Müşteriler, yemek pişirme işlemindeki hassasiyetimizi sürekli olarak övüyorlar."
+    "testimonial_9_text": "Tavay inanılmaz derecede eşit şekilde ısınır; bu sayede her bifteğin her köşesi mükemmel bir şekilde kızarır. Servis hızı %40 oranında artmıştır. Müşteriler, yemek pişirme işlemindeki hassasiyetimizi sürekli olarak övüyorlar.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "vi": {
     "all": "Tất cả",
@@ -7302,7 +7402,12 @@
     "testimonial_8_text": "Độ chính xác nhiệt độ là điều quan trọng nhất. Lò nướng này duy trì sai số dưới 1°C. Mỗi mẻ bánh đều có màu và kết cấu đồng nhất. Tỷ lệ hao hụt giảm từ 12% xuống 2%.",
     "testimonial_9_name": "Trần Đức Minh",
     "testimonial_9_position": "Bếp trưởng, Monsoon Steakhouse, Hà Nội",
-    "testimonial_9_text": "Bếp chiên grilled nhiệt độ rất đều — lớp vỏ vàng đẹp từ cạnh này sang cạnh kia. Tốc độ phục vụ nhanh hơn 40%. Khách hàng luôn khen ngợi độ chính xác của chúng tôi."
+    "testimonial_9_text": "Bếp chiên grilled nhiệt độ rất đều — lớp vỏ vàng đẹp từ cạnh này sang cạnh kia. Tốc độ phục vụ nhanh hơn 40%. Khách hàng luôn khen ngợi độ chính xác của chúng tôi.",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "hi": {
     "all": "सभी",
@@ -7649,7 +7754,12 @@
     "testimonial_8_text": "तापमान की सटीकता मेरे लिए सबसे महत्वपूर्ण है। यह ओवन सेट किए गए तापमान से महज 1°C के भीतर ही कार्य करता है। हर बैच की रोटी का रंग एवं बनावट एकसमान रहता है। अपव्यय (बर्बाद होने वाला माल) 12% से घटकर 2% हो गया है।",
     "testimonial_9_name": "ट्रान दुक मिन्ह",
     "testimonial_9_position": "हेड शेफ, मॉनसून स्टीकहाउस, हनोई",
-    "testimonial_9_text": "ग्रिडल अत्यंत समान रूप से गर्म होता है; इस कारण हर स्टीक के किनारों तक एकदम समान रूप से भूना जा सकता है। सर्विंग की गति 40% तक तेज है। ग्राहक हमारे पकाने की परिशुद्धता की लगातार प्रशंसा करते हैं।"
+    "testimonial_9_text": "ग्रिडल अत्यंत समान रूप से गर्म होता है; इस कारण हर स्टीक के किनारों तक एकदम समान रूप से भूना जा सकता है। सर्विंग की गति 40% तक तेज है। ग्राहक हमारे पकाने की परिशुद्धता की लगातार प्रशंसा करते हैं।",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "km": {
     "all": "ទាំងអស់",
@@ -7996,7 +8106,12 @@
     "testimonial_8_text": "ភាពត្រឹមត្រូវនៃសីតុណ្ហភាពគឺជាអ្វីដែលខ្ញុំចាប់អារម្មណ៍ខ្លាំងបំផុត។ ចង្ក្រាននេះអាចរក្សាសីតុណ្ហភាពនៅត្រឹមតែ ១°C ប៉ុណ្ណោះពីសីតុណ្ហភាពដែលបានកំណត់។ ស្រាប់គ្រប់ដុំនៃផ្លែឈើក្រមូតមានពណ៌និងសំបកដូចគ្នាទាំងអស់។ ការខ្ជះខ្ជាយបានថយចុះពី ១២% មកនៅ ២%។",
     "testimonial_9_name": "ត្រាន ឌុក មិន់ (Tran Duc Minh)",
     "testimonial_9_position": "ប្រធានចម្អិនម្ហូប (Head Chef), ភោជនីយដ្ឋាន Monsoon Steakhouse, ហាណូយ (Hanoi)",
-    "testimonial_9_text": "ផ្ទាំងក្រាលដុតអាហារនេះធ្វើឱ្យអាហារឆ្លងកាត់កម្តៅបានស្មើគ្នាយ៉ាងខ្លាំង ដែលធានាបាននូវរូបរាងអាហារដ៏ស្រស់ស្អាតពីគែមមួយទៅគែមមួយ។ ល្បឿនក្នុងការចេញសេវាម្ហូបកើនឡើង 40%។ ភ្ញៀវទេសចរតែងតែអបអរសាទរចំពោះភាពត្រឹមត្រូវនិងភាពជាក់លាក់នៃការចម្អិនម្ហូបរបស់យើង។"
+    "testimonial_9_text": "ផ្ទាំងក្រាលដុតអាហារនេះធ្វើឱ្យអាហារឆ្លងកាត់កម្តៅបានស្មើគ្នាយ៉ាងខ្លាំង ដែលធានាបាននូវរូបរាងអាហារដ៏ស្រស់ស្អាតពីគែមមួយទៅគែមមួយ។ ល្បឿនក្នុងការចេញសេវាម្ហូបកើនឡើង 40%។ ភ្ញៀវទេសចរតែងតែអបអរសាទរចំពោះភាពត្រឹមត្រូវនិងភាពជាក់លាក់នៃការចម្អិនម្ហូបរបស់យើង។",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "my": {
     "all": "အားလုံး",
@@ -8343,7 +8458,12 @@
     "testimonial_8_text": "အပူချိန်၏ တိကျမှုသည် ကျွန်ုပ်အတွက် အရေးအကြီးဆုံးဖြစ်ပါသည်။ ဤအိုဗင်းသည် သတ်မှတ်ထားသော အပူချိန်နှင့် ၁°C အတွင်းသာ ရှိပါသည်။ ထုတ်လုပ်သော ဘရက်ဒ်တစ်ခုစီ၏ အရောင်နှင့် အသွားအရာမှာ တူညီနေပါသည်။ လိုအပ်ချက်မရှိသော ပစ္စည်းများ၏ ပမာဏမှာ ၁၂% မှ ၂% သို့ လျော့ကျသွားပါသည်။",
     "testimonial_9_name": "ထရန်ဒူးမင်း",
     "testimonial_9_position": "ဟိန္ဒီရှိ “မွန်ဆွန် စတိက်ဟိုးရစ်” (Monsoon Steakhouse) ရှိ စားသောက်ဆိုင်ခန်းမှူးချုပ် (Head Chef)",
-    "testimonial_9_text": "ဂရစ်ဒယ်သည် အလွန်တူညီစွာအပူပေးပါသည်— စတိက်ခုနစ်တစ်ခု၏ အစွန်းမှအစွန်းအထိ အသားများကောင်းစွာကျက်သွားပါသည်။ စားစရာများတင်ပေးမှုအမြန်နှုန်းမှာ ၄၀% ပိုမြန်လာပါသည်။ စားသုံးသူများက ကျွန်ုပ်တို့၏စားစရာချက်ပြုတ်မှုစွမ်းဆောင်ရည်ကို အမြဲတမ်းချီးကျူးပါသည်။"
+    "testimonial_9_text": "ဂရစ်ဒယ်သည် အလွန်တူညီစွာအပူပေးပါသည်— စတိက်ခုနစ်တစ်ခု၏ အစွန်းမှအစွန်းအထိ အသားများကောင်းစွာကျက်သွားပါသည်။ စားစရာများတင်ပေးမှုအမြန်နှုန်းမှာ ၄၀% ပိုမြန်လာပါသည်။ စားသုံးသူများက ကျွန်ုပ်တို့၏စားစရာချက်ပြုတ်မှုစွမ်းဆောင်ရည်ကို အမြဲတမ်းချီးကျူးပါသည်။",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   },
   "lo": {
     "all": "ທັງໝົດ",
@@ -8690,6 +8810,11 @@
     "testimonial_8_text": "ความแม่นยำของอุณหภูมิเป็นสิ่งที่สำคัญที่สุดสำหรับฉัน อบไฟฟ้าตัวนี้สามารถรักษาอุณหภูมิให้อยู่ในระดับที่ตั้งไว้ได้แม่นยำถึง 1°C ขนมปังแต่ละชุดมีสีสันและเนื้อสัมผัสที่สม่ำเสมอ ปริมาณของเสียที่เกิดลดลงจาก 12% เหลือเพียง 2% เท่านั้น",
     "testimonial_9_name": "ត្រាន ឌុក មិញ",
     "testimonial_9_position": "หัวหน้าพ่อครัว ร้าน Monsoon Steakhouse, ฮานอย",
-    "testimonial_9_text": "เตาย่างนี้ทำให้เนื้อสุกได้อย่างสม่ำเสมอมาก ทำให้เนื้อสเต็กสุกทั่วทั้งด้าน ความเร็วในการเสิร์ฟเพิ่มขึ้นถึง 40% ลูกค้าต่างก็ชื่นชมความแม่นยำในการปรุงอาหารของเราอย่างต่อเนื่อง"
+    "testimonial_9_text": "เตาย่างนี้ทำให้เนื้อสุกได้อย่างสม่ำเสมอมาก ทำให้เนื้อสเต็กสุกทั่วทั้งด้าน ความเร็วในการเสิร์ฟเพิ่มขึ้นถึง 40% ลูกค้าต่างก็ชื่นชมความแม่นยำในการปรุงอาหารของเราอย่างต่อเนื่อง",
+    "thankyou_btn_home": "Back to Home",
+    "thankyou_btn_products": "Browse Products",
+    "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+    "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+    "thankyou_title": "Thank You for Your Inquiry!"
   }
 }
