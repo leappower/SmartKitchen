@@ -5,6 +5,8 @@ const { getSortedCodes } = require(path.join(__dirname, '../../src/lang-registry
 const translationsDir = path.resolve(__dirname, '../../src/assets/lang');
 // 输出合并后的 UI 翻译（供调试/审查用，build pipeline 不依赖此文件）
 const outputPath = path.resolve(__dirname, '../../src/assets/ui-i18n-merged.json');
+// 同时写入 ui-i18n.json（由 lang 文件自动派生，不再单独维护）
+const canonicalPath = path.resolve(__dirname, '../../src/assets/ui-i18n.json');
 
 // 语言合并顺序 — 由 src/lang-registry.js 统一管理（按 sortOrder 升序）
 const languageOrder = getSortedCodes();
@@ -85,6 +87,11 @@ function mergeTranslations(options = {}) {
 
   // Write merged file
   fs.writeFileSync(outputPath, JSON.stringify(merged, null, 2), 'utf-8');
+  console.log(`\n✨ Successfully merged to: ${outputPath}`);
+
+  // 同时写入 ui-i18n.json（与 ui-i18n-merged.json 内容一致）
+  fs.writeFileSync(canonicalPath, JSON.stringify(merged, null, 2), 'utf-8');
+  console.log(`✨ Also updated canonical: ${canonicalPath}`);
 
   console.log('\n📊 Statistics:');
   console.log(`   Total languages: ${Object.keys(merged).length}`);
@@ -93,7 +100,6 @@ function mergeTranslations(options = {}) {
   if (cleanupHex && totalHexRemoved > 0) {
     console.log(`   Total hex IDs removed: ${totalHexRemoved}`);
   }
-  console.log(`\n✨ Successfully merged to: ${outputPath}`);
 
   return {
     success: true,

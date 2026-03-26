@@ -344,10 +344,9 @@
   "testimonial_9_name": "Tran Duc Minh",
   "testimonial_9_position": "Jefe de Cocina, Monsoon Steakhouse, Hanói",
   "testimonial_9_text": "La plancha se calienta de manera increíblemente uniforme, lo que permite que cada bistec se cocine a la perfección, desde el borde hasta el centro. La velocidad de servicio es un 40% más rápida. Los clientes elogian constantemente la precisión de nuestro proceso de cocción.",
-  "privacy_section_12_content": "Utilizamos tecnologías de seguimiento como Facebook Pixel para: (a) medir la efectividad de los anuncios; (b) definir públicos objetivo para futuros anuncios; (c) rastrear las conversiones de los anuncios de Facebook. Puede optar por no participar en el seguimiento de Facebook a través de la configuración de preferencias de anuncios de Facebook o utilizando la opción de no rastrear en su navegador.",
-  "privacy_section_12_title": "XII. Facebook Pixel y tecnologías de seguimiento",
-  "privacy_section_13_content": "Nuestros servicios no están dirigidos a personas menores de 18 años. No recolectamos intencionalmente datos personales de menores. Si cree que hemos recopilado datos de menores, por favor contáctenos de inmediato.",
-  "privacy_section_13_title": "XIII. Privacidad de menores",
-  "privacy_section_14_content": "No utilizamos decisiones automatizadas que tengan efectos legales ni perfiles de usuarios. Todas las decisiones comerciales son revisadas manualmente.",
-  "privacy_section_14_title": "XIV. Decisiones automatizadas"
+  "thankyou_btn_home": "Back to Home",
+  "thankyou_btn_products": "Browse Products",
+  "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+  "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+  "thankyou_title": "Thank You for Your Inquiry!"
 }

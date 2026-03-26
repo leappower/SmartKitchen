@@ -344,10 +344,9 @@
   "testimonial_9_name": "ट्रान दुक मिन्ह",
   "testimonial_9_position": "हेड शेफ, मॉनसून स्टीकहाउस, हनोई",
   "testimonial_9_text": "ग्रिडल अत्यंत समान रूप से गर्म होता है; इस कारण हर स्टीक के किनारों तक एकदम समान रूप से भूना जा सकता है। सर्विंग की गति 40% तक तेज है। ग्राहक हमारे पकाने की परिशुद्धता की लगातार प्रशंसा करते हैं।",
-  "privacy_section_12_title": "बारह, फेसबुक पिक्सल एवं ट्रैकिंग तकनीकें",
-  "privacy_section_12_content": "हम Facebook Pixel एवं इसी तरह की ट्रैकिंग तकनीकों का उपयोग करते हैं ताकि:  \n(a) विज्ञापनों की प्रभावकारिता का मूल्यांकन किया जा सके;  \n(b) भविष्य के विज्ञापनों के लिए लक्षित दर्शकों की पहचान की जा सके;  \n(c) Facebook विज्ञापनों से होने वाले परिणामों (जैसे लोगों द्वारा विज्ञापनों पर किए गए कार्यों) का ट्रैक रखा जा सके।  \n\nआप Facebook विज्ञापन प्राथमिकताओं (Advertising Preferences) के सेटअप के माध्यम से, या ब्राउज़र में “ट्रैक न करें” (Do Not Track) विकल्प का उपयोग करके Facebook द्वारा किए जाने वाले ट्रैकिंग कार्यों से अपने आपको बाहर निकाल सकते हैं।",
-  "privacy_section_13_title": "ढारह, बच्चों की गोपनीयता",
-  "privacy_section_13_content": "हमारी सेवाएँ 18 वर्ष से कम आयु के व्यक्तियों के लिए उपलब्ध नहीं हैं। हम जानबूझकर बच्चों का व्यक्तिगत डेटा एकत्र नहीं करते हैं। यदि आपको लगता है कि हमने किसी नाबालिग व्यक्ति का डेटा एकत्र किया है, तो कृपया तुरंत हमसे संपर्क करें।",
-  "privacy_section_14_title": "चौदह, स्वचालित निर्णय लेने की प्रक्रिया",
-  "privacy_section_14_content": "हम कानूनी प्रभाव उत्पन्न करने वाले स्वचालित निर्णयों या उपयोगकर्ता प्रोफाइलिंग (user profiling) का उपयोग नहीं करते हैं। सभी व्यावसायिक निर्णय मानव समीक्षा के द्वारा ही लिए जाते हैं।"
+  "thankyou_btn_home": "Back to Home",
+  "thankyou_btn_products": "Browse Products",
+  "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+  "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+  "thankyou_title": "Thank You for Your Inquiry!"
 }

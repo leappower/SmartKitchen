@@ -344,10 +344,9 @@
   "testimonial_9_name": "Tran Duc Minh",
   "testimonial_9_position": "Chefkoch, Monsoon Steakhouse, Hanoi",
   "testimonial_9_text": "Die Grillplatte erwärmt sich unglaublich gleichmäßig – dadurch wird jeder Steak von Rand zu Rand perfekt angebraten. Die Servizgeschwindigkeit ist um 40 Prozent höher. Die Kunden loben stets die Präzision unserer Zubereitung.",
-  "privacy_section_12_content": "Wir verwenden Facebook Pixel sowie ähnliche Tracking-Technologien, um: (a) die Wirksamkeit von Werbeanzeigen zu messen; (b) zielgerichtete Zielgruppen für zukünftige Werbeanzeigen zu erstellen; (c) die Konvertierungen von Facebook-Werbeanzeigen nachzuverfolgen. Sie können die Facebook-Tracking-Funktion deaktivieren, indem Sie Ihre Werbeanzeigenpräferenzen in Facebook einstellen oder die Do Not Track-Einstellung in Ihrem Browser verwenden.",
-  "privacy_section_12_title": "12. Facebook Pixel und Tracking-Technologien",
-  "privacy_section_13_content": "Unser Service richtet sich nicht an Personen unter 18 Jahren. Wir sammeln nicht absichtlich personenbezogene Daten von Kindern. Sollten Sie der Meinung sein, dass wir Daten von Minderjährigen gesammelt haben, wenden Sie sich bitte umgehend an uns.",
-  "privacy_section_13_title": "13. Datenschutz von Kindern",
-  "privacy_section_14_content": "Wir verwenden keine automatisierten Entscheidungsprozesse oder Nutzerprofile, die rechtliche Wirkung haben. Alle Geschäftsentscheidungen werden von Menschen überprüft.",
-  "privacy_section_14_title": "14. Automatisierte Entscheidungsprozesse"
+  "thankyou_btn_home": "Back to Home",
+  "thankyou_btn_products": "Browse Products",
+  "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+  "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+  "thankyou_title": "Thank You for Your Inquiry!"
 }

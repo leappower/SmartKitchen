@@ -344,10 +344,9 @@
   "testimonial_9_name": "Tran Duc Minh",
   "testimonial_9_position": "Head Chef, Monsoon Steakhouse, Hanoi",
   "testimonial_9_text": "Ang griddle ay kumakalat nang pantay — perpektong sear sa bawat steak. 40% na mas mabilis ang paglilingkod. Palagi nagpupuri ang mga customer sa precision ng aming pagluluto.",
-  "privacy_section_12_content": "Ginagamit natin ang Facebook Pixel at katulad na mga teknolohiya ng pagtatagap ng impormasyon upang: (a) masuri ang kahusayan ng mga anunsyo; (b) lumikha ng target na madla para sa mga hinaharap na anunsyo; (c) matukoy kung ang mga anunsyo sa Facebook ay nagkaroon ng nais na epekto. Maaari kang pumili upang hindi sumali sa pagtatagap ng impormasyon ng Facebook sa pamamagitan ng mga pagtakda sa mga preferensya ng anunsyo sa Facebook o sa pamamagitan ng paggamit ng mga setting sa iyong browser na nag-aatas na hindi sumali sa pagtatagap ng impormasyon.",
-  "privacy_section_12_title": "Labindalawa, Facebook Pixel at Teknolohiya ng Pagtatagap ng Impormasyon",
-  "privacy_section_13_content": "Ang aming mga serbisyo ay hindi nakatuon sa mga indibidwal na wala pang 18 taong gulang. Hindi namin sinasadyang kolektahin ang personal na impormasyon ng mga bata. Kung sa iyong palagay ay nakakolekta kami ng impormasyon mula sa mga menor de edad, mangyari lamang na makipagkontakta sa amin agad.",
-  "privacy_section_13_title": "Labindalawa, Privasi ng mga Bata",
-  "privacy_section_14_content": "Hindi kami gumagamit ng mga awtomatikong proseso para sa paggawa ng mga desisyon na may legal na epekto o para sa paggawa ng mga profile ng mga gumagamit. Lahat ng desisyon sa negosyo ay pinag-iisipan at pinagpapatibay ng mga tao.",
-  "privacy_section_14_title": "Labindalawa, Awtomatikong Desisyon"
+  "thankyou_btn_home": "Back to Home",
+  "thankyou_btn_products": "Browse Products",
+  "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+  "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+  "thankyou_title": "Thank You for Your Inquiry!"
 }

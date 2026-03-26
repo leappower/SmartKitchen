@@ -344,10 +344,9 @@
   "testimonial_9_name": "Tran Duc Minh",
   "testimonial_9_position": "เชฟหัว, Monsoon Steakhouse, ฮานอย",
   "testimonial_9_text": "กริลเทียวความร้อนสม่ำเสมอมาก — ผิวสุกทองสวยจากขอบนึงไปอีกขอบนึง ความเร็วในการเสิร์ฟเร็วขึ้น 40% ลูกค้าชอบใจความแม่นยำของเราเสมอ",
-  "privacy_section_12_content": "เราใช้เทคโนโลยีการติดตามเช่น Facebook Pixel เพื่อ: (a) วัดประสิทธิภาพของโฆษณา; (b) กำหนดกลุ่มเป้าหมายสำหรับโฆษณาในอนาคต; (c) ติดตามการเปลี่ยนแปลงที่เกิดจากโฆษณาของ Facebook คุณสามารถเลือกที่จะไม่ให้ Facebook ติดตามคุณได้โดยการตั้งค่าความต้องการด้านโฆษณาของคุณบน Facebook หรือการใช้ตัวเลือก “ไม่ต้องการการติดตาม” ในเบราว์เซอร์",
-  "privacy_section_12_title": "ข้อ 12: Facebook Pixel และเทคโนโลยีการติดตาม",
-  "privacy_section_13_content": "บริการของเราไม่ได้มุ่งเป้าไปที่บุคคลที่มีอายุต่ำกว่า 18 ปี เราจะไม่เก็บข้อมูลส่วนบุคคลของเด็กโดยเจตนา หากคุณเชื่อว่าเราได้เก็บข้อมูลของผู้เยาว์ กรุณาติดต่อเราทันที",
-  "privacy_section_13_title": "ข้อ 13: ความเป็นส่วนตัวของเด็ก",
-  "privacy_section_14_content": "เราไม่ใช้ระบบการตัดสินใจอัตโนมัติหรือการสร้างโปรไฟล์ผู้ใช้ที่มีผลทางกฎหมาย การตัดสินใจทางธุรกิจทั้งหมดจะมีการตรวจสอบโดยมนุษย์",
-  "privacy_section_14_title": "ข้อ 14: การตัดสินใจอัตโนมัติ"
+  "thankyou_btn_home": "Back to Home",
+  "thankyou_btn_products": "Browse Products",
+  "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+  "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+  "thankyou_title": "Thank You for Your Inquiry!"
 }

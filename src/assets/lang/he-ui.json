@@ -344,10 +344,9 @@
   "testimonial_9_name": "טראן דוק מינה",
   "testimonial_9_position": "שף ראשי, מסעדת Monsoon Steakhouse, הנוי",
   "testimonial_9_text": "המחבט מחמם באופן מאוד אחיד; כל פילה מקבלת קרום זהבי מושלם מכל הצדדים. מהירות השירות גדולה ב-40%. הלקוחות משבחים באופן עקבי את הדיוק שבבישול שלנו.",
-  "privacy_section_12_title": "שתיים-עשר, Facebook Pixel וטכנולוגיות מעקב",
-  "privacy_section_12_content": "אנו משתמשים בטכנולוגיות מעקב כגון Facebook Pixel ודומות למטרות הבאות: (א) למדידת יעילות הפרסומות; (ב) לקביעת אוכלוסייה מטרה לפרסומות בעתיד; (ג) לעקוב אחר התגובות לפרסומות ב-Facebook. ניתן לבחור להימנע מהמעקב של Facebook על ידי שינוי ההגדרות באפליקציית פרסומות של Facebook או באמצעות הגדרות “אל תעקב” (Do Not Track) בדפדפן.",
-  "privacy_section_13_title": "שלושה-עשר, פרטיות ילדים",
-  "privacy_section_13_content": "שירותינו אינם מיועדים לאנשים מתחת לגיל 18. אנו איננו מקבלים במתכוון נתונים אישיים של ילדים. אם אתם חושבים שאנו אספנו נתונים של מינורים, התקשרו אלינו מיידית.",
-  "privacy_section_14_title": "ארבעה-עשר, קבלת החלטות אוטומטית",
-  "privacy_section_14_content": "אנו איננו משתמשים במערכות אוטומטיות לקבלת החלטות שיש להן תוקף משפטי, וכן איננו מייצרים תמונות אוטומטיות של המשתמשים. כל החלטות העסקיות נבחנות באופן ידני."
+  "thankyou_btn_home": "Back to Home",
+  "thankyou_btn_products": "Browse Products",
+  "thankyou_message": "We have received your inquiry. Our team will get back to you within 24 hours.",
+  "thankyou_subtitle": "In the meantime, feel free to browse our product catalog or reach out to us directly.",
+  "thankyou_title": "Thank You for Your Inquiry!"
 }
