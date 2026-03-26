@@ -88,7 +88,7 @@ const CONFIG = {
     requestTimeout: 180000,
     // socket 超时（连接/读取）—— 并发降低后排队减少，但峰值 RTT 仍可能偏高
     socketTimeout:  150000,
-    maxRetries:     2,
+    maxRetries:     3,
     retryBaseDelay: 2000,   // 基础重试延迟（ms），指数退避
     // 批量翻译分组：每组 25 条（减小分组提升 JSON 解析成功率，组数增加由并发补偿）
     maxChunkKeys:   25,     // JSON 模式：单次最多 25 个键值对
@@ -115,7 +115,7 @@ const CONFIG = {
     // ↑ 并发降低后排队减少，峰值 RTT 仍可能 >60s，延长至 120s
     requestTimeout: 150000,
     socketTimeout:  120000,
-    maxRetries:     2,
+    maxRetries:     3,
     retryBaseDelay: 2000,
     // 分组大小：25 keys/组，降低 JSON 解析失败率
     maxChunkKeys:   25,
@@ -724,7 +724,8 @@ async function translateOnceHunyuan(text, targetLang, retryCount = 0, promptBuil
     return await callHunyuanAPI(text, targetLang, promptBuilder);
   } catch (err) {
     const attempt = retryCount + 1;
-    console.error(`  [Hunyuan] 翻译失败 (第${attempt}次/${maxRetries + 1}): ${err.message}`);
+    const key = text.substring(0, 60);
+    console.error(`  [Hunyuan] [retry ${attempt}/${maxRetries}] translating ${key} to ${targetLang}: ${err.message}`);
     if (retryCount < maxRetries && isRetryable(err)) {
       const delay = calcDelay(retryCount, err.retryAfter, 'hunyuan');
       console.log(`  [Hunyuan] 等待 ${Math.round(delay)}ms 后重试...`);
@@ -869,7 +870,8 @@ async function translateOnce(text, targetLang, retryCount = 0) {
     return await callScnetAPI(text, targetLang);
   } catch (err) {
     const attempt = retryCount + 1;
-    console.error(`  [API] 翻译失败 (第${attempt}次/${maxRetries + 1}): ${err.message}`);
+    const key = text.substring(0, 60);
+    console.error(`  [API] [retry ${attempt}/${maxRetries}] translating ${key} to ${targetLang}: ${err.message}`);
 
     if (retryCount < maxRetries && isRetryable(err)) {
       const delay = calcDelay(retryCount, err.retryAfter, 'scnet');
@@ -1146,7 +1148,7 @@ async function translateInChunks(text, targetLang) {
 //
 // 主入口，兼容原有调用方式
 // ─────────────────────────────────────────────
-async function translateWithRetry(text, targetLang, retryCount = 0) {
+async function translateWithRetry(text, targetLang, retryCount = 0, _qualityRetryCount = 0) {
   // 输入校验
   if (!text || typeof text !== 'string' || text.trim() === '') {
     return text || '';
@@ -1164,63 +1166,88 @@ async function translateWithRetry(text, targetLang, retryCount = 0) {
     return translateInChunks(text, targetLang);
   }
 
+  const maxQualityRetries = 3;
   let result;
+
+  // ── API 调用 + 内置重试（translateOnce 内已处理） ──
   try {
     result = await translateOnce(text, targetLang, retryCount);
   } catch (err) {
-    // translateOnce 内已耗尽重试，此处直接返回原文
-    console.error(
-      `  [Fallback] 翻译彻底失败，返回原文: ${text.substring(0, 50)}...`
-    );
-    result = text;
+    // translateOnce 内已耗尽重试，此处直接返回原文 + 记录失败
+    const key = text.substring(0, 80);
+    console.error(`  [Fallback] 翻译彻底失败 (${maxQualityRetries}次)，返回原文: ${key}...`);
+    recordTranslationFailure(targetLang, key, text, 'apiError', CONFIG.scnet.maxRetries + 1);
+    return text;
   }
 
-  // ── P0: 翻译质量校验 ──
-  result = validateTranslation(text, result, targetLang);
+  // ── 质量门禁 ──
+  const source = text.trim();
+  const validation = validateTranslationResult(source, result, targetLang);
+  if (!validation.valid) {
+    console.warn(`  [Quality] ⚠️ 质量门禁不通过 (${targetLang}): ${validation.issues.join(', ')} | "${result.substring(0, 60)}"`);
+    if (_qualityRetryCount < maxQualityRetries) {
+      const delay = 1000 * Math.pow(2, _qualityRetryCount); // 1s, 2s, 4s
+      console.log(`  [Quality] [retry ${_qualityRetryCount + 1}/${maxQualityRetries}] 等待 ${delay}ms 后重试...`);
+      await sleep(delay);
+      return translateWithRetry(text, targetLang, 0, _qualityRetryCount + 1);
+    }
+    // 质量重试耗尽 → 记录失败，返回原文
+    const key = text.substring(0, 80);
+    recordTranslationFailure(targetLang, key, text, validation.issues[0], maxQualityRetries + 1);
+    console.warn(`  [Quality] ⚠️ ${maxQualityRetries}次质量重试均不通过，返回原文`);
+    return source;
+  }
 
   return result;
 }
 
-/**
- * 翻译质量校验
- * 检测：空值、与原文相同（没翻译）、乱码、异常长度
- * 不合格则返回原文
- */
-function validateTranslation(source, translated, targetLang) {
-  if (!translated || typeof translated !== 'string') return source;
+// ── 翻译质量门禁（返回 issues 供调用方决定重试）──
+function validateTranslationResult(source, translated, lang) {
+  if (!translated || typeof translated !== 'string' || translated.trim() === '') {
+    return { valid: false, issues: ['emptyResult'] };
+  }
   translated = translated.trim();
 
-  // 1. 空值检测
-  if (translated === '') {
-    console.warn(`  [Quality] ⚠️ 翻译结果为空 (${targetLang})，返回原文`);
-    return source;
-  }
+  // 短文本（≤5字符）跳过校验（品牌名等）
+  if (translated.length <= 5) return { valid: true };
 
-  // 2. 与原文完全相同（可能没翻译）
-  if (translated === source.trim() && source.trim().length > 3) {
-    // 英文源翻译到其他语言时，短文本（如品牌名）相同是正常的
-    const words = source.trim().split(/\s+/);
-    if (words.length > 3) {
-      console.warn(`  [Quality] ⚠️ 翻译结果与原文完全相同 (${targetLang})，返回原文`);
-      return source;
-    }
-  }
+  const issues = [];
+  // 1. 与原文完全相同（>10字符）
+  if (translated === source && source.length > 10) issues.push('sameAsSource');
+  // 2. 非中文语言包含中文（3个以上）
+  if (!['zh-CN', 'zh-TW'].includes(lang) && /[\u4e00-\u9fff]{3,}/.test(translated))
+    issues.push('chineseInTarget');
+  // 3. 长度异常（>5倍或<0.2倍）
+  if (source.length > 20 && (translated.length > source.length * 5 || translated.length < source.length * 0.2))
+    issues.push('abnormalLength');
 
-  // 3. 乱码检测（含连续 3+ 个替换字符，通常是编码问题）
-  if (/\ufffd{3,}/.test(translated)) {
-    console.warn(`  [Quality] ⚠️ 检测到乱码 (${targetLang})，返回原文`);
-    return source;
-  }
+  return { valid: issues.length === 0, issues };
+}
 
-  // 4. 异常长度检测（翻译结果与源长度差异过大）
-  const srcLen = source.trim().length;
-  const tgtLen = translated.length;
-  if (srcLen > 20 && (tgtLen < srcLen * 0.2 || tgtLen > srcLen * 5)) {
-    console.warn(`  [Quality] ⚠️ 翻译长度异常 (${targetLang}): 源=${srcLen}, 译=${tgtLen}，返回原文`);
-    return source;
-  }
+// ── 失败记录持久化 ──
+const FAILURES_FILE = path.join(process.cwd(), '.translation-failures.json');
 
-  return translated;
+function loadFailures() {
+  try {
+    if (fs.existsSync(FAILURES_FILE)) return JSON.parse(fs.readFileSync(FAILURES_FILE, 'utf-8'));
+  } catch { /* ignore */ }
+  return {};
+}
+
+function recordTranslationFailure(lang, key, source, error, retries) {
+  const failures = loadFailures();
+  if (!failures[lang]) failures[lang] = {};
+  failures[lang][key] = {
+    source: source.substring(0, 200),
+    error,
+    retries,
+    lastAttempt: new Date().toISOString(),
+  };
+  try {
+    fs.writeFileSync(FAILURES_FILE, JSON.stringify(failures, null, 2), 'utf-8');
+  } catch (e) {
+    console.error(`  [Failures] ⚠️ 写入失败记录失败: ${e.message}`);
+  }
 }
 
 /**
@@ -1422,6 +1449,11 @@ module.exports = {
 
   // ── JSON 解析工具 ──
   parseTranslatedJson,
+
+  // ── 质量门禁 & 失败记录 ──
+  validateTranslationResult,
+  recordTranslationFailure,
+  loadFailures,
 
   // ── 共用工具 ──
   splitTextIntoChunks,

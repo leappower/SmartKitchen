@@ -150,3 +150,4 @@ build/
 
 # But keep scripts/build/
 !scripts/build/
+.translation-failures.json
