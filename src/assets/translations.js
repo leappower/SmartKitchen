@@ -10,6 +10,7 @@ const languageNames = langRegistry.getNativeNames();
 class TranslationManager {
   constructor() {
     this.currentLanguage = this.getInitialLanguage();
+    console.log('[TranslationManager] constructor → currentLanguage:', this.currentLanguage, 'url:', window.location.pathname);
     this.translationsCache = new Map();
     this.pendingLoads = new Map();
     this.keyPathCache = new Map();
@@ -31,27 +32,34 @@ class TranslationManager {
   getInitialLanguage() {
     // 0. sessionStorage 传递的语言（用于 thank-you 等跨页面跳转）
     const sessionLang = sessionStorage.getItem('redirectLang');
+    console.log('[getInitialLanguage] sessionStorage.redirectLang:', sessionLang);
     if (sessionLang && languageNames[sessionLang]) {
       sessionStorage.removeItem('redirectLang'); // 一次性读取
+      console.log('[getInitialLanguage] → using sessionStorage:', sessionLang);
       return sessionLang;
     }
 
     // 1. 优先使用用户手动选择的语言（localStorage）
     const userChoice = localStorage.getItem('userLanguage');
+    console.log('[getInitialLanguage] localStorage.userLanguage:', userChoice);
     if (userChoice && languageNames[userChoice]) {
+      console.log('[getInitialLanguage] → using localStorage:', userChoice);
       return userChoice;
     }
 
     // 2. 检测浏览器语言（内联，避免构造函数中调用实例方法）
     const browserLang = navigator.language || navigator.userLanguage || 'en';
+    console.log('[getInitialLanguage] navigator.language:', browserLang);
     const quickMap = { 'zh': 'zh-CN', 'zh-TW': 'zh-TW', 'zh-HK': 'zh-TW', 'en': 'en', 'de': 'de', 'fr': 'fr', 'it': 'it', 'pt': 'pt', 'pt-BR': 'pt', 'ja': 'ja', 'ko': 'ko', 'nl': 'nl', 'pl': 'pl', 'ru': 'ru', 'tr': 'tr', 'th': 'th', 'vi': 'vi', 'ar': 'ar', 'he': 'he', 'id': 'id', 'ms': 'ms', 'fil': 'fil' };
     const detected = quickMap[browserLang] || quickMap[browserLang.split('-')[0]];
     if (detected) {
       // Persist browser-detected language so thank-you page picks it up
       localStorage.setItem('userLanguage', detected);
+      console.log('[getInitialLanguage] → using browser detect:', detected);
       return detected;
     }
 
+    console.log('[getInitialLanguage] → fallback to zh-CN');
     // 3. 默认中文
     return 'zh-CN';
   }

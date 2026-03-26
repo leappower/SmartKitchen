@@ -267,6 +267,27 @@
       document.documentElement.classList.add('dark');
     }
   </script>
+  <script>
+// Immediately set language from localStorage/sessionStorage (before bundle.js loads)
+(function() {
+  console.log('[THANK-YOU PRELOADER] sessionStorage.redirectLang:', sessionStorage.getItem('redirectLang'));
+  console.log('[THANK-YOU PRELOADER] localStorage.userLanguage:', localStorage.getItem('userLanguage'));
+  console.log('[THANK-YOU PRELOADER] navigator.language:', navigator.language);
+  
+  var sessionLang = sessionStorage.getItem('redirectLang');
+  if (sessionLang) sessionStorage.removeItem('redirectLang');
+  var userLang = localStorage.getItem('userLanguage');
+  var lang = sessionLang || userLang || '';
+  
+  console.log('[THANK-YOU PRELOADER] decided lang:', lang, '(session:', sessionLang, ', user:', userLang, ')');
+  
+  if (lang) {
+    document.documentElement.lang = lang;
+    if (lang === 'ar' || lang === 'he') document.documentElement.dir = 'rtl';
+    window.__preloadedLanguage = lang;
+  }
+})();
+</script>
 </head>
 <body>
 <main>

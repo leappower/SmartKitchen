@@ -2213,8 +2213,10 @@ let _inactivityCheckInterval = null;
   }
 
   function showThankYouPage(lang) {
-    // Store language in sessionStorage for thank-you page to pick up
-    sessionStorage.setItem('redirectLang', lang || getCurrentLanguage());
+    const resolvedLang = lang || getCurrentLanguage();
+    console.log('[showThankYouPage] lang param:', lang, 'resolved:', resolvedLang, 'currentLanguage:', window.translationManager?.currentLanguage);
+    sessionStorage.setItem('redirectLang', resolvedLang);
+    console.log('[showThankYouPage] sessionStorage set redirectLang:', resolvedLang);
     window.location.href = '/thank-you/';
   }
 
