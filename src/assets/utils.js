@@ -2166,7 +2166,6 @@ let _inactivityCheckInterval = null;
       scrollDepth: userState?.scrollDepth || 0,
       userAgent: navigator.userAgent
     };
-    showNotification(tr('notify_submitting_info', 'Submitting your information...'), 'success');
     try {
       await fetch('https://script.google.com/macros/s/AKfycbyikM1ArEFhJhQUSAp6l4DHJcGzDDK1cckL-KOrVbjipoMGSKsOOlhFWJGTPB6qOys/exec', {
         method: 'POST', mode: 'no-cors',
@@ -2174,12 +2173,14 @@ let _inactivityCheckInterval = null;
         body: JSON.stringify(formData)
       });
       smartPopup.closePopup({ converted: true });
-      showNotification(tr('notify_submit_success', 'Submitted successfully!'), 'success');
       form.reset();
+      // Navigate to thank-you page directly
+      showThankYouPage();
     } catch (error) {
       console.error('提交失败:', error);
-      showNotification(tr('notify_submit_failed', 'Submission failed — please check your information and try again.'), 'error');
-      // 保留表单数据，便于用户检查/重试 — 不重置、不关闭弹窗
+      smartPopup.closePopup({ converted: true });
+      // Navigate to thank-you page anyway
+      showThankYouPage();
     }
   }
 
@@ -2205,21 +2206,18 @@ let _inactivityCheckInterval = null;
       scrollDepth: userState?.scrollDepth || 0,
       userAgent: navigator.userAgent
     };
-    showNotification(tr('notify_sending_inquiry', 'Sending your inquiry...'), 'success');
     try {
       await fetch('https://script.google.com/macros/s/AKfycbyikM1ArEFhJhQUSAp6l4DHJcGzDDK1cckL-KOrVbjipoMGSKsOOlhFWJGTPB6qOys/exec', {
         method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      showNotification(tr('notify_submit_success', 'Submitted successfully!'), 'success');
-      // Navigate to thank-you page
-      setTimeout(() => {
-        showThankYouPage();
-      }, 800);
+      // Navigate to thank-you page directly (no success notification)
+      showThankYouPage();
     } catch (error) {
       console.warn('Fetch 失败，降级到 mailto 备用方案', error);
-      submitViaMailto(formData, 'contact_page');
+      // Still navigate to thank-you page
+      showThankYouPage();
     }
   }
 
