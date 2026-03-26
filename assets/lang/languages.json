@@ -1,0 +1,152 @@
+[
+  {
+    "code": "ar",
+    "name": "ar",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "de",
+    "name": "de",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "en",
+    "name": "en",
+    "uiKeys": 356,
+    "productKeys": 2217
+  },
+  {
+    "code": "es",
+    "name": "es",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "fil",
+    "name": "fil",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "fr",
+    "name": "fr",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "he",
+    "name": "he",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "hi",
+    "name": "hi",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "id",
+    "name": "id",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "it",
+    "name": "it",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "ja",
+    "name": "ja",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "km",
+    "name": "km",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "ko",
+    "name": "ko",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "lo",
+    "name": "lo",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "ms",
+    "name": "ms",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "my",
+    "name": "my",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "nl",
+    "name": "nl",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "pl",
+    "name": "pl",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "pt",
+    "name": "pt",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "ru",
+    "name": "ru",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "th",
+    "name": "th",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "tr",
+    "name": "tr",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "vi",
+    "name": "vi",
+    "uiKeys": 350,
+    "productKeys": 2217
+  },
+  {
+    "code": "zh-CN",
+    "name": "zh-CN",
+    "uiKeys": 356,
+    "productKeys": 2217
+  },
+  {
+    "code": "zh-TW",
+    "name": "zh-TW",
+    "uiKeys": 356,
+    "productKeys": 2217
+  }
+]
